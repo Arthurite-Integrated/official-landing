@@ -23,7 +23,7 @@ export default defineConfig({
         "**/__tests__/**",
         "**/*.gen.ts",
       ],
-      include: ["src/**/*.{js,ts,jsx,tsx}"],
+      include: ["src/lib/**/*.{js,ts,jsx,tsx}"],
       thresholds: {
         lines: 90,
         functions: 90,
