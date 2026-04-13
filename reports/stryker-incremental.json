@@ -9,8 +9,8 @@
           "replacement": "{}",
           "statusReason": "expected undefined to be '' // Object.is equality",
           "status": "Killed",
-          "static": false,
           "testsCompleted": 1,
+          "static": false,
           "killedBy": ["0"],
           "coveredBy": ["0", "1", "2", "3", "4", "5", "6"],
           "location": {
