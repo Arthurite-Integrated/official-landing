@@ -4,15 +4,7 @@
   "reporters": ["html", "clear-text", "progress"],
   "testRunner": "vitest",
   "coverageAnalysis": "perTest",
-  "mutate": [
-    "src/lib/**/*.ts",
-    "src/components/**/*.ts",
-    "src/components/**/*.tsx",
-    "!src/**/*.test.*",
-    "!src/**/*.spec.*",
-    "!src/**/*.d.ts",
-    "!src/**/*.gen.ts"
-  ],
+  "mutate": ["src/lib/**/*.ts", "!src/**/__tests__/**", "!src/**/*.test.*", "!src/**/*.spec.*", "!src/**/*.d.ts", "!src/**/*.gen.ts"],
   "thresholds": {
     "high": 90,
     "low": 80,
