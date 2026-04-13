@@ -22,25 +22,25 @@ public/             — Static assets
 
 ## Technology Stack
 
-| Category       | Tool                                    |
-| -------------- | --------------------------------------- |
-| Framework      | React 19 + TanStack Start (SSR)         |
-| Language       | TypeScript (strict mode)                |
-| Styling        | TailwindCSS v4 + tw-animate-css         |
-| UI Components  | shadcn/ui (new-york style) + Radix UI   |
-| Routing        | TanStack Router (file-based)            |
-| State/Data     | TanStack Query + TanStack Form          |
-| Validation     | Zod v4                                  |
-| Icons          | Lucide React                            |
-| Build          | Vite 8                                  |
-| Runtime        | Bun                                     |
-| Compiler       | React Compiler (babel plugin)           |
-| Linting        | Oxlint (anti-slop rules, zero warnings) |
-| Formatting     | Oxfmt                                   |
-| Testing        | Vitest + Testing Library + fast-check   |
-| Mutation Tests | Stryker                                 |
-| Component Tests| Playwright CT                           |
-| Git Hooks      | Lefthook                                |
+| Category        | Tool                                    |
+| --------------- | --------------------------------------- |
+| Framework       | React 19 + TanStack Start (SSR)         |
+| Language        | TypeScript (strict mode)                |
+| Styling         | TailwindCSS v4 + tw-animate-css         |
+| UI Components   | shadcn/ui (new-york style) + Radix UI   |
+| Routing         | TanStack Router (file-based)            |
+| State/Data      | TanStack Query + TanStack Form          |
+| Validation      | Zod v4                                  |
+| Icons           | Lucide React                            |
+| Build           | Vite 8                                  |
+| Runtime         | Bun                                     |
+| Compiler        | React Compiler (babel plugin)           |
+| Linting         | Oxlint (anti-slop rules, zero warnings) |
+| Formatting      | Oxfmt                                   |
+| Testing         | Vitest + Testing Library + fast-check   |
+| Mutation Tests  | Stryker                                 |
+| Component Tests | Playwright CT                           |
+| Git Hooks       | Lefthook                                |
 
 ## Path Aliases
 
@@ -78,6 +78,7 @@ All agents must follow the rules in `.agent/rules/`:
 ## CI Pipeline
 
 GitHub Actions (`.github/workflows/publish.yml`):
+
 - Lint (zero warnings gate)
 - React best practices audit (react-doctor)
 - Build

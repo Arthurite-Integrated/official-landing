@@ -6,13 +6,13 @@ trigger: always_on
 
 ## Tools
 
-| Tool          | Purpose                           | Command                        |
-| ------------- | --------------------------------- | ------------------------------ |
-| Vitest        | Unit and integration tests        | bun run test                   |
-| fast-check    | Property-based testing            | Used within Vitest             |
-| react-doctor  | React best practices audit        | bunx react-doctor@latest .     |
-| Stryker       | Mutation testing                  | bun run stryker                |
-| Playwright CT | Component testing in real browser | bun run test:ct                |
+| Tool          | Purpose                           | Command                    |
+| ------------- | --------------------------------- | -------------------------- |
+| Vitest        | Unit and integration tests        | bun run test               |
+| fast-check    | Property-based testing            | Used within Vitest         |
+| react-doctor  | React best practices audit        | bunx react-doctor@latest . |
+| Stryker       | Mutation testing                  | bun run stryker            |
+| Playwright CT | Component testing in real browser | bun run test:ct            |
 
 ## File Locations
 

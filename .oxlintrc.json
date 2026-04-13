@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "react-perf", "typescript", "jsx-a11y"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "typescript/no-explicit-any": "warn",
+    "eslint/complexity": ["error", {"max": 10}],
+    "eslint/max-lines-per-function": ["error", {"max": 50, "skipComments": true, "skipBlankLines": true}],
+    "eslint/max-lines": ["error", {"max": 250, "skipBlankLines": true, "skipComments": true}],
+    "eslint/max-params": ["error", 3],
+    "eslint/max-depth": ["error", 3],
+    "eslint/max-statements": ["error", 25],
+    "eslint/max-classes-per-file": ["error", 1]
+  },
+  "ignorePatterns": ["*.html", "docker", "public", "__tests__", "*.test.*", "*.spec.*", "*.ct.*", "*.gen.ts"]
+}
