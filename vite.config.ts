@@ -11,7 +11,10 @@ const config = defineConfig({
   plugins: [
     devtools(),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      pages: [{path: "/"}, {path: "/about"}],
+      prerender: {enabled: true, crawlLinks: true},
+    }),
     viteReact({
       babel: {
         plugins: ["babel-plugin-react-compiler"],

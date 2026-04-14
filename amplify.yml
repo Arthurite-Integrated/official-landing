@@ -13,7 +13,7 @@ frontend:
         - export PATH="$BUN_INSTALL/bin:$PATH"
         - bun run build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: dist/client
     files:
       - "**/*"
   cache:
