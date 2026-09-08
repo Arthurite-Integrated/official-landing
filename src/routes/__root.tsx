@@ -1,6 +1,7 @@
 import {HeadContent, Scripts, createRootRouteWithContext} from "@tanstack/react-router";
 import {TanStackRouterDevtoolsPanel} from "@tanstack/react-router-devtools";
 import {TanStackDevtools} from "@tanstack/react-devtools";
+import {NavigationBar} from "#/components/layout/navigation-bar.tsx";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
@@ -11,7 +12,6 @@ import type {QueryClient} from "@tanstack/react-query";
 interface MyRouterContext {
   queryClient: QueryClient;
 }
-
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -45,6 +45,7 @@ function RootDocument({children}: {children: React.ReactNode}) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+        <NavigationBar />
         {children}
         <TanStackDevtools
           config={{
