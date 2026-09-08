@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 const config = defineConfig({
   resolve: {tsconfigPaths: true},
+  optimizeDeps: {include: ["hls.js"]},
   plugins: [
     devtools(),
     tailwindcss(),
@@ -15,11 +16,7 @@ const config = defineConfig({
       pages: [{path: "/"}, {path: "/about"}],
       prerender: {enabled: true, crawlLinks: true},
     }),
-    viteReact({
-      babel: {
-        plugins: ["babel-plugin-react-compiler"],
-      },
-    }),
+    viteReact(),
   ],
 });
 

@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ln -s AGENTS.md CLAUDE.md)",
+      "Bash(ln -s .agent .claude)",
+      "Bash(ln -s .agent .codex)",
+      "Bash(bun remove:*)",
+      "Bash(bun add:*)",
+      "Bash(bun lint:*)",
+      "Bash(bun format:*)",
+      "Bash(npx stryker:*)",
+      "Bash(bun run:*)",
+      "Bash(ls dist/*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(claude mcp:*)",
+      "Bash(mkdir -p ~/Downloads/graphik-selected)",
+      "Bash(cp \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Compact Family/GraphikCompact-Light-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Compact Family/GraphikCompact-Regular-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Compact Family/GraphikCompact-Medium-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Compact Family/GraphikCompact-Semibold-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Compact Family/GraphikCompact-Bold-Trial.otf\" ~/Downloads/graphik-selected/)",
+      "Bash(mkdir -p /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik)",
+      "Bash(cp ~/Downloads/GraphikCompact-Light-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/GraphikCompact-Light.woff2)",
+      "Bash(cp ~/Downloads/GraphikCompact-Regular-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/GraphikCompact-Regular.woff2)",
+      "Bash(cp ~/Downloads/GraphikCompact-Medium-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/GraphikCompact-Medium.woff2)",
+      "Bash(cp ~/Downloads/GraphikCompact-Semibold-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/GraphikCompact-Semibold.woff2)",
+      "Bash(rm -rf ~/Downloads/graphik-selected)",
+      "Bash(cp \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Light-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Regular-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Medium-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Semibold-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Bold-Trial.otf\" \"/Users/dev_toyyib/Downloads/Graphik_Collection/Graphik Family/Graphik-Black-Trial.otf\" ~/Downloads/graphik-selected/)",
+      "Bash(rm /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/*.woff2)",
+      "Bash(cp ~/Downloads/Graphik-Light-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/Graphik-Light.woff2)",
+      "Bash(cp ~/Downloads/Graphik-Regular-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/Graphik-Regular.woff2)",
+      "Bash(cp ~/Downloads/Graphik-Medium-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/Graphik-Medium.woff2)",
+      "Bash(cp ~/Downloads/Graphik-Semibold-Trial.woff2 /Users/dev_toyyib/career/gig-work/arthurite/Projects/atr-landing/public/fonts/graphik/Graphik-Semibold.woff2)",
+      "Bash(bun dev *)"
+    ]
+  }
+}
