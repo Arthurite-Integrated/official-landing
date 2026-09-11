@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "slug": "swap-os",
+      "name": "SWAP OS",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Cloud Infrastructure & DevOps",
+      "industry": "Fintech",
+      "duration": "12 Weeks",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    }
+  ]
+}
