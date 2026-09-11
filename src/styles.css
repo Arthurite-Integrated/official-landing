@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Light.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -12,7 +11,7 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Regular.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,7 +19,7 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Medium.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -28,7 +27,7 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Semibold.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -36,7 +35,7 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Bold.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -44,13 +43,12 @@
 
 @font-face {
   font-family: "Graphik";
-  src: url("../public/fonts/graphik/Graphik-Black.woff2") format("woff2");
+  src: url("/fonts/graphik/Graphik-Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @plugin '@tailwindcss/typography';
-
 
 @custom-variant dark (&:is(.dark *));
 
@@ -203,8 +201,166 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /*Custom Colors*/
-  --color-primary-bg: #FBFFE0;
-  --color-primary: #01450E;
+  --color-primary-bg: #fbffe0;
+  --color-primary: #01450e;
+}
+
+/* Core AWS services: every surface is lit by the brand colour of that service's own
+   official AWS icon, so the whole stage changes character as the list advances. */
+[data-aws-accent] {
+  --aws-accent: #01a88d;
+}
+
+[data-aws-accent="rds"] {
+  --aws-accent: #c925d1;
+}
+
+[data-aws-accent="quick-suite"] {
+  --aws-accent: #dd344c;
+}
+
+.aws-backdrop-glow {
+  background:
+    radial-gradient(70% 74% at 78% 46%, color-mix(in srgb, var(--aws-accent) 22%, transparent), transparent 76%),
+    radial-gradient(80% 80% at 16% 2%, color-mix(in srgb, var(--aws-accent) 9%, transparent), transparent 70%), #050c08;
+}
+
+.aws-backdrop-scrim {
+  background:
+    linear-gradient(
+      100deg,
+      rgba(4, 12, 8, 0.92) 0%,
+      rgba(4, 12, 8, 0.8) 26%,
+      rgba(4, 12, 8, 0.5) 58%,
+      rgba(4, 12, 8, 0.34) 80%,
+      rgba(4, 12, 8, 0.6) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 12, 8, 0.66) 0%, transparent 26%, transparent 52%, rgba(4, 12, 8, 0.88) 100%);
+}
+
+.aws-backdrop-logo {
+  /* Fades the icon tile's own square edge so the logo reads as lit backdrop, not a pasted block. */
+  mask-image: radial-gradient(closest-side, #000 42%, rgba(0, 0, 0, 0.45) 72%, transparent 100%);
+  opacity: 0.62;
+  animation: aws-logo-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes aws-logo-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-1.5%, -2%, 0) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aws-backdrop-logo {
+    animation: none;
+  }
+}
+
+.aws-card-halo {
+  background:
+    radial-gradient(62% 62% at 50% 42%, color-mix(in srgb, var(--aws-accent) 34%, transparent), transparent 72%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, transparent 45%);
+}
+
+/* How we work: on pointer devices, hovering a step widens it and dims its neighbours,
+   and the step's extra detail expands from zero height. Stacked layouts and touch
+   devices keep every card open, since there is no hover to reveal it. */
+.work-step-detail {
+  grid-template-rows: 1fr;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .work-step-row .work-step-card {
+    transition:
+      flex-grow 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 500ms ease,
+      opacity 500ms ease;
+  }
+
+  .work-step-row:hover .work-step-card {
+    filter: saturate(0.22) brightness(0.82);
+  }
+
+  .work-step-row .work-step-card:hover {
+    flex-grow: 2.4;
+    filter: none;
+  }
+
+  .work-step-detail {
+    grid-template-rows: 0fr;
+    margin-top: 0;
+    opacity: 0;
+    transition:
+      grid-template-rows 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      margin-top 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 400ms ease;
+  }
+
+  .work-step-card:hover .work-step-detail {
+    grid-template-rows: 1fr;
+    margin-top: 0.75rem;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-step-row .work-step-card,
+    .work-step-detail {
+      transition: none;
+    }
+  }
+}
+
+/* Partner strip: two identical logo rows scroll as one track, so shifting by half the
+   track width lands the second row exactly where the first started. */
+@keyframes partner-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.partner-marquee-track {
+  animation: partner-scroll 42s linear infinite;
+}
+
+.partner-marquee:hover .partner-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee-track {
+    animation: none;
+  }
+}
+
+/* Scroll-driven reveal: cards lift into place as the bento grid passes through the viewport.
+   Browsers without scroll-driven animations render the cards in their final state. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes bento-rise {
+      from {
+        opacity: 0;
+        transform: translateY(2.5rem) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .bento-reveal {
+      animation: bento-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+  }
 }
 
 html,

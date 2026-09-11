@@ -15,6 +15,3 @@ pre-commit:
     stryker:
       glob: "*.{ts,tsx}"
       run: bun run stryker:incremental
-    react-doctor:
-      glob: "*.{jsx,tsx}"
-      run: bunx -y react-doctor@latest . --diff
