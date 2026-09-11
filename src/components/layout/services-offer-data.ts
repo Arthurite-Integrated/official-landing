@@ -18,7 +18,7 @@ export const ServiceOffers: readonly ServiceOffer[] = [
   },
   {
     image: "/services/real_sec.jpg",
-    title: "Cloud Security & Compliance",
+    title: "Cloud Security",
   },
   {
     image: "/services/real_managed.jpg",

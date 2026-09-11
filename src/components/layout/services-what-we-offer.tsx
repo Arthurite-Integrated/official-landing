@@ -15,7 +15,8 @@ function ServicesOfferHeader() {
           One partner for the whole cloud lifecycle.
         </h2>
         <p className="mt-4 text-base leading-relaxed text-white/65 sm:text-lg">
-          Eight core practices built to design, migrate, optimize, and protect your cloud infrastructure end to end.
+          We help businesses build and operate reliable cloud infrastructure. Whether you’re moving to the cloud for the first time or
+          improving what you already have, we focus on performance, security, and cost efficiency.
         </p>
       </div>
 
@@ -39,8 +40,8 @@ export function ServicesWhatWeOffer() {
         <ServicesOfferHeader />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
-          {ServiceOffers.map((offer) => (
-            <ServicesOfferCard key={offer.title} offer={offer} />
+          {ServiceOffers.map((offer, index) => (
+            <ServicesOfferCard key={offer.title} offer={offer} isFeatured={index === 0} />
           ))}
         </div>
       </div>

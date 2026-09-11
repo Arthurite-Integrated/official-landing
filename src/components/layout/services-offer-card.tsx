@@ -1,15 +1,24 @@
 import {Link} from "@tanstack/react-router";
 import {ArrowUpRight} from "lucide-react";
 
+import {cn} from "@/lib/utils";
 import type {ServiceOffer} from "#/components/layout/services-offer-data.ts";
 
 type ServicesOfferCardProps = {
+  readonly isFeatured?: boolean;
   readonly offer: ServiceOffer;
 };
 
-export function ServicesOfferCard({offer}: ServicesOfferCardProps) {
+export function ServicesOfferCard({isFeatured = false, offer}: ServicesOfferCardProps) {
   return (
-    <article className="group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-[#03120b] [height:20rem] [transition:height_600ms_cubic-bezier(0.22,1,0.36,1)] hover:[height:21.6rem]">
+    <article
+      className={cn(
+        "group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-[#03120b] [transition:height_600ms_cubic-bezier(0.22,1,0.36,1)]",
+        isFeatured
+          ? "[height:20rem] hover:[height:21.6rem] lg:row-span-2 lg:[height:41.5rem] lg:hover:[height:43rem]"
+          : "[height:20rem] hover:[height:21.6rem]"
+      )}
+    >
       <img
         src={offer.image}
         alt={offer.title}
