@@ -14,7 +14,6 @@ export function WhoWeServeCard({index, item}: WhoWeServeCardProps) {
         aria-hidden
         className="absolute -right-12 -top-12 size-36 rounded-full bg-emerald-500/10 blur-2xl transition-all duration-500 group-hover:bg-emerald-500/20"
       />
-
       <div>
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/60 sm:h-52">
           <img
