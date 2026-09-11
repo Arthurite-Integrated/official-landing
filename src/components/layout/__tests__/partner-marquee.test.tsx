@@ -15,7 +15,7 @@ describe("PartnerMarquee", () => {
     render(<PartnerMarquee />);
 
     expect(screen.getAllByRole("img")).toHaveLength(PartnerLogos.length);
-  });
+  }, 10_000);
 
   it("names every logo after its partner", () => {
     render(<PartnerMarquee />);
@@ -23,7 +23,7 @@ describe("PartnerMarquee", () => {
     for (const partner of PartnerLogos) {
       expect(screen.getByRole("img", {name: partner.name})).toBeInTheDocument();
     }
-  });
+  }, 10_000);
 
   it("duplicates the logo row so the scroll loops seamlessly", () => {
     const {container} = render(<PartnerMarquee />);

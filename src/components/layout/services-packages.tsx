@@ -61,14 +61,7 @@ export function ServicesPackages() {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
-    <section
-      aria-labelledby={SECTION_TITLE_ID}
-      className="relative isolate overflow-hidden px-5 py-24 sm:px-8 lg:py-32"
-      style={{
-        background:
-          "radial-gradient(ellipse 80% 60% at 20% 0%, rgba(47,106,74,0.55) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 80% 10%, rgba(79,184,178,0.28) 0%, transparent 60%), #04160c",
-      }}
-    >
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-black px-5 py-24 sm:px-8 lg:py-32">
       <div className="mx-auto max-w-6xl xl:max-w-7xl">
         <ServicesPackagesHeader isYearly={isYearly} onToggle={setIsYearly} />
 
