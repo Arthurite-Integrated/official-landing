@@ -6,19 +6,19 @@ import {ServicePackages} from "#/components/layout/services-packages-data.ts";
 
 const SECTION_TITLE_ID = "service-packages-title";
 
-type PackagesToggleProps = {
+type ServicesPackagesToggleProps = {
   readonly isYearly: boolean;
-  readonly onChange: (yearly: boolean) => void;
+  readonly onToggle: (yearly: boolean) => void;
 };
 
-function ServicesPackagesToggle({isYearly, onChange}: PackagesToggleProps) {
+function ServicesPackagesToggle({isYearly, onToggle}: ServicesPackagesToggleProps) {
   return (
     <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10">
       <span className="text-xs font-medium tracking-wide text-emerald-400">Save 20% with yearly billing</span>
       <div className="flex rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md">
         <button
           type="button"
-          onClick={() => onChange(false)}
+          onClick={() => onToggle(false)}
           className={cn(
             "rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300",
             !isYearly ? "bg-white text-primary shadow-md" : "text-white/70 hover:text-white"
@@ -28,7 +28,7 @@ function ServicesPackagesToggle({isYearly, onChange}: PackagesToggleProps) {
         </button>
         <button
           type="button"
-          onClick={() => onChange(true)}
+          onClick={() => onToggle(true)}
           className={cn(
             "rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300",
             isYearly ? "bg-white text-primary shadow-md" : "text-white/70 hover:text-white"
@@ -41,7 +41,12 @@ function ServicesPackagesToggle({isYearly, onChange}: PackagesToggleProps) {
   );
 }
 
-function ServicesPackagesHeader({isYearly, onToggle}: PackagesToggleProps) {
+type ServicesPackagesHeaderProps = {
+  readonly isYearly: boolean;
+  readonly onToggle: (yearly: boolean) => void;
+};
+
+function ServicesPackagesHeader({isYearly, onToggle}: ServicesPackagesHeaderProps) {
   return (
     <div className="mx-auto max-w-3xl text-center">
       <p className="text-xs font-semibold tracking-[0.28em] text-white/50 uppercase">Service Packages</p>
@@ -52,7 +57,7 @@ function ServicesPackagesHeader({isYearly, onToggle}: PackagesToggleProps) {
         Transparent, predictable cloud architecture and management packages designed to scale with your business.
       </p>
 
-      <ServicesPackagesToggle isYearly={isYearly} onChange={onToggle} />
+      <ServicesPackagesToggle isYearly={isYearly} onToggle={onToggle} />
     </div>
   );
 }
