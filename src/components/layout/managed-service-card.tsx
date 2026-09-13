@@ -7,6 +7,29 @@ type ManagedServiceCardProps = {
   readonly service: ManagedService;
 };
 
+function CardIconHeader({icon, isActive, name}: {readonly icon: string; readonly isActive: boolean; readonly name: string}) {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <div
+        className={cn(
+          "flex size-14 items-center justify-center rounded-2xl p-3 transition-colors duration-300",
+          isActive ? "bg-emerald-400/20 text-emerald-400" : "bg-white/5 text-white/70 group-hover:bg-white/10 group-hover:text-white"
+        )}
+      >
+        <img src={icon} alt={name} className="size-8 object-contain" />
+      </div>
+
+      <span
+        className={cn(
+          "size-3 rounded-full transition-all duration-300",
+          isActive ? "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" : "bg-white/20 group-hover:bg-white/40"
+        )}
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
 export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceCardProps) {
   return (
     <button
@@ -20,24 +43,7 @@ export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceC
           : "border border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06] hover:scale-[1.01]"
       )}
     >
-      <div className="flex items-center justify-between gap-4">
-        <div
-          className={cn(
-            "flex size-14 items-center justify-center rounded-2xl p-3 transition-colors duration-300",
-            isActive ? "bg-emerald-400/20 text-emerald-400" : "bg-white/5 text-white/70 group-hover:bg-white/10 group-hover:text-white"
-          )}
-        >
-          <img src={service.icon} alt={service.name} className="size-8 object-contain" />
-        </div>
-
-        <span
-          className={cn(
-            "size-3 rounded-full transition-all duration-300",
-            isActive ? "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" : "bg-white/20 group-hover:bg-white/40"
-          )}
-          aria-hidden="true"
-        />
-      </div>
+      <CardIconHeader icon={service.icon} isActive={isActive} name={service.name} />
 
       <div className="mt-8 space-y-3">
         <h3
