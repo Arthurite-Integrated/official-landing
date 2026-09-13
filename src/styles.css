@@ -219,6 +219,26 @@
   --aws-accent: #dd344c;
 }
 
+[data-aws-accent="managed-cloud"] {
+  --aws-accent: #01a88d;
+}
+
+[data-aws-accent="managed-support"] {
+  --aws-accent: #1e88e5;
+}
+
+[data-aws-accent="cloud-security"] {
+  --aws-accent: #e53935;
+}
+
+[data-aws-accent="app-management"] {
+  --aws-accent: #8e24aa;
+}
+
+[data-aws-accent="cost-optimization"] {
+  --aws-accent: #f57c00;
+}
+
 .aws-backdrop-glow {
   background:
     radial-gradient(70% 74% at 78% 46%, color-mix(in srgb, var(--aws-accent) 22%, transparent), transparent 76%),

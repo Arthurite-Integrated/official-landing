@@ -1,8 +1,10 @@
 import {createFileRoute} from "@tanstack/react-router";
 
 import {CoreAwsServices} from "#/components/layout/core-aws-services.tsx";
+import {ManagedServices} from "#/components/layout/managed-services.tsx";
 import {ServicesCaseStudies} from "#/components/layout/services-case-studies.tsx";
 import {ServicesFeatureCompare} from "#/components/layout/services-feature-compare.tsx";
+import {ServicesFaq} from "#/components/layout/services-faq.tsx";
 import {ServicesHero} from "#/components/layout/services-hero.tsx";
 import {ServicesPackages} from "#/components/layout/services-packages.tsx";
 import {ServicesProcess} from "#/components/layout/services-process.tsx";
@@ -24,6 +26,8 @@ function ServicesPage() {
       <ServicesCaseStudies />
       <ServicesProcess />
       <CoreAwsServices />
+      <ManagedServices />
+      <ServicesFaq />
     </main>
   );
 }

@@ -6,12 +6,7 @@ const SECTION_TITLE_ID = "who-we-serve-title";
 function WhoWeServeHeader() {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-950/40 px-4 py-1.5 backdrop-blur-md">
-        <span className="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.9)]" />
-        <span className="text-xs font-semibold tracking-[0.24em] text-emerald-300 uppercase">Who We Serve</span>
-      </div>
-
-      <h2 id={SECTION_TITLE_ID} className="mt-6 text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
         Who We Serve
       </h2>
 

@@ -10,9 +10,9 @@ describe("WhoWeServe", () => {
     expect(screen.getByRole("region", {name: /who we serve/i})).toBeInTheDocument();
   });
 
-  it("labels the section with Who We Serve kicker", () => {
+  it("introduces the section under its heading", () => {
     render(<WhoWeServe />);
-    expect(screen.getByText("Who We Serve", {selector: "span"})).toBeInTheDocument();
+    expect(screen.getByText(/we help teams in different industries adapt and thrive/i)).toBeInTheDocument();
   });
 
   it("renders a card for all 6 industry sectors", () => {
