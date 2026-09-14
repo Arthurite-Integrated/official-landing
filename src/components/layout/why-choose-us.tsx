@@ -43,23 +43,21 @@ const WHY_US_TITLE_ID = "why-choose-us-title";
 
 export function WhyChooseUs() {
   return (
-    <section aria-labelledby={WHY_US_TITLE_ID} className="bg-background px-5 py-24 sm:px-8 lg:py-32">
-      <div className="mx-auto max-w-6xl">
-        <header className="mx-auto mb-14 max-w-2xl text-center lg:mb-20">
-          <h2 id={WHY_US_TITLE_ID} className="text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
-            Why choose us?
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-foreground/70 sm:text-lg">
-            We focus on practical cloud solutions that are secure, scalable, and built to support long-term growth.
-          </p>
-        </header>
+    <section aria-labelledby={WHY_US_TITLE_ID} className="bg-background py-24 sm:py-32">
+      <div className="mx-auto mb-14 max-w-6xl px-5 text-center sm:px-8 lg:mb-20">
+        <h2 id={WHY_US_TITLE_ID} className="text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
+          Why choose us?
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">
+          We focus on practical cloud solutions that are secure, scalable, and built to support long-term growth.
+        </p>
+      </div>
 
-        <div className="why-choose-marquee mt-12 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]">
-          <ul className="why-choose-marquee-track flex w-max gap-4">
-            <WhyChooseUsTrack suffix="a" />
-            <WhyChooseUsTrack suffix="b" />
-          </ul>
-        </div>
+      <div className="why-choose-marquee flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]">
+        <ul className="why-choose-marquee-track flex w-max gap-4">
+          <WhyChooseUsTrack suffix="a" />
+          <WhyChooseUsTrack suffix="b" />
+        </ul>
       </div>
     </section>
   );
