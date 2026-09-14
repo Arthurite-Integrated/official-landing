@@ -23,14 +23,14 @@ export function AwsServiceNav({activeIndex, listRef, onSelect}: AwsServiceNavPro
               onClick={() => onSelect(index)}
               className={cn(
                 "block cursor-pointer text-left text-2xl font-medium tracking-tight transition-colors duration-500 sm:text-3xl lg:w-full lg:text-[3.15rem] lg:leading-[1.1] xl:text-[3.6rem]",
-                index === activeIndex ? "text-white" : "text-white/70 hover:text-white/80 lg:text-white/25"
+                index === activeIndex ? "text-foreground" : "text-foreground/70 hover:text-foreground/80 lg:text-foreground/25"
               )}
             >
               {service.name}
             </button>
           </div>
 
-          <p className="mt-3 text-sm leading-relaxed text-white/60 lg:hidden">{service.description}</p>
+          <p className="mt-3 text-sm leading-relaxed text-foreground/70 lg:hidden">{service.description}</p>
         </li>
       ))}
     </ul>

@@ -26,6 +26,127 @@
           "label": "AWS Cloud Architecture"
         }
       ]
+    },
+    {
+      "slug": "ev-cost-comparator",
+      "name": "EV Cost Comparator",
+      "summary": "Bedrock, Amplify",
+      "year": "2025",
+      "projectType": "EV-vs-ICE analytics",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "olympus-vision",
+      "name": "Olympus Vision",
+      "summary": "A cloud-based CCTV footage storage platform for CCTV installation companies and their customers, replacing traditional DVR/NVR systems with scalable AWS storage, real-time streaming, and multi-tenant access control.",
+      "year": "2025",
+      "projectType": "Cloud-Based CCTV Storage",
+      "industry": "Security / CCTV",
+      "duration": "MVP complete",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "60–70%",
+          "label": "Cost reduction vs traditional DVR/NVR"
+        },
+        {
+          "value": "15.8%",
+          "label": "Cloud video surveillance CAGR"
+        }
+      ]
+    },
+    {
+      "slug": "hive",
+      "name": "Hive",
+      "summary": "courses & communities",
+      "year": "2025",
+      "projectType": "OS for modern educators",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "spark",
+      "name": "Spark",
+      "summary": "agentic AWS",
+      "year": "2025",
+      "projectType": "Whatsapp banking agent",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "desk-genie",
+      "name": "Desk Genie",
+      "summary": "Yoruba/Hausa/Igbo",
+      "year": "2025",
+      "projectType": "Voice AI Receptionist",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "checkout",
+      "name": "Checkout",
+      "summary": "Lambda, Bedrock",
+      "year": "2025",
+      "projectType": "Business automation",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "genai-services",
+      "name": "GenAI Services",
+      "summary": "RAG , Doc Intelligence",
+      "year": "2025",
+      "projectType": "Conversional AI",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
+    },
+    {
+      "slug": "tavern-central",
+      "name": "Tavern Central",
+      "summary": "A modern event scheduling and management platform that simplifies how individuals, organisations, and communities create, organise, manage, and participate in events. Built as a scalable cloud-native AWS solution focused on operational efficiency and attendee engagement.",
+      "year": "2026",
+      "projectType": "Event Scheduling & Management",
+      "industry": "Events / Hospitality",
+      "duration": "6 Months",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": []
     }
   ]
 }

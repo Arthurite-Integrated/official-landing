@@ -11,7 +11,7 @@ export function ProjectMedia({project}: ProjectMediaProps) {
     <div className="relative">
       <div aria-hidden className="project-media-glow absolute -inset-8 -z-10" />
 
-      <div className="relative aspect-16/10 overflow-hidden rounded-2xl border border-primary/12 bg-primary/6 shadow-[0_24px_60px_-32px_rgba(1,69,14,0.55)]">
+      <div className="relative aspect-16/10 overflow-hidden rounded-2xl border border-primary/12 bg-primary/6 shadow-[0_24px_60px_-32px_rgba(0,103,89,0.55)]">
         {project.image === null ? (
           <div aria-hidden className="project-media-placeholder grid h-full place-items-center">
             <span className="text-sm font-medium tracking-[0.22em] text-primary/35 uppercase">{project.name}</span>
@@ -28,7 +28,7 @@ export function ProjectMedia({project}: ProjectMediaProps) {
             aria-label={`Play the ${project.name} walkthrough`}
             className="absolute inset-0 grid place-items-center transition-colors hover:bg-primary/10"
           >
-            <span className="grid size-16 place-items-center rounded-full bg-[#22c55e] text-white shadow-lg transition-transform duration-300 hover:scale-105">
+            <span className="grid size-16 place-items-center rounded-full bg-primary text-white shadow-lg transition-transform duration-300 hover:scale-105">
               <Play className="size-6 translate-x-px fill-current" aria-hidden />
             </span>
           </a>
