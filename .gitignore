@@ -9,6 +9,8 @@ dist-ssr
 .wrangler
 .output
 .vinxi
+# fumadocs-mdx generated collections
+.source
 __unconfig*
 todos.json
 mcp-todos.json

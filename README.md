@@ -5,9 +5,18 @@ Welcome to your new TanStack Start app!
 To run this application:
 
 ```bash
+git submodule update --init
 bun install
 bun --bun run dev
 ```
+
+# Blog Content
+
+Blog posts come from the [`Arthurite-Integrated/blog-posts`](https://github.com/Arthurite-Integrated/blog-posts) repo,
+mounted as a git submodule at `content/blog`. `git submodule update --init` fetches them; without it `/blog` is empty.
+
+To write a post, follow `CONTRIBUTING.md` in blog-posts. For how the site renders and publishes posts, see the Blog
+section of `CLAUDE.md`.
 
 # Building For Production
 
