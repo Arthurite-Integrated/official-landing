@@ -12,18 +12,18 @@ export const SpotlightItems: readonly SpotlightItem[] = [
     image: null,
     source: "GenAI event, Lagos",
     title: "We hosted Nigeria's first GenAI-focused event",
-    url: null,
+    url: "/events",
   },
   {
     image: null,
     source: "AWS Marketing Central",
     title: "Our work is showcased as an AWS customer and partner example",
-    url: null,
+    url: "/services",
   },
   {
     image: null,
     source: "The Guardian",
     title: "Advancing cloud and AI conversations in Nigeria's tech ecosystem",
-    url: null,
+    url: "/blog",
   },
 ];
