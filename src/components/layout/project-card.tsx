@@ -9,7 +9,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({project}: ProjectCardProps) {
   return (
-    <article className="grid gap-10 rounded-[1.75rem] border border-primary/22 bg-white/45 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-12 lg:min-h-[36rem]">
+    <article className="grid gap-10 rounded-[1.75rem] border border-primary/22 bg-white/45 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-12 lg:min-h-[40rem]">
       <div className="flex h-full flex-col justify-between">
         <ProjectMedia project={project} />
 
@@ -23,11 +23,13 @@ export function ProjectCard({project}: ProjectCardProps) {
         </dl>
       </div>
 
-      <div className="flex h-full flex-col lg:border-l lg:border-primary/15 lg:pl-14">
-        <h3 className="text-3xl font-semibold tracking-tight text-primary sm:text-4xl">{project.name}</h3>
-        <p className="mt-5 text-base leading-relaxed text-primary/75">{project.summary}</p>
+      <div className="flex h-full flex-col justify-between lg:border-l lg:border-primary/15 lg:pl-14">
+        <div>
+          <h3 className="text-3xl font-semibold tracking-tight text-primary sm:text-4xl">{project.name}</h3>
+          <p className="mt-5 text-base leading-relaxed text-primary/75">{project.summary}</p>
+        </div>
 
-        <div className="mt-auto">
+        <div>
           <dl className="grid gap-2.5 text-sm">
             <ProjectFact label="Year" value={project.year} />
             <ProjectFact label="Project Type" value={project.projectType} />
