@@ -332,6 +332,30 @@
   }
 }
 
+/* Why choose us: two identical card rows scroll as one continuous track. */
+@keyframes why-choose-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.why-choose-marquee-track {
+  animation: why-choose-scroll 60s linear infinite;
+}
+
+.why-choose-marquee:hover .why-choose-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-choose-marquee-track {
+    animation: none;
+  }
+}
+
 /* Scroll-driven reveal: cards lift into place as the bento grid passes through the viewport.
    Browsers without scroll-driven animations render the cards in their final state. */
 @supports (animation-timeline: view()) {
