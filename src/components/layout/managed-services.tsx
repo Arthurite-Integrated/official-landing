@@ -10,11 +10,11 @@ const SECTION_TITLE_ID = "managed-services-title";
 function ManagedServicesHeader() {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
         Managed Services
       </h2>
 
-      <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+      <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">
         We handle the day-to-day operations of your cloud so your systems stay reliable, secure, and efficient.
       </p>
     </div>
@@ -32,7 +32,7 @@ function ManagedServicesScrollControls({onScroll}: ManagedServicesScrollControls
         type="button"
         aria-label="Scroll left"
         onClick={() => onScroll("left")}
-        className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10"
+        className="flex size-10 items-center justify-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10"
       >
         <ChevronLeft className="size-5" />
       </button>
@@ -40,7 +40,7 @@ function ManagedServicesScrollControls({onScroll}: ManagedServicesScrollControls
         type="button"
         aria-label="Scroll right"
         onClick={() => onScroll("right")}
-        className="flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10"
+        className="flex size-10 items-center justify-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10"
       >
         <ChevronRight className="size-5" />
       </button>
@@ -60,16 +60,7 @@ export function ManagedServices() {
   };
 
   return (
-    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-[#020905] px-5 py-24 sm:px-8 lg:py-32">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(16,185,129,0.15),transparent_80%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:48px_48px]"
-      />
-
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-background px-5 py-24 sm:px-8 lg:py-32">
       <div className="relative z-10 mx-auto max-w-7xl">
         <ManagedServicesHeader />
         <ManagedServicesScrollControls onScroll={scroll} />

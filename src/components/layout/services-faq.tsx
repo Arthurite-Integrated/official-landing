@@ -24,8 +24,8 @@ function CategoryFilter({activeCategory, onSelectCategory}: CategoryFilterProps)
           className={cn(
             "rounded-full px-4 py-2 text-xs font-semibold tracking-wide transition-all duration-200 sm:px-5 sm:text-sm",
             activeCategory === category
-              ? "bg-white text-black shadow-lg"
-              : "border border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:text-white"
+              ? "bg-primary text-white shadow-lg"
+              : "border border-foreground/15 bg-foreground/5 text-foreground/60 hover:border-foreground/25 hover:text-foreground"
           )}
         >
           {category}
@@ -38,11 +38,11 @@ function CategoryFilter({activeCategory, onSelectCategory}: CategoryFilterProps)
 function FaqHeader() {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold tracking-[0.28em] text-white/50 uppercase">FAQ</p>
-      <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl">
+      <p className="text-xs font-semibold tracking-[0.28em] text-foreground/50 uppercase">FAQ</p>
+      <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl">
         Frequently Asked Questions
       </h2>
-      <p className="mt-4 text-base leading-relaxed text-white/65 sm:text-lg">
+      <p className="mt-4 text-base leading-relaxed text-foreground/70 sm:text-lg">
         Everything you need to know about our AWS cloud services, migration processes, pricing model, and enterprise SLAs.
       </p>
     </div>
@@ -51,15 +51,15 @@ function FaqHeader() {
 
 function FaqCta() {
   return (
-    <div className="mt-16 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-8 text-center sm:p-10">
-      <h3 className="text-xl font-medium text-white sm:text-2xl">Still Have Questions?</h3>
-      <p className="mt-2 text-sm text-white/65 sm:text-base">
+    <div className="mt-16 rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-8 text-center sm:p-10">
+      <h3 className="text-xl font-medium text-foreground sm:text-2xl">Still Have Questions?</h3>
+      <p className="mt-2 text-sm text-foreground/70 sm:text-base">
         Can't find the answer you're looking for? Reach out to our AWS certified solutions architects.
       </p>
       <div className="mt-6">
         <Link
           to="/contact"
-          className="inline-flex items-center justify-center rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-black transition-all duration-200 hover:bg-emerald-300 hover:shadow-lg hover:shadow-emerald-400/20"
+          className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
         >
           Speak with an AWS Architect
         </Link>
@@ -79,7 +79,7 @@ export function ServicesFaq() {
   };
 
   return (
-    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-black px-5 py-24 sm:px-8 lg:py-32">
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-background px-5 py-24 sm:px-8 lg:py-32">
       <div className="mx-auto max-w-4xl">
         <FaqHeader />
         <CategoryFilter activeCategory={activeCategory} onSelectCategory={setActiveCategory} />

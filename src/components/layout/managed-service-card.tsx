@@ -13,7 +13,9 @@ function CardIconHeader({icon, isActive, name}: {readonly icon: string; readonly
       <div
         className={cn(
           "flex size-14 items-center justify-center rounded-2xl p-3 transition-colors duration-300",
-          isActive ? "bg-emerald-400/20 text-emerald-400" : "bg-white/5 text-white/70 group-hover:bg-white/10 group-hover:text-white"
+          isActive
+            ? "bg-primary/15 text-primary"
+            : "bg-foreground/5 text-foreground/70 group-hover:bg-foreground/10 group-hover:text-foreground"
         )}
       >
         <img src={icon} alt={name} className="size-8 object-contain" />
@@ -22,7 +24,7 @@ function CardIconHeader({icon, isActive, name}: {readonly icon: string; readonly
       <span
         className={cn(
           "size-3 rounded-full transition-all duration-300",
-          isActive ? "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.9)]" : "bg-white/20 group-hover:bg-white/40"
+          isActive ? "bg-primary shadow-[0_0_12px_rgba(0,103,89,0.6)]" : "bg-foreground/20 group-hover:bg-foreground/40"
         )}
         aria-hidden="true"
       />
@@ -37,10 +39,10 @@ export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceC
       onClick={onClick}
       aria-pressed={isActive}
       className={cn(
-        "group relative flex h-full w-full flex-col justify-between rounded-3xl p-6 text-left transition-all duration-300 sm:p-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400",
+        "group relative flex h-full w-full flex-col justify-between rounded-3xl p-6 text-left transition-all duration-300 sm:p-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
         isActive
-          ? "border-2 border-emerald-400/80 bg-gradient-to-b from-[#06301a] to-[#03180c] shadow-[0_0_35px_rgba(52,211,153,0.18)] scale-[1.02] z-10"
-          : "border border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06] hover:scale-[1.01]"
+          ? "border-2 border-primary/60 bg-primary/5 shadow-[0_0_30px_rgba(0,103,89,0.12)] scale-[1.02] z-10"
+          : "border border-foreground/10 bg-[#f2f2f0] hover:border-foreground/25 hover:bg-[#eaeae8] hover:scale-[1.01]"
       )}
     >
       <CardIconHeader icon={service.icon} isActive={isActive} name={service.name} />
@@ -49,7 +51,7 @@ export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceC
         <h3
           className={cn(
             "text-xl font-medium tracking-tight transition-colors sm:text-2xl",
-            isActive ? "text-white" : "text-white/90 group-hover:text-white"
+            isActive ? "text-foreground" : "text-foreground/90 group-hover:text-foreground"
           )}
         >
           {service.name}
@@ -57,7 +59,7 @@ export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceC
         <p
           className={cn(
             "text-sm leading-relaxed transition-colors sm:text-base",
-            isActive ? "text-white/80" : "text-white/60 group-hover:text-white/75"
+            isActive ? "text-foreground/80" : "text-foreground/60 group-hover:text-foreground/75"
           )}
         >
           {service.description}

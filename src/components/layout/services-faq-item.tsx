@@ -14,7 +14,7 @@ export function ServicesFaqItem({item, isOpen, onToggle}: ServicesFaqItemProps) 
   const buttonId = `${item.id}-button`;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] transition-colors duration-200 hover:border-white/20">
+    <div className="rounded-2xl border border-foreground/10 bg-[#f2f2f0] transition-colors duration-200 hover:border-foreground/20">
       <h3>
         <button
           id={buttonId}
@@ -22,11 +22,11 @@ export function ServicesFaqItem({item, isOpen, onToggle}: ServicesFaqItemProps) 
           aria-expanded={isOpen}
           aria-controls={contentId}
           onClick={onToggle}
-          className="flex w-full items-center justify-between gap-4 p-6 text-left font-medium text-white transition-colors hover:text-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          className="flex w-full items-center justify-between gap-4 p-6 text-left font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <span className="text-base sm:text-lg">{item.question}</span>
           <ChevronDown
-            className={cn("h-5 w-5 shrink-0 text-white/50 transition-transform duration-300", isOpen && "rotate-180 text-emerald-400")}
+            className={cn("h-5 w-5 shrink-0 text-foreground/50 transition-transform duration-300", isOpen && "rotate-180 text-primary")}
             aria-hidden="true"
           />
         </button>
@@ -36,7 +36,7 @@ export function ServicesFaqItem({item, isOpen, onToggle}: ServicesFaqItemProps) 
         role="region"
         aria-labelledby={buttonId}
         hidden={!isOpen}
-        className={cn("px-6 pb-6 text-sm leading-relaxed text-white/70 sm:text-base", !isOpen && "hidden")}
+        className={cn("px-6 pb-6 text-sm leading-relaxed text-foreground/70 sm:text-base", !isOpen && "hidden")}
       >
         <p>{item.answer}</p>
       </div>

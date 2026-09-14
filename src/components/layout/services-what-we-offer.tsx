@@ -10,12 +10,12 @@ function ServicesOfferHeader() {
   return (
     <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div className="max-w-2xl">
-        <p className="text-xs font-semibold tracking-[0.28em] text-white/50 uppercase">What We Offer</p>
-        <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl">
+        <p className="text-xs font-semibold tracking-[0.28em] text-foreground/50 uppercase">What We Offer</p>
+        <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl">
           One partner for the whole cloud lifecycle.
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-white/65 sm:text-lg">
-          We help businesses build and operate reliable cloud infrastructure. Whether you’re moving to the cloud for the first time or
+        <p className="mt-4 text-base leading-relaxed text-foreground/70 sm:text-lg">
+          We help businesses build and operate reliable cloud infrastructure. Whether you're moving to the cloud for the first time or
           improving what you already have, we focus on performance, security, and cost efficiency.
         </p>
       </div>
@@ -23,10 +23,10 @@ function ServicesOfferHeader() {
       <div className="flex flex-wrap items-center gap-3">
         <Link
           to="/contact"
-          className="inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 text-sm font-medium text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20"
+          className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground/5 px-6 text-sm font-medium text-foreground transition-all duration-300 hover:bg-foreground/10"
         >
           Book Consultation
-          <ArrowRight className="size-4 text-white" aria-hidden />
+          <ArrowRight className="size-4" aria-hidden />
         </Link>
       </div>
     </div>
@@ -35,7 +35,7 @@ function ServicesOfferHeader() {
 
 export function ServicesWhatWeOffer() {
   return (
-    <section aria-labelledby={SECTION_TITLE_ID} className="bg-black px-5 py-24 sm:px-8 lg:py-32">
+    <section aria-labelledby={SECTION_TITLE_ID} className="bg-background px-5 py-24 sm:px-8 lg:py-32">
       <div className="mx-auto max-w-6xl xl:max-w-7xl">
         <ServicesOfferHeader />
 

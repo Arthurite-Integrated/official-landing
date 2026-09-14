@@ -14,14 +14,14 @@ type ServicesPackagesToggleProps = {
 function ServicesPackagesToggle({isYearly, onToggle}: ServicesPackagesToggleProps) {
   return (
     <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10">
-      <span className="text-xs font-medium tracking-wide text-emerald-400">Save 20% with yearly billing</span>
-      <div className="flex rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md">
+      <span className="text-xs font-medium tracking-wide text-primary">Save 20% with yearly billing</span>
+      <div className="flex rounded-full border border-foreground/15 bg-foreground/5 p-1">
         <button
           type="button"
           onClick={() => onToggle(false)}
           className={cn(
             "rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300",
-            !isYearly ? "bg-white text-primary shadow-md" : "text-white/70 hover:text-white"
+            !isYearly ? "bg-primary text-white shadow-md" : "text-foreground/60 hover:text-foreground"
           )}
         >
           Monthly
@@ -31,7 +31,7 @@ function ServicesPackagesToggle({isYearly, onToggle}: ServicesPackagesToggleProp
           onClick={() => onToggle(true)}
           className={cn(
             "rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300",
-            isYearly ? "bg-white text-primary shadow-md" : "text-white/70 hover:text-white"
+            isYearly ? "bg-primary text-white shadow-md" : "text-foreground/60 hover:text-foreground"
           )}
         >
           Yearly
@@ -49,11 +49,11 @@ type ServicesPackagesHeaderProps = {
 function ServicesPackagesHeader({isYearly, onToggle}: ServicesPackagesHeaderProps) {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-semibold tracking-[0.28em] text-white/50 uppercase">Service Packages</p>
-      <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl">
+      <p className="text-xs font-semibold tracking-[0.28em] text-foreground/50 uppercase">Service Packages</p>
+      <h2 id={SECTION_TITLE_ID} className="mt-4 text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl">
         Plans & Pricing
       </h2>
-      <p className="mt-4 text-base leading-relaxed text-white/65 sm:text-lg">
+      <p className="mt-4 text-base leading-relaxed text-foreground/70 sm:text-lg">
         Transparent, predictable cloud architecture and management packages designed to scale with your business.
       </p>
 
@@ -66,7 +66,7 @@ export function ServicesPackages() {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
-    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-black px-5 py-24 sm:px-8 lg:py-32">
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-background px-5 py-24 sm:px-8 lg:py-32">
       <div className="mx-auto max-w-6xl xl:max-w-7xl">
         <ServicesPackagesHeader isYearly={isYearly} onToggle={setIsYearly} />
 

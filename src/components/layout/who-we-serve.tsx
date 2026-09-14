@@ -6,11 +6,11 @@ const SECTION_TITLE_ID = "who-we-serve-title";
 function WhoWeServeHeader() {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
         Who We Serve
       </h2>
 
-      <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+      <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-lg">
         We help teams in different industries adapt and thrive with cloud systems tailored to their operations.
       </p>
     </div>
@@ -19,20 +19,8 @@ function WhoWeServeHeader() {
 
 export function WhoWeServe() {
   return (
-    <section
-      aria-labelledby={SECTION_TITLE_ID}
-      className="relative isolate overflow-hidden px-5 py-24 sm:px-8 lg:py-32"
-      style={{
-        background:
-          "radial-gradient(ellipse 90% 70% at 50% 20%, rgba(16,185,129,0.18) 0%, rgba(4,32,18,0.35) 50%, transparent 85%), radial-gradient(ellipse 60% 50% at 20% 80%, rgba(6,182,212,0.12) 0%, transparent 65%), #020905",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]"
-      />
-
-      <div className="relative z-10 mx-auto max-w-6xl xl:max-w-7xl">
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative isolate overflow-hidden bg-background px-5 py-24 sm:px-8 lg:py-32">
+      <div className="mx-auto max-w-6xl xl:max-w-7xl">
         <WhoWeServeHeader />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">

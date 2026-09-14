@@ -7,9 +7,13 @@ export const HERO_SCROLL_BOUNDARY_ID = "home-hero-scroll-boundary";
 
 export function useNavigationTone() {
   const {pathname} = useLocation();
-  const [solid, setSolid] = useState(() => typeof document !== "undefined" && document.getElementById(HERO_SCROLL_BOUNDARY_ID) === null);
 
   const updateTone = useEffectEvent(() => {
+    if (pathname !== "/") {
+      setSolid(true);
+      return;
+    }
+
     const boundary = document.getElementById(HERO_SCROLL_BOUNDARY_ID);
 
     if (boundary === null) {
@@ -18,6 +22,11 @@ export function useNavigationTone() {
     }
 
     setSolid(boundary.getBoundingClientRect().top <= SOLID_NAV_OFFSET);
+  });
+
+  const [solid, setSolid] = useState(() => {
+    if (pathname !== "/") return true;
+    return typeof document !== "undefined" && document.getElementById(HERO_SCROLL_BOUNDARY_ID) === null;
   });
 
   useEffect(() => {

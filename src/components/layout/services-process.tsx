@@ -19,20 +19,20 @@ function ProcessHeader() {
   return (
     <header className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div className="max-w-xl">
-        <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-emerald-400 sm:text-5xl lg:text-6xl">
+        <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-primary sm:text-5xl lg:text-6xl">
           Implementation Process
         </h2>
-        <p className="mt-5 text-base leading-relaxed text-white/55 sm:text-lg lg:text-xl">
+        <p className="mt-5 text-base leading-relaxed text-foreground/60 sm:text-lg lg:text-xl">
           A clear, structured approach that takes your cloud project from planning to production with no guesswork.
         </p>
       </div>
 
       <Link
         to="/contact"
-        className="group inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/8 py-3 pr-3 pl-6 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/35 hover:bg-white/15"
+        className="group inline-flex w-fit items-center gap-2 rounded-full bg-foreground/5 py-3 pr-3 pl-6 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-foreground/10"
       >
         Book a free consultation
-        <span className="grid size-8 place-items-center rounded-full bg-white/12 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+        <span className="grid size-8 place-items-center rounded-full bg-foreground/10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
           <ArrowUpRight className="size-4" aria-hidden />
         </span>
       </Link>
@@ -42,11 +42,7 @@ function ProcessHeader() {
 
 export function ServicesProcess() {
   return (
-    <section
-      aria-labelledby={SECTION_TITLE_ID}
-      className="overflow-hidden py-32 sm:py-40 lg:pt-40 lg:pb-64"
-      style={{backgroundColor: "#020905"}}
-    >
+    <section aria-labelledby={SECTION_TITLE_ID} className="overflow-hidden bg-background py-32 sm:py-40 lg:pt-40 lg:pb-64">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 xl:max-w-7xl">
         <ProcessHeader />
       </div>
