@@ -13,7 +13,7 @@ export function ProjectCard({project}: ProjectCardProps) {
       <div className="flex h-full flex-col justify-between">
         <ProjectMedia project={project} />
 
-        <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+        <dl className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
           {project.stats.map((stat) => (
             <div key={stat.label}>
               <dt className="text-2xl font-semibold tracking-tight text-primary sm:text-3xl">{stat.value}</dt>
