@@ -9,19 +9,19 @@ export type SpotlightItem = {
 
 export const SpotlightItems: readonly SpotlightItem[] = [
   {
-    image: null,
+    image: "https://placehold.co/800x750/006759/ffffff?text=GenAI+Event",
     source: "GenAI event, Lagos",
     title: "We hosted Nigeria's first GenAI-focused event",
     url: "/events",
   },
   {
-    image: null,
+    image: "https://placehold.co/800x750/1f2022/ffffff?text=AWS",
     source: "AWS Marketing Central",
     title: "Our work is showcased as an AWS customer and partner example",
     url: "/services",
   },
   {
-    image: null,
+    image: "https://placehold.co/800x750/333333/ffffff?text=The+Guardian",
     source: "The Guardian",
     title: "Advancing cloud and AI conversations in Nigeria's tech ecosystem",
     url: "/blog",
