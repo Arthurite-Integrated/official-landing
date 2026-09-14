@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # content/blog is the public blog-posts repo; the build renders it.
+          submodules: true
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2

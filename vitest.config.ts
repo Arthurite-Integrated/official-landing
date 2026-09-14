@@ -1,7 +1,22 @@
 import {defineConfig} from "vitest/config";
 import {resolve} from "path";
 
+// Tests run without the fumadocs-mdx Vite plugin, so its generated collection modules are swapped for fixtures.
+const fumadocsCollectionMocks = {
+  name: "fumadocs-collection-mocks",
+  enforce: "pre" as const,
+  resolveId(id: string) {
+    if (id === "fumadocs-mdx:collections/server") {
+      return resolve(__dirname, "./src/test-utils/fumadocs-server-collections.mock.ts");
+    }
+    if (id === "fumadocs-mdx:collections/browser") {
+      return resolve(__dirname, "./src/test-utils/fumadocs-browser-collections.mock.ts");
+    }
+  },
+};
+
 export default defineConfig({
+  plugins: [fumadocsCollectionMocks],
   test: {
     globals: true,
     environment: "jsdom",
@@ -22,6 +37,8 @@ export default defineConfig({
         "**/index.ts",
         "**/__tests__/**",
         "**/*.gen.ts",
+        // Server-function wiring only; the logic it calls lives in posts.server.ts, which is tested.
+        "src/lib/blog/loader.ts",
       ],
       include: ["src/lib/**/*.{js,ts,jsx,tsx}"],
       thresholds: {
