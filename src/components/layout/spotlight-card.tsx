@@ -25,7 +25,7 @@ export function SpotlightCard({item}: SpotlightCardProps) {
         <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-t from-foreground/90 via-foreground/40 to-transparent" />
       ) : null}
 
-      <h3 className="text-base leading-snug text-foreground sm:text-lg">
+      <h3 className="text-base font-medium leading-snug text-foreground sm:text-lg">
         {item.url === null ? (
           item.title
         ) : (
