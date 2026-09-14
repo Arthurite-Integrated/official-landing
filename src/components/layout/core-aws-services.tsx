@@ -10,7 +10,7 @@ export function CoreAwsServices() {
   const {activeIndex, listRef} = useFocusedIndex();
 
   return (
-    <section aria-labelledby={SECTION_TITLE_ID} className="relative bg-[#040c08]">
+    <section aria-labelledby={SECTION_TITLE_ID} className="relative bg-background">
       <div className="sticky top-0 h-screen overflow-hidden">
         {AwsServices.map((service, index) => (
           <AwsServiceBackdrop key={service.slug} service={service} active={index === activeIndex} />
@@ -24,10 +24,10 @@ export function CoreAwsServices() {
 
       <div className="relative -mt-[100vh] px-5 pt-24 pb-28 sm:px-8 lg:px-14 lg:pt-32 lg:pb-[62vh] xl:px-20">
         <header className="lg:max-w-md">
-          <h2 id={SECTION_TITLE_ID} className="text-3xl leading-tight font-medium tracking-tight text-white sm:text-4xl">
+          <h2 id={SECTION_TITLE_ID} className="text-3xl leading-tight font-medium tracking-tight text-foreground sm:text-4xl">
             Our core AWS services
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-foreground/60 sm:text-base">
             We deliver essential AWS services that help businesses build reliable, secure, and scalable cloud environments.
           </p>
         </header>

@@ -13,7 +13,7 @@ type HeroBackgroundProps = {
 
 export function HeroBackground({children, className}: HeroBackgroundProps) {
   return (
-    <section className={cn("relative z-20 flex min-h-[92vh] w-full flex-col bg-primary", className)}>
+    <section className={cn("relative z-20 flex min-h-[92vh] w-full flex-col bg-[#1f2022]", className)}>
       <div aria-hidden className="absolute inset-0 overflow-hidden">
         <HeroVideo src={HLS_VIDEO_URL} />
         <div className="absolute inset-0 bg-black/45" />

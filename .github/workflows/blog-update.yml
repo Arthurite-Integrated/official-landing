@@ -1,0 +1,67 @@
+name: Update blog content
+
+# Publishes posts from Arthurite-Integrated/blog-posts. Its "Publish to landing" workflow sends the merged
+# sha; this job points the content/blog submodule at that sha and merges the change into main, which
+# Vercel deploys.
+#
+# The pointer is written straight from the sha rather than by checking the submodule out, so the job needs
+# no access to blog-posts. main requires pull requests, so the change goes through one and is merged here.
+on:
+  repository_dispatch:
+    types: [blog-content-updated]
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: Full blog-posts commit sha to publish
+        required: true
+
+concurrency:
+  group: update-blog-content
+  cancel-in-progress: false
+
+jobs:
+  update-blog-content:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Point content/blog at the published commit
+        env:
+          BLOG_SHA: ${{ github.event.client_payload.sha || inputs.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          # The sha is written straight into the index, so it must be a full object id first.
+          if ! printf '%s' "${BLOG_SHA}" | grep -Eq '^[0-9a-f]{40}$'; then
+            echo "::error::Expected a full 40-character blog-posts sha, got '${BLOG_SHA}'."
+            exit 1
+          fi
+
+          current=$(git rev-parse "HEAD:content/blog")
+          if [ "${current}" = "${BLOG_SHA}" ]; then
+            echo "content/blog is already at ${BLOG_SHA}"
+            exit 0
+          fi
+
+          short="${BLOG_SHA:0:7}"
+          branch="chore/blog-content-${short}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "${branch}"
+          # 160000 is git's mode for a submodule entry.
+          git update-index --cacheinfo "160000,${BLOG_SHA},content/blog"
+          git commit -m "chore(blog): publish blog-posts ${short}"
+          git push --force origin "${branch}"
+
+          gh pr create --base main --head "${branch}" \
+            --title "chore(blog): publish blog-posts ${short}" \
+            --body "Points \`content/blog\` at Arthurite-Integrated/blog-posts@${BLOG_SHA} (was ${current})."
+          gh pr merge "${branch}" --squash --delete-branch
+
+          echo "content/blog ${current} -> ${BLOG_SHA}"

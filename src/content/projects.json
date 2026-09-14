@@ -26,6 +26,222 @@
           "label": "AWS Cloud Architecture"
         }
       ]
+    },
+    {
+      "slug": "ev-cost-comparator",
+      "name": "EV Cost Comparator",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "EV-vs-ICE analytics",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "olympus-vision",
+      "name": "Olympus Vision",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Cloud-Based CCTV Storage",
+      "industry": "Security / CCTV",
+      "duration": "MVP complete",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "hive",
+      "name": "Hive",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "OS for modern educators",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "spark",
+      "name": "Spark",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Whatsapp banking agent",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "desk-genie",
+      "name": "Desk Genie",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Voice AI Receptionist",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "checkout",
+      "name": "Checkout",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Business automation",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "genai-services",
+      "name": "GenAI Services",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2025",
+      "projectType": "Conversional AI",
+      "industry": "TBD",
+      "duration": "TBD",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
+    },
+    {
+      "slug": "tavern-central",
+      "name": "Tavern Central",
+      "summary": "Before moving to the cloud, the system struggled with performance during peak usage and required constant manual intervention. We redesigned the infrastructure to be more reliable, scalable, and easier to manage.",
+      "year": "2026",
+      "projectType": "Event Scheduling & Management",
+      "industry": "Events / Hospitality",
+      "duration": "6 Months",
+      "image": null,
+      "videoUrl": null,
+      "caseStudyUrl": null,
+      "liveUrl": null,
+      "stats": [
+        {
+          "value": "99.9%",
+          "label": "Infrastructure uptime after deployment"
+        },
+        {
+          "value": "40%",
+          "label": "Reduction in infrastructure overhead"
+        },
+        {
+          "value": "Built on",
+          "label": "AWS Cloud Architecture"
+        }
+      ]
     }
   ]
 }
