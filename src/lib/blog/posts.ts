@@ -1,6 +1,6 @@
 import type {BlogCategory} from "#/lib/blog/categories.ts";
 
-const POST_FILENAME = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.mdx$/;
+const POST_PATH = /^(?:\d{4}\/\d{2}\/\d{2}\/)?([a-z0-9]+(?:-[a-z0-9]+)*)\.mdx$/;
 const CALENDAR_DAY_LENGTH = "YYYY-MM-DD".length;
 
 /** A post as fumadocs-mdx reads it from content/blog/posts, after source.config.ts validated its frontmatter. */
@@ -30,15 +30,21 @@ export type BlogPost = {
   readonly title: string;
 };
 
-/** The filename is the URL, so it is held to what is safe and permanent in one: lowercase words and hyphens. */
+/**
+ * The post slug is the filename, so it must be lowercase words and hyphens.
+ * Files may be organized under `posts/YYYY/MM/DD/` for editorial filing, but
+ * that path does not appear in the URL.
+ */
 export function slugFromPath(path: string): string {
-  const slug = POST_FILENAME.exec(path)?.[1];
+  const match = POST_PATH.exec(path);
 
-  if (slug === undefined) {
-    throw new Error(`Blog post "${path}" must be named with lowercase words separated by hyphens, directly inside posts/.`);
+  if (match === null) {
+    throw new Error(
+      `Blog post "${path}" must be named with lowercase words separated by hyphens, directly inside posts/ or posts/YYYY/MM/DD/.`
+    );
   }
 
-  return slug;
+  return match[1]!;
 }
 
 export function indexByFileName(urls: Readonly<Record<string, string>>): Record<string, string> {
