@@ -2,8 +2,6 @@ import type {LucideIcon} from "lucide-react";
 
 import {WhyChooseUsCards, type WhyUsCard} from "#/components/layout/why-choose-us-cards.ts";
 
-const WHY_US_TITLE_ID = "why-choose-us-title";
-
 type WhyUsCardProps = {
   readonly card: WhyUsCard;
 };
@@ -12,7 +10,7 @@ function WhyUsCard({card}: WhyUsCardProps) {
   const Icon = card.icon as LucideIcon;
 
   return (
-    <article className="group relative isolate flex min-h-80 flex-col justify-between overflow-hidden rounded-3xl bg-[#f2f2f0] p-7 sm:p-9">
+    <article className="group relative isolate flex h-full min-h-80 w-80 flex-col justify-between overflow-hidden rounded-3xl bg-[#f2f2f0] p-7 sm:p-9">
       <span className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
         <Icon className="size-5" strokeWidth={1.75} aria-hidden />
       </span>
@@ -24,6 +22,24 @@ function WhyUsCard({card}: WhyUsCardProps) {
     </article>
   );
 }
+
+type WhyChooseUsTrackProps = {
+  readonly suffix: string;
+};
+
+function WhyChooseUsTrack({suffix}: WhyChooseUsTrackProps) {
+  return (
+    <>
+      {WhyChooseUsCards.map((card) => (
+        <li key={`${card.title}-${suffix}`}>
+          <WhyUsCard card={card} />
+        </li>
+      ))}
+    </>
+  );
+}
+
+const WHY_US_TITLE_ID = "why-choose-us-title";
 
 export function WhyChooseUs() {
   return (
@@ -38,13 +54,12 @@ export function WhyChooseUs() {
           </p>
         </header>
 
-        <ul className="grid gap-4 sm:grid-cols-2">
-          {WhyChooseUsCards.map((card) => (
-            <li key={card.title}>
-              <WhyUsCard card={card} />
-            </li>
-          ))}
-        </ul>
+        <div className="why-choose-marquee mt-12 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]">
+          <ul className="why-choose-marquee-track flex w-max gap-4">
+            <WhyChooseUsTrack suffix="a" />
+            <WhyChooseUsTrack suffix="b" />
+          </ul>
+        </div>
       </div>
     </section>
   );
