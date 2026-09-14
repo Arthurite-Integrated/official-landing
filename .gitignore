@@ -18,3 +18,4 @@ mcp-todos.json
 .stryker-tmp
 reports
 .idea
+.source
