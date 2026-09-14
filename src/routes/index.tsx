@@ -3,10 +3,14 @@ import {createFileRoute} from "@tanstack/react-router";
 import {HeroBackground} from "#/components/layout/hero-background.tsx";
 import {CoreAwsServices} from "#/components/layout/core-aws-services.tsx";
 import {HomeHero} from "#/components/layout/home-hero.tsx";
+import {InTheSpotlight} from "#/components/layout/in-the-spotlight.tsx";
 import {HowWeWork} from "#/components/layout/how-we-work.tsx";
+import {AwardsAndRecognition} from "#/components/layout/awards-recognition.tsx";
+import {ClientReviews} from "#/components/layout/client-reviews.tsx";
 import {PartnerMarquee} from "#/components/layout/partner-marquee.tsx";
 import {ProjectCarousel} from "#/components/layout/project-carousel.tsx";
 import {WhatWeDo} from "#/components/layout/what-we-do.tsx";
+import {WhyChooseUs} from "#/components/layout/why-choose-us.tsx";
 import {Projects} from "#/lib/projects.ts";
 import AdvancedPartnerBadge from "../assets/advance-partner-badge.png";
 
@@ -30,6 +34,8 @@ function App() {
       </div>
       <PartnerMarquee />
       <WhatWeDo />
+      <HowWeWork />
+      <CoreAwsServices />
       <section aria-labelledby={PROJECTS_TITLE_ID} className="px-5 py-24 sm:px-8 lg:py-32">
         <div className="mx-auto max-w-6xl xl:max-w-7xl">
           <header className="max-w-xl">
@@ -46,8 +52,10 @@ function App() {
           </div>
         </div>
       </section>
-      <HowWeWork />
-      <CoreAwsServices />
+      <InTheSpotlight />
+      <AwardsAndRecognition />
+      <WhyChooseUs />
+      <ClientReviews />
     </main>
   );
 }

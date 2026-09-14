@@ -53,27 +53,27 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --sea-ink: #173a40;
-  --sea-ink-soft: #416166;
-  --lagoon: #4fb8b2;
-  --lagoon-deep: #328f97;
-  --palm: #2f6a4a;
-  --sand: #e7f0e8;
-  --foam: #f3faf5;
+  --sea-ink: #1f2022;
+  --sea-ink-soft: #6c6d6f;
+  --lagoon: #006759;
+  --lagoon-deep: #005f55;
+  --palm: #3dae56;
+  --sand: #f2f2f0;
+  --foam: #ffffff;
   --surface: rgba(255, 255, 255, 0.74);
   --surface-strong: rgba(255, 255, 255, 0.9);
-  --line: rgba(23, 58, 64, 0.14);
+  --line: rgba(31, 32, 34, 0.14);
   --inset-glint: rgba(255, 255, 255, 0.82);
-  --kicker: rgba(47, 106, 74, 0.9);
-  --bg-base: #e7f3ec;
-  --header-bg: rgba(251, 255, 248, 0.84);
+  --kicker: rgba(0, 103, 89, 0.9);
+  --bg-base: #f2f2f0;
+  --header-bg: rgba(255, 255, 255, 0.84);
   --chip-bg: rgba(255, 255, 255, 0.8);
-  --chip-line: rgba(47, 106, 74, 0.18);
+  --chip-line: rgba(0, 103, 89, 0.18);
   --link-bg-hover: rgba(255, 255, 255, 0.9);
-  --hero-a: rgba(79, 184, 178, 0.36);
-  --hero-b: rgba(47, 106, 74, 0.2);
+  --hero-a: rgba(0, 103, 89, 0.36);
+  --hero-b: rgba(61, 174, 86, 0.2);
 
-  --background: #f8f9fa;
+  --background: #ffffff;
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
@@ -201,41 +201,33 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /*Custom Colors*/
-  --color-primary-bg: #fbffe0;
-  --color-primary: #01450e;
+  --color-primary-bg: #f2f2f0;
+  --color-primary: #006759;
 }
 
-/* Core AWS services: every surface is lit by the brand colour of that service's own
-   official AWS icon, so the whole stage changes character as the list advances. */
+/* Core AWS services: lit by the single brand teal, with the service's own
+   official icon showing in the panel while keeping the site palette to 3 colors. */
 [data-aws-accent] {
-  --aws-accent: #01a88d;
-}
-
-[data-aws-accent="rds"] {
-  --aws-accent: #c925d1;
-}
-
-[data-aws-accent="quick-suite"] {
-  --aws-accent: #dd344c;
+  --aws-accent: #006759;
 }
 
 .aws-backdrop-glow {
   background:
-    radial-gradient(70% 74% at 78% 46%, color-mix(in srgb, var(--aws-accent) 22%, transparent), transparent 76%),
-    radial-gradient(80% 80% at 16% 2%, color-mix(in srgb, var(--aws-accent) 9%, transparent), transparent 70%), #050c08;
+    radial-gradient(70% 74% at 78% 46%, color-mix(in srgb, var(--aws-accent) 12%, transparent), transparent 76%),
+    radial-gradient(80% 80% at 16% 2%, color-mix(in srgb, var(--aws-accent) 8%, transparent), transparent 70%), #ffffff;
 }
 
 .aws-backdrop-scrim {
   background:
     linear-gradient(
       100deg,
-      rgba(4, 12, 8, 0.92) 0%,
-      rgba(4, 12, 8, 0.8) 26%,
-      rgba(4, 12, 8, 0.5) 58%,
-      rgba(4, 12, 8, 0.34) 80%,
-      rgba(4, 12, 8, 0.6) 100%
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.8) 26%,
+      rgba(255, 255, 255, 0.5) 58%,
+      rgba(255, 255, 255, 0.34) 80%,
+      rgba(255, 255, 255, 0.6) 100%
     ),
-    linear-gradient(180deg, rgba(4, 12, 8, 0.66) 0%, transparent 26%, transparent 52%, rgba(4, 12, 8, 0.88) 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.66) 0%, transparent 26%, transparent 52%, rgba(255, 255, 255, 0.88) 100%);
 }
 
 .aws-backdrop-logo {
@@ -262,8 +254,8 @@
 
 .aws-card-halo {
   background:
-    radial-gradient(62% 62% at 50% 42%, color-mix(in srgb, var(--aws-accent) 34%, transparent), transparent 72%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, transparent 45%);
+    radial-gradient(62% 62% at 50% 42%, color-mix(in srgb, var(--aws-accent) 16%, transparent), transparent 72%),
+    linear-gradient(180deg, rgba(0, 103, 89, 0.05) 0%, transparent 45%);
 }
 
 /* How we work: on pointer devices, hovering a step widens it and dims its neighbours,

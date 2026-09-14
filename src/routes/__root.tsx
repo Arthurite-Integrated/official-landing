@@ -2,6 +2,7 @@ import {HeadContent, Scripts, createRootRouteWithContext} from "@tanstack/react-
 import {TanStackRouterDevtoolsPanel} from "@tanstack/react-router-devtools";
 import {TanStackDevtools} from "@tanstack/react-devtools";
 import {NavigationBar} from "#/components/layout/navigation-bar.tsx";
+import {SiteFooter} from "#/components/layout/site-footer.tsx";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
@@ -44,9 +45,10 @@ function RootDocument({children}: {children: React.ReactNode}) {
         <script src="/theme-init.js" />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(0,103,89,0.24)]">
         <NavigationBar />
         {children}
+        <SiteFooter />
         <TanStackDevtools
           config={{
             position: "bottom-right",
