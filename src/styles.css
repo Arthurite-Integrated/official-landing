@@ -332,13 +332,13 @@
   }
 }
 
-/* Why choose us: two identical card rows scroll as one continuous track. */
+/* Why choose us: four identical card rows scroll as one continuous track. */
 @keyframes why-choose-scroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 

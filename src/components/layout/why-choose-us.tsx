@@ -25,13 +25,14 @@ function WhyUsCard({card}: WhyUsCardProps) {
 
 type WhyChooseUsTrackProps = {
   readonly suffix: string;
+  readonly isDuplicate?: boolean;
 };
 
-function WhyChooseUsTrack({suffix}: WhyChooseUsTrackProps) {
+function WhyChooseUsTrack({suffix, isDuplicate}: WhyChooseUsTrackProps) {
   return (
     <>
       {WhyChooseUsCards.map((card) => (
-        <li key={`${card.title}-${suffix}`}>
+        <li key={`${card.title}-${suffix}`} aria-hidden={isDuplicate}>
           <WhyUsCard card={card} />
         </li>
       ))}
@@ -56,7 +57,9 @@ export function WhyChooseUs() {
       <div className="why-choose-marquee flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_7%,#000_93%,transparent)]">
         <ul className="why-choose-marquee-track flex w-max gap-4">
           <WhyChooseUsTrack suffix="a" />
-          <WhyChooseUsTrack suffix="b" />
+          <WhyChooseUsTrack suffix="b" isDuplicate />
+          <WhyChooseUsTrack suffix="c" isDuplicate />
+          <WhyChooseUsTrack suffix="d" isDuplicate />
         </ul>
       </div>
     </section>
