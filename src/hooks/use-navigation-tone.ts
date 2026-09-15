@@ -5,11 +5,13 @@ const SOLID_NAV_OFFSET = 80;
 
 export const HERO_SCROLL_BOUNDARY_ID = "home-hero-scroll-boundary";
 
+const OVERLAY_PATHS: readonly string[] = ["/", "/events"];
+
 export function useNavigationTone() {
   const {pathname} = useLocation();
 
   const updateTone = useEffectEvent(() => {
-    if (pathname !== "/") {
+    if (!OVERLAY_PATHS.includes(pathname)) {
       setSolid(true);
       return;
     }
@@ -25,7 +27,7 @@ export function useNavigationTone() {
   });
 
   const [solid, setSolid] = useState(() => {
-    if (pathname !== "/") return true;
+    if (!OVERLAY_PATHS.includes(pathname)) return true;
     return typeof document !== "undefined" && document.getElementById(HERO_SCROLL_BOUNDARY_ID) === null;
   });
 
