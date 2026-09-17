@@ -24,12 +24,16 @@ export interface EventStat {
 
 export interface EventItem {
   readonly id: string;
+  readonly slug: string;
   readonly title: string;
   readonly description: string;
   readonly date: string;
   readonly location: string;
   readonly category: string;
   readonly badge?: string;
+  readonly imageSrc?: string;
+  readonly fullContent?: string;
+  readonly keyTakeaways?: readonly string[];
 }
 
 export interface GalleryPhoto {
@@ -86,15 +90,71 @@ export const EVENT_STATS: readonly EventStat[] = [
 export const FEATURED_EVENTS: readonly EventItem[] = [
   {
     id: "bedrock-agent-core",
+    slug: "bedrock-agent-core",
     title: "BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE.",
     description:
-      "Discover how Amazon Bedrock Agent Core simplifies building intelligent, secure, and production-ready AI agents for your business.",
+      "Discover how Amazon Bedrock Agent Core enables enterprises to deploy production-ready AI agents with custom knowledge bases and strict security controls.",
     date: "Date: Oct 24, 2026 - 10:00 AM",
-    location: "Location: Victoria Island, Lagos",
-    category: "GenAI",
-    badge: "FEATURED EVENT",
+    location: "Location: Victoria Island, Lagos & Hybrid",
+    category: "GenAI & Autonomous Agents",
+    badge: "AI EVENT",
+    imageSrc: "/services/real_ai.jpg",
+    fullContent:
+      "Join senior AWS architects and AI engineers for an intensive session on building production-grade autonomous agents. Learn how Amazon Bedrock Agent Core provides deterministic execution guardrails, real-time memory retrieval, and seamless enterprise tool orchestration without compromising corporate data privacy.",
+    keyTakeaways: [
+      "Architecting production-ready agents using Bedrock Agent Core",
+      "Retrieval-Augmented Generation (RAG) with vector databases",
+      "Enterprise security, IAM scoping, and data protection",
+      "Real-world case studies from African cloud deployments",
+    ],
+  },
+  {
+    id: "next-gen-intelligence-summit",
+    slug: "next-gen-intelligence-summit",
+    title: "NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT",
+    description:
+      "Explore the frontier of cloud-native AI pipelines, real-time predictive analytics, and automated MLOps for enterprise scale.",
+    date: "Date: Nov 12, 2026 - 09:30 AM",
+    location: "Location: Eko Convention Centre, Lagos",
+    category: "Next-Gen Intelligence",
+    badge: "NEXT-GEN INTELLIGENCE",
+    imageSrc: "/services/real_ml.jpg",
+    fullContent:
+      "Experience live demonstrations of automated feature stores, Amazon SageMaker pipelines, and serverless AI orchestration. Industry leaders will reveal how next-gen intelligence automates complex business decisions and reduces operational latency.",
+    keyTakeaways: [
+      "End-to-end MLOps pipeline automation on AWS",
+      "Real-time streaming data inference architectures",
+      "Cost-optimizing GPU compute workloads for GenAI",
+      "Integrating predictive analytics into legacy ERP systems",
+    ],
+  },
+  {
+    id: "cloud-tax-filing-compliance",
+    slug: "cloud-tax-filing-compliance",
+    title: "AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES",
+    description:
+      "Master automated enterprise tax computation, real-time audit reporting, and multi-region tax compliance pipelines built natively on AWS.",
+    date: "Date: Dec 05, 2026 - 11:00 AM",
+    location: "Location: Financial District, Abuja & Hybrid",
+    category: "Tax & Compliance",
+    badge: "TAX FILING EVENT",
+    imageSrc: "/services/real_sec.jpg",
+    fullContent:
+      "Navigating tax compliance across multiple jurisdictions requires precision, security, and automation. This workshop demonstrates how to build serverless tax calculation engines, immutable audit trails, and automated regulatory reporting pipelines on AWS.",
+    keyTakeaways: [
+      "Automating multi-currency tax calculation engines on AWS",
+      "Immutable audit logging using AWS KMS and CloudTrail",
+      "Filing automation for regulatory authorities",
+      "Zero-trust data encryption for corporate financial records",
+    ],
   },
 ];
+
+export function getEventBySlug(slug: string): EventItem | undefined {
+  return FEATURED_EVENTS.find((evt) => evt.slug === slug);
+}
+
+export const UPCOMING_EVENTS: readonly EventItem[] = FEATURED_EVENTS;
 
 export const GALLERY_CATEGORIES = ["All", "GenAI", "AWS Cloud", "Workshops", "Community"] as const;
 
@@ -178,3 +238,5 @@ export const CTA_CONTENT = {
   buttonText: "Explore Blog",
   buttonLink: "/blog",
 };
+
+export * from "#/components/events/events-agenda-data.ts";

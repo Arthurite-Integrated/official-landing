@@ -2,10 +2,11 @@ import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {describe, expect, it, vi} from "vitest";
 
+import {EventsAgenda} from "#/components/events/events-agenda.tsx";
 import {EventsFeatured} from "#/components/events/events-featured.tsx";
 import {EventsGallery} from "#/components/events/events-gallery.tsx";
 import {EventsHero} from "#/components/events/events-hero.tsx";
-import {EventsStats} from "#/components/events/events-stats.tsx";
+import {EventsSpeakers} from "#/components/events/events-speakers.tsx";
 import {EventsTracks} from "#/components/events/events-tracks.tsx";
 
 vi.mock("@tanstack/react-router", async () => {
@@ -39,24 +40,38 @@ describe("EventsTracks", () => {
   });
 });
 
-describe("EventsStats", () => {
-  it("renders key stats items and venue auditorium headline", () => {
-    render(<EventsStats />);
+describe("EventsAgenda", () => {
+  it("renders event schedule timeline days and session titles", () => {
+    render(<EventsAgenda />);
 
-    expect(screen.getByRole("region", {name: /Event Highlights & Venue/i})).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: "34 SPEAKERS"})).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: "80 HOURS"})).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: "3 DAYS"})).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: "∞ IDEAS"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "Event Schedule & Agenda"})).toBeInTheDocument();
+    expect(screen.getByText("Day 1 - Cloud & AI Summit")).toBeInTheDocument();
+  });
+});
+
+describe("EventsSpeakers", () => {
+  it("renders keynote speakers section heading", () => {
+    render(<EventsSpeakers />);
+
+    expect(screen.getByRole("heading", {name: "Featured Speakers"})).toBeInTheDocument();
   });
 });
 
 describe("EventsFeatured", () => {
-  it("renders featured event title and register action", () => {
+  it("renders featured events heading and carousel slides", async () => {
+    const user = userEvent.setup();
     render(<EventsFeatured />);
 
-    expect(screen.getByRole("heading", {name: "Featured Event"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "Featured Events"})).toBeInTheDocument();
     expect(screen.getByText(/BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE/i)).toBeInTheDocument();
+
+    const nextButton = screen.getByRole("button", {name: "Next event"});
+    await user.click(nextButton);
+
+    expect(screen.getByText(/NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT/i)).toBeInTheDocument();
+
+    await user.click(nextButton);
+    expect(screen.getByText(/AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES/i)).toBeInTheDocument();
   });
 });
 
