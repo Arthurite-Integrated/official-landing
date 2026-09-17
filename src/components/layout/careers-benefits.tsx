@@ -1,19 +1,21 @@
+import type {LucideIcon} from "lucide-react";
 import {Cloud, Compass, Zap} from "lucide-react";
 
+import {BentoCardArt} from "#/components/layout/bento-card-art.tsx";
 import {CAREERS_BENEFITS} from "#/components/layout/careers-data.ts";
 
 const SECTION_TITLE_ID = "careers-benefits-title";
 
-function getBenefitIcon(iconName: string) {
+function getBenefitLucideIcon(iconName: "cloud" | "growth" | "impact"): LucideIcon {
   switch (iconName) {
     case "cloud":
-      return <Cloud className="size-8 text-primary" aria-hidden="true" />;
+      return Cloud;
     case "growth":
-      return <Compass className="size-8 text-primary" aria-hidden="true" />;
+      return Compass;
     case "impact":
-      return <Zap className="size-8 text-primary" aria-hidden="true" />;
+      return Zap;
     default:
-      return <Cloud className="size-8 text-primary" aria-hidden="true" />;
+      return Cloud;
   }
 }
 
@@ -34,22 +36,21 @@ export function CareersBenefits() {
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {CAREERS_BENEFITS.map((benefit) => (
-            <div
+            <article
               key={benefit.id}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(0,103,89,0.12)]"
+              className="group @container relative isolate flex min-h-64 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(0,103,89,0.12)] md:min-h-72 lg:min-h-80"
             >
-              <div>
-                <div className="flex size-16 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 p-3">
-                  {getBenefitIcon(benefit.iconName)}
-                </div>
+              <BentoCardArt icon={getBenefitLucideIcon(benefit.iconName)} />
 
-                <h3 className="mt-6 text-2xl font-medium tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary">
-                  {benefit.title}
-                </h3>
-
-                <p className="mt-3 text-base leading-relaxed text-foreground/65">{benefit.description}</p>
+              <div className="flex shrink-0 items-baseline gap-3">
+                <span className="text-4xl font-medium text-foreground/35 sm:text-5xl">{benefit.number}</span>
+                <h3 className="text-2xl font-medium tracking-tight text-foreground sm:text-3xl">{benefit.title}</h3>
               </div>
-            </div>
+
+              <div className="mt-8 sm:mt-12">
+                <p className="max-w-sm text-sm leading-relaxed font-medium text-foreground/75 sm:text-base">{benefit.description}</p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
