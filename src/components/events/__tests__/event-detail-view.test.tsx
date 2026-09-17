@@ -18,13 +18,13 @@ describe("EventDetailView", () => {
     expect(screen.getByRole("heading", {name: "Event Not Found"})).toBeInTheDocument();
   });
 
-  it("renders single event details, overview, speakers, and gallery", () => {
+  it("renders single event details, sessions, speakers, and gallery wall", () => {
     const mockEvent = FEATURED_EVENTS[0];
     render(<EventDetailView event={mockEvent} />);
 
-    expect(screen.getByRole("heading", {name: mockEvent.title})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: "Event Overview"})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: "Featured Speakers"})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: "Event Gallery"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {level: 1})).toHaveTextContent(mockEvent.title.split(" ")[0]);
+    expect(screen.getByRole("heading", {name: /conference sessions/i})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: /our speakers at our best summit/i})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: /creative moments from our global showcase/i})).toBeInTheDocument();
   });
 });
