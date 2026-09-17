@@ -4,6 +4,7 @@ export interface Speaker {
   readonly name: string;
   readonly role: string;
   readonly timeSlot: string;
+  readonly imageSrc?: string;
 }
 
 export interface AgendaSession {
@@ -27,6 +28,7 @@ export const FEATURED_SPEAKERS: readonly Speaker[] = [
     name: "Dr. Arthur Okon",
     role: "Chief Cloud Architect, Arthurite",
     timeSlot: "Keynote - Day 1",
+    imageSrc: "/services/real_arch.jpg",
   },
   {
     id: "sp2",
@@ -34,6 +36,7 @@ export const FEATURED_SPEAKERS: readonly Speaker[] = [
     name: "Chidi Nnamdi",
     role: "Head of AI Solutions",
     timeSlot: "11:30 AM - Day 1",
+    imageSrc: "/services/real_ai.jpg",
   },
   {
     id: "sp3",
@@ -41,6 +44,7 @@ export const FEATURED_SPEAKERS: readonly Speaker[] = [
     name: "Folake Adebayo",
     role: "AWS Enterprise Strategist",
     timeSlot: "02:00 PM - Day 2",
+    imageSrc: "/services/real_sec.jpg",
   },
   {
     id: "sp4",
@@ -48,6 +52,7 @@ export const FEATURED_SPEAKERS: readonly Speaker[] = [
     name: "Emmanuel Ibrahim",
     role: "Principal Security Engineer",
     timeSlot: "10:15 AM - Day 3",
+    imageSrc: "/services/real_ml.jpg",
   },
 ];
 
