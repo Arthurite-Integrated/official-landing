@@ -1,5 +1,6 @@
 export type BenefitPillar = {
   readonly id: string;
+  readonly number: string;
   readonly title: string;
   readonly description: string;
   readonly iconName: "cloud" | "growth" | "impact";
@@ -19,18 +20,21 @@ export type OpenRole = {
 export const CAREERS_BENEFITS: readonly BenefitPillar[] = [
   {
     id: "benefit-cloud-exp",
+    number: "01",
     title: "Real Cloud Experience",
     description: "Work on live AWS infrastructure projects with enterprise clients that rely on zero-downtime performance and security.",
     iconName: "cloud",
   },
   {
     id: "benefit-growth",
+    number: "02",
     title: "Structured Growth",
     description: "Clear career advancement tracks, AWS certification sponsorship, and continuous 1-on-1 mentorship from senior architects.",
     iconName: "growth",
   },
   {
     id: "benefit-impact",
+    number: "03",
     title: "Meaningful Impact",
     description:
       "Create technology solutions that power critical operations across energy, financial technology, and high-growth startups.",

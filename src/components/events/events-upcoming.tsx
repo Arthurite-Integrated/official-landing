@@ -31,7 +31,7 @@ function UpcomingCard({event}: {readonly event: EventItem}) {
         <Link to="/contact">
           <Button className="h-9 rounded-full bg-[#006759] px-4 text-xs font-semibold text-white hover:bg-teal-700">Register Now</Button>
         </Link>
-        <Link to="/contact">
+        <Link to="/events/$slug" params={{slug: event.slug}}>
           <Button variant="outline" className="h-9 rounded-full px-4 text-xs font-semibold text-muted-foreground hover:bg-muted">
             View Event Details
           </Button>

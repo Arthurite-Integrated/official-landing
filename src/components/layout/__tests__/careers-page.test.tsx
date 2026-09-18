@@ -45,6 +45,7 @@ describe("CareersBenefits", () => {
     for (const benefit of CAREERS_BENEFITS) {
       expect(screen.getByRole("heading", {name: benefit.title})).toBeInTheDocument();
       expect(screen.getByText(benefit.description)).toBeInTheDocument();
+      expect(screen.getByText(benefit.number)).toBeInTheDocument();
     }
   });
 });

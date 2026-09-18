@@ -1,0 +1,168 @@
+import type {ServiceItem} from "#/lib/services-data.ts";
+
+export const SERVICES_BATCH_1: readonly ServiceItem[] = [
+  {
+    id: "svc-arch",
+    slug: "cloud-architecture",
+    title: "Cloud Architecture & Design",
+    category: "Architecture",
+    tagline: "Resilient, scalable, and secure cloud infrastructure tailored to your enterprise goals.",
+    description:
+      "We design cloud environments built for high availability, compliance, and sustained growth using AWS Well-Architected principles.",
+    image: "/services/real_arch.jpg",
+    keyBenefits: [
+      "AWS Well-Architected Framework reviews",
+      "High Availability & Multi-AZ fault tolerance",
+      "Automated Infrastructure as Code",
+      "Future-proof scalability",
+    ],
+    features: [
+      {title: "Well-Architected Reviews", description: "Evaluation against AWS operational, security, and cost best practices."},
+      {title: "IaC Automation", description: "Repeatable infrastructure deployment using Terraform and AWS CDK."},
+    ],
+    awsServicesUsed: ["Amazon EC2", "AWS CloudFormation", "Amazon VPC", "AWS Organizations"],
+  },
+  {
+    id: "svc-migration",
+    slug: "cloud-migration",
+    title: "Cloud Migration",
+    category: "Migration",
+    tagline: "Seamless, zero-downtime migration of enterprise workloads and databases to AWS.",
+    description: "Transition legacy applications and infrastructure to AWS with zero data loss and minimal operational disruption.",
+    image: "/services/real_migration.jpg",
+    keyBenefits: [
+      "Zero-downtime database and application cutovers",
+      "Comprehensive pre-migration risk assessment",
+      "End-to-end data encryption in transit and at rest",
+      "Post-migration performance validation",
+    ],
+    features: [
+      {title: "Discovery & Assessment", description: "Dependency mapping and total cost of ownership analysis."},
+      {title: "Live Database Cutover", description: "Continuous database replication with zero data loss via AWS DMS."},
+    ],
+    awsServicesUsed: ["AWS Migration Hub", "AWS Application Migration Service", "AWS DMS"],
+  },
+  {
+    id: "svc-optimization",
+    slug: "cloud-optimization",
+    title: "Cloud Optimization",
+    category: "Cost & Performance",
+    tagline: "Maximize performance and eliminate unnecessary AWS spend with continuous auditing.",
+    description: "Eliminate cloud waste, right-size compute resources, and optimize network routing to deliver immediate monthly savings.",
+    image: "/services/real_opt.jpg",
+    keyBenefits: [
+      "20% to 40% reduction in monthly AWS spend",
+      "Compute and storage right-sizing",
+      "Savings Plan portfolio management",
+      "Continuous cost governance and alerts",
+    ],
+    features: [
+      {title: "Cost Audit & Remediation", description: "Scan identifying unattached volumes and idle instances."},
+      {title: "Savings Plan Management", description: "Strategic purchasing maximizing discounts without losing flexibility."},
+    ],
+    awsServicesUsed: ["AWS Cost Explorer", "AWS Trusted Advisor", "AWS Compute Optimizer"],
+  },
+  {
+    id: "svc-security",
+    slug: "cloud-security",
+    title: "Cloud Security",
+    category: "Security",
+    tagline: "Bank-grade security posture management, continuous compliance, and risk mitigation.",
+    description:
+      "Protect sensitive data and critical workloads with robust IAM policies, threat monitoring, encryption, and audit readiness.",
+    image: "/services/real_sec.jpg",
+    keyBenefits: [
+      "24/7 automated threat detection and incident response",
+      "Strict IAM principle of least privilege enforcement",
+      "End-to-end encryption for all data stores and traffic",
+      "Continuous compliance mapping",
+    ],
+    features: [
+      {title: "Posture Management", description: "Real-time security auditing identifying misconfigurations."},
+      {title: "WAF Protection", description: "Custom WAF rules protecting against OWASP Top 10 threats."},
+    ],
+    awsServicesUsed: ["AWS Security Hub", "Amazon GuardDuty", "AWS IAM", "AWS KMS"],
+  },
+  {
+    id: "svc-managed",
+    slug: "managed-cloud-services",
+    title: "Managed Cloud Services",
+    category: "Operations",
+    tagline: "24/7 SLA-backed monitoring, maintenance, patch management, and incident response.",
+    description:
+      "Delegate infrastructure management to certified AWS architects with round-the-clock monitoring, backups, and patch management.",
+    image: "/services/real_managed.jpg",
+    keyBenefits: [
+      "24/7 SLA-backed incident monitoring and resolution",
+      "Proactive infrastructure health check reviews",
+      "Automated backup verification and DR drills",
+      "Dedicated senior cloud architect team",
+    ],
+    features: [
+      {title: "Continuous Monitoring", description: "Real-time monitoring tracking CPU, memory, and app health."},
+      {title: "Automated Patching", description: "Scheduled zero-downtime operating system security updates."},
+    ],
+    awsServicesUsed: ["Amazon CloudWatch", "AWS Systems Manager", "AWS Backup"],
+  },
+  {
+    id: "svc-ai",
+    slug: "ai-services",
+    title: "AI Services",
+    category: "Artificial Intelligence",
+    tagline: "Enterprise Generative AI, intelligent search, and autonomous agent integration.",
+    description: "Transform business processes with Generative AI, Retrieval-Augmented Generation (RAG), and intelligent search on AWS.",
+    image: "/services/real_ai.jpg",
+    keyBenefits: [
+      "Custom RAG knowledge bases over internal data",
+      "Secure foundation model deployment",
+      "Intelligent conversational assistants",
+      "Automated document extraction",
+    ],
+    features: [
+      {title: "Generative AI Assistants", description: "Custom enterprise chatbots answering complex documentation queries."},
+      {title: "Document Processing", description: "Extracting structured data from PDFs, invoices, and contracts."},
+    ],
+    awsServicesUsed: ["Amazon Bedrock", "Amazon Q", "Amazon Lex", "Amazon Textract"],
+  },
+  {
+    id: "svc-ml",
+    slug: "machine-learning",
+    title: "Machine Learning",
+    category: "Data & ML",
+    tagline: "End-to-end MLOps from data curation to production model deployment.",
+    description:
+      "Build, train, and deploy custom predictive machine learning models at scale for forecasting, fraud detection, and recommendation engines.",
+    image: "/services/real_ml.jpg",
+    keyBenefits: [
+      "Automated MLOps deployment pipelines",
+      "High-throughput real-time model inference",
+      "Feature store setup and data automation",
+      "Model drift monitoring and retraining",
+    ],
+    features: [
+      {title: "Custom Model Training", description: "Bespoke ML models fine-tuned to industry-specific datasets."},
+      {title: "Predictive Analytics", description: "Time-series demand forecasting and anomaly detection."},
+    ],
+    awsServicesUsed: ["Amazon SageMaker", "AWS Glue", "Amazon S3"],
+  },
+  {
+    id: "svc-custom",
+    slug: "custom-solution-development",
+    title: "Custom Solution Development",
+    category: "Software Engineering",
+    tagline: "Cloud-native, event-driven microservices built specifically for enterprise scale.",
+    description: "Build serverless applications and high-performance microservices designed to harness AWS cloud-native capabilities.",
+    image: "/services/real_custom.jpg",
+    keyBenefits: [
+      "Serverless & event-driven architecture design",
+      "API-first microservices development",
+      "Automated CI/CD deployment pipelines",
+      "Sub-second API response latency",
+    ],
+    features: [
+      {title: "Serverless Backends", description: "Auto-scaling APIs with zero server management overhead."},
+      {title: "Microservices Design", description: "Decoupled domain-driven services communicating via event buses."},
+    ],
+    awsServicesUsed: ["AWS Lambda", "Amazon API Gateway", "Amazon ECS"],
+  },
+];
