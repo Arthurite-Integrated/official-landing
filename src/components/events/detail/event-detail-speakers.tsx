@@ -1,91 +1,122 @@
 import {useState} from "react";
 import {Link} from "@tanstack/react-router";
-import {ArrowRight} from "lucide-react";
+import {ArrowUpRight} from "lucide-react";
 
-import {FEATURED_SPEAKERS} from "#/components/events/events-agenda-data.ts";
+import {FEATURED_SPEAKERS, type Speaker} from "#/components/events/events-agenda-data.ts";
 import {Button} from "#/components/ui/button.tsx";
 
-const CATEGORIES = ["// All Speakers", "Executive Section", "Cloud Architecture", "GenAI & MLOps"];
+const TOPICS = ["Cloud Architecture", "GenAI & MLOps", "Enterprise Security"];
 
-function SpeakerFilterSidebar({
-  selectedCat,
-  onSelectCat,
-}: {
-  readonly selectedCat: string;
-  readonly onSelectCat: (cat: string) => void;
-}) {
+function SpeakerSidebar({selectedTopic, onSelectTopic}: {readonly selectedTopic: string; readonly onSelectTopic: (topic: string) => void}) {
   return (
     <div>
-      <div className="mb-2 text-xs font-bold uppercase tracking-widest text-[#006759] dark:text-emerald-400">
-        // OUR SPEAKERS
-      </div>
-      <h2 className="mb-6 text-3xl font-black tracking-tight text-foreground sm:text-4xl">
-        Our Speakers <br className="hidden sm:inline" />
-        <span className="text-foreground/40 font-bold">At Our Best Summit</span>
+      <span className="inline-block rounded-full border border-foreground/20 bg-foreground/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-foreground/70">
+        - OUR SPEAKER
+      </span>
+      <h2 className="mt-4 mb-6 text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        Our Speakers <br />
+        <span className="text-foreground/30 font-extrabold">At Our Best</span> <br />
+        <span className="text-foreground/30 font-extrabold">Conference</span>
       </h2>
 
-      <div className="mb-8 space-y-3">
-        {CATEGORIES.map((cat) => {
-          const isSelected = selectedCat === cat;
+      <div className="mb-8 space-y-3 border-t border-foreground/10 pt-6">
+        <p className="text-xs font-bold uppercase tracking-widest text-foreground/50">// All Topic</p>
+        {TOPICS.map((topic) => {
+          const isSelected = selectedTopic === topic;
           return (
             <button
-              key={cat}
+              key={topic}
               type="button"
-              onClick={() => onSelectCat(cat)}
+              onClick={() => onSelectTopic(topic)}
               className={`block w-full text-left text-xs font-semibold transition-all ${
-                isSelected ? "text-[#006759] font-bold dark:text-emerald-400" : "text-muted-foreground hover:text-foreground"
+                isSelected ? "text-[#006759] font-extrabold dark:text-emerald-400" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {cat}
+              {topic}
             </button>
           );
         })}
       </div>
 
       <Link to="/contact">
-        <Button className="h-10 rounded-full bg-[#006759] px-5 text-xs font-bold text-white hover:bg-emerald-600">
-          <span>View All</span>
-          <ArrowRight className="h-3.5 w-3.5" />
+        <Button className="h-11 rounded-full bg-[#006759] px-6 text-xs font-bold text-white hover:bg-emerald-600">
+          <span>View More</span>
+          <ArrowUpRight className="h-4 w-4" />
         </Button>
       </Link>
     </div>
   );
 }
 
+function FeaturedSpeakerCard({speaker}: {readonly speaker: Speaker}) {
+  return (
+    <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+        <img
+          src={speaker.imageSrc ?? "/services/real_ai.jpg"}
+          alt={speaker.name}
+          className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+        <div className="absolute top-4 right-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-transform group-hover:scale-110">
+            <ArrowUpRight className="h-4 w-4 text-emerald-300" />
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <span className="mb-2 inline-block rounded-full bg-[#006759] px-3 py-0.5 text-[10px] font-bold text-white">
+            {speaker.timeSlot}
+          </span>
+          <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-emerald-300">{speaker.name}</h3>
+          <p className="mt-1 text-xs text-slate-300">{speaker.role}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpeakerGridCard({speaker}: {readonly speaker: Speaker}) {
+  return (
+    <div className="group flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-card p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md">
+      <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-900">
+        <img
+          src={speaker.imageSrc ?? "/services/real_ai.jpg"}
+          alt={speaker.name}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+      <div className="pt-3 pb-1">
+        <h4 className="text-sm font-extrabold text-foreground group-hover:text-[#006759] dark:group-hover:text-emerald-400">
+          {speaker.name}
+        </h4>
+        <p className="text-[11px] text-muted-foreground">{speaker.role}</p>
+      </div>
+    </div>
+  );
+}
+
 export function EventDetailSpeakers() {
-  const [selectedCat, setSelectedCat] = useState("// All Speakers");
+  const [selectedTopic, setSelectedTopic] = useState("// All Topic");
+  const mainSpeaker = FEATURED_SPEAKERS[0];
+  const otherSpeakers = FEATURED_SPEAKERS.slice(1);
+
+  if (!mainSpeaker) return null;
 
   return (
-    <section className="bg-sand/40 py-20 text-foreground sm:py-28 dark:bg-slate-900/40">
+    <section className="bg-background py-20 text-foreground sm:py-28 border-t border-foreground/10">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-4">
-            <SpeakerFilterSidebar selectedCat={selectedCat} onSelectCat={setSelectedCat} />
+            <SpeakerSidebar selectedTopic={selectedTopic} onSelectTopic={setSelectedTopic} />
           </div>
 
-          <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-              {FEATURED_SPEAKERS.map((sp) => (
-                <div
-                  key={sp.id}
-                  className="group relative flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-md transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-xl dark:border-white/10"
-                >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-                    <img
-                      src={sp.imageSrc}
-                      alt={sp.name}
-                      className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <span className="absolute top-3 right-3 rounded-full border border-white/20 bg-black/60 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300 backdrop-blur-md">
-                      {sp.timeSlot}
-                    </span>
-                    <div className="absolute bottom-4 left-4 right-4 text-white">
-                      <h3 className="text-lg font-black tracking-tight text-white group-hover:text-emerald-300">{sp.name}</h3>
-                      <p className="text-xs text-slate-300">{sp.role}</p>
-                    </div>
-                  </div>
-                </div>
+          <div className="lg:col-span-8 space-y-8">
+            <FeaturedSpeakerCard speaker={mainSpeaker} />
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {otherSpeakers.map((sp) => (
+                <SpeakerGridCard key={sp.id} speaker={sp} />
               ))}
             </div>
           </div>

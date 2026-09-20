@@ -2,12 +2,12 @@ import {Link} from "@tanstack/react-router";
 
 import type {EventItem} from "#/components/events/events-data.ts";
 import {EventDetailFooterCta} from "#/components/events/detail/event-detail-footer-cta.tsx";
-import {EventDetailGalleryWall} from "#/components/events/detail/event-detail-gallery-wall.tsx";
 import {EventDetailHero} from "#/components/events/detail/event-detail-hero.tsx";
 import {EventDetailInsights} from "#/components/events/detail/event-detail-insights.tsx";
 import {EventDetailLocations} from "#/components/events/detail/event-detail-locations.tsx";
 import {EventDetailSessions} from "#/components/events/detail/event-detail-sessions.tsx";
 import {EventDetailSpeakers} from "#/components/events/detail/event-detail-speakers.tsx";
+import {EventsGallery} from "#/components/events/events-gallery.tsx";
 import {Button} from "#/components/ui/button.tsx";
 
 function EventNotFoundView() {
@@ -31,7 +31,7 @@ export function EventDetailView({event}: {readonly event?: EventItem}) {
       <EventDetailLocations />
       <EventDetailSessions />
       <EventDetailSpeakers />
-      <EventDetailGalleryWall />
+      <EventsGallery />
       <EventDetailInsights />
       <EventDetailFooterCta />
     </main>
