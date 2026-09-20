@@ -1,42 +1,37 @@
 import {useState} from "react";
 import {Link} from "@tanstack/react-router";
-import {ArrowRight} from "lucide-react";
+import {ArrowUpRight} from "lucide-react";
 
 import {Button} from "#/components/ui/button.tsx";
 
-const LOCATIONS = [
-  {city: "Lagos", country: "Nigeria", active: true},
-  {city: "Abuja", country: "Nigeria", active: false},
-  {city: "London", country: "United Kingdom", active: false},
-  {city: "Nairobi", country: "Kenya", active: false},
-  {city: "Johannesburg", country: "South Africa", active: false},
-  {city: "San Francisco", country: "USA", active: false},
+const CITIES = [
+  {city: "Shanghai, China", isTarget: false},
+  {city: "Bangkok, Thailand", isTarget: false},
+  {city: "Delhi, India", isTarget: false},
+  {city: "Lagos, Nigeria", isTarget: true},
+  {city: "Istanbul, Turkey", isTarget: false},
+  {city: "New York, USA", isTarget: false},
+  {city: "Melbourne, Aus", isTarget: false},
 ];
 
-function LocationList({
-  activeCity,
-  onSelectCity,
-}: {
-  readonly activeCity: string;
-  readonly onSelectCity: (city: string) => void;
-}) {
+function CityList({selectedCity, onSelectCity}: {readonly selectedCity: string; readonly onSelectCity: (city: string) => void}) {
   return (
     <div className="space-y-3">
-      {LOCATIONS.map((loc) => {
-        const isSelected = activeCity === loc.city || loc.active;
+      {CITIES.map((c) => {
+        const isHighlight = c.city === selectedCity || c.isTarget;
         return (
           <button
-            key={loc.city}
+            key={c.city}
             type="button"
-            onClick={() => onSelectCity(loc.city)}
+            onClick={() => onSelectCity(c.city)}
             className={`group flex w-full items-center justify-between text-left transition-all ${
-              isSelected ? "text-emerald-400 font-extrabold text-2xl sm:text-3xl" : "text-slate-500 hover:text-slate-300 text-lg sm:text-xl font-medium"
+              isHighlight
+                ? "text-emerald-400 font-extrabold text-3xl sm:text-4xl lg:text-5xl"
+                : "text-slate-600 hover:text-slate-400 text-xl sm:text-2xl font-bold"
             }`}
           >
-            <span>
-              {loc.city}, <span className="text-sm opacity-60 font-normal">{loc.country}</span>
-            </span>
-            {isSelected && <ArrowRight className="h-6 w-6 text-emerald-400" />}
+            <span>{c.city}</span>
+            {isHighlight && <ArrowUpRight className="h-8 w-8 text-emerald-400 shrink-0" />}
           </button>
         );
       })}
@@ -44,35 +39,45 @@ function LocationList({
   );
 }
 
+function LocationPhotoFrame() {
+  return (
+    <div>
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900 shadow-xl">
+        <img src="/services/real_migration.jpg" alt="Lagos Conference Venue" className="h-full w-full object-cover" />
+      </div>
+      <p className="mt-6 text-xs sm:text-sm leading-relaxed text-slate-400">
+        From Lagos to London, Abuja to New York, this cloud event has sparked innovation across continents — and we&apos;re just getting
+        started.
+      </p>
+    </div>
+  );
+}
+
 export function EventDetailLocations() {
-  const [activeCity, setActiveCity] = useState("Lagos");
+  const [selectedCity, setSelectedCity] = useState("Lagos, Nigeria");
 
   return (
-    <section className="relative bg-[#0d181d] py-20 text-white sm:py-28">
+    <section className="bg-[#0a1418] py-20 text-white sm:py-28 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
-        <div className="mb-10 text-xs font-bold uppercase tracking-widest text-[#006759] dark:text-emerald-400">
-          // GLOBAL SUMMIT VENUES
+        <div className="mb-12">
+          <span className="inline-block rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-300">
+            - EVENT IN MANY COUNTRIES -
+          </span>
         </div>
 
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <div className="relative aspect-4/3 overflow-hidden rounded-3xl border border-teal-500/20 bg-slate-900 shadow-xl">
-              <img src="/services/real_arch.jpg" alt="Arthurite Global Summit" className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-xs text-slate-300">
-                <span className="font-bold text-white">Arthurite Hybrid Hub</span> — Multi-region live broadcast & technical labs.
-              </div>
-            </div>
+            <LocationPhotoFrame />
           </div>
 
           <div className="lg:col-span-7">
-            <LocationList activeCity={activeCity} onSelectCity={setActiveCity} />
+            <CityList selectedCity={selectedCity} onSelectCity={setSelectedCity} />
 
-            <div className="mt-10">
+            <div className="mt-12 flex justify-end">
               <Link to="/contact">
                 <Button className="h-11 rounded-full bg-[#006759] px-6 text-xs font-bold text-white hover:bg-emerald-600">
-                  <span>Join Summit Now</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <span>View More</span>
+                  <ArrowUpRight className="h-4 w-4" />
                 </Button>
               </Link>
             </div>

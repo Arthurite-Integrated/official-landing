@@ -63,15 +63,15 @@ describe("EventsFeatured", () => {
     render(<EventsFeatured />);
 
     expect(screen.getByRole("heading", {name: "Featured Events"})).toBeInTheDocument();
-    expect(screen.getByText(/BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE/i)[0]).toBeInTheDocument();
 
     const nextButton = screen.getByRole("button", {name: "Next event"});
     await user.click(nextButton);
 
-    expect(screen.getByText(/NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT/i)[0]).toBeInTheDocument();
 
     await user.click(nextButton);
-    expect(screen.getByText(/AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES/i)[0]).toBeInTheDocument();
   });
 });
 
@@ -82,8 +82,8 @@ describe("EventsGallery", () => {
 
     expect(screen.getByRole("heading", {name: "Event Gallery"})).toBeInTheDocument();
     const searchInput = screen.getByPlaceholderText("Search past events...");
-    await user.type(searchInput, "Bedrock");
+    await user.type(searchInput, "One with AI");
 
-    expect(screen.getByText("Bedrock Agent Core Masterclass")).toBeInTheDocument();
+    expect(screen.getByText("One with AI Masterclass Stage")).toBeInTheDocument();
   });
 });
