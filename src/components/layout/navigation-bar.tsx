@@ -3,6 +3,7 @@ import {Link} from "@tanstack/react-router";
 import {cn} from "@/lib/utils";
 import atrLogo from "@/assets/atr-logo-full.svg";
 import {NavLinks} from "#/components/layout/nav-links.tsx";
+import {MobileNav} from "#/components/layout/mobile-nav.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {useNavigationTone} from "#/hooks/use-navigation-tone.ts";
 
@@ -28,18 +29,19 @@ export const NavigationBar = () => {
           <Link to="/" className="flex items-center">
             <img src={atrLogo} alt="Arthurite Logo" className={cn("h-8 transition-[filter]", solid ? "" : "brightness-0 invert")} />
           </Link>
-          <div className="flex items-center gap-5 sm:gap-8">
+          <div className="flex items-center gap-3 sm:gap-8">
             <NavLinks solid={solid} />
             <Link to="/contact">
               <Button
                 className={cn(
-                  "h-10 rounded-full px-5 text-sm font-semibold shadow-none",
+                  "h-10 rounded-full px-5 text-sm font-semibold shadow-none hidden sm:inline-flex",
                   solid ? "bg-primary text-white hover:bg-primary/90" : "bg-white text-primary hover:bg-white/92"
                 )}
               >
                 Book Free
               </Button>
             </Link>
+            <MobileNav solid={solid} />
           </div>
         </div>
       </div>

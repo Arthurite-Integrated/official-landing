@@ -21,7 +21,8 @@ export function EventDetailFooterCta() {
 
             <div className="lg:col-span-7">
               <h2 className="mb-6 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
-                Join the cloud revolution today and explore smarter tools for <span className="text-emerald-400 font-bold">better infrastructure</span>, seamless teamwork, and unforgettable impact.
+                Join the cloud revolution today and explore smarter tools for{" "}
+                <span className="text-emerald-400 font-bold">better infrastructure</span>, seamless teamwork, and unforgettable impact.
               </h2>
               <Link to="/contact">
                 <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-lg hover:bg-emerald-600">

@@ -23,9 +23,7 @@ function SpeakerCard({speaker}: {readonly speaker: Speaker}) {
         </span>
 
         <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-          <h3 className="text-xl font-black tracking-tight text-white group-hover:text-emerald-300">
-            {speaker.name}
-          </h3>
+          <h3 className="text-xl font-black tracking-tight text-white group-hover:text-emerald-300">{speaker.name}</h3>
           <p className="mt-1 text-xs font-medium text-slate-200">{speaker.role}</p>
         </div>
       </div>
@@ -43,7 +41,9 @@ function ViewAllCard() {
         <span className="text-2xl font-black">30+</span>
       </div>
       <span className="text-sm font-black uppercase tracking-wider text-foreground group-hover:text-white">View All Speakers</span>
-      <p className="mt-2 text-xs text-muted-foreground group-hover:text-white/80">Explore the complete line-up of global industry keynotes & panellists</p>
+      <p className="mt-2 text-xs text-muted-foreground group-hover:text-white/80">
+        Explore the complete line-up of global industry keynotes & panellists
+      </p>
     </Link>
   );
 }

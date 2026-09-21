@@ -36,9 +36,7 @@ function InsightCard({item}: {readonly item: (typeof INSIGHTS)[number]}) {
       </div>
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#006759] dark:text-emerald-400">
-            {item.category}
-          </span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#006759] dark:text-emerald-400">{item.category}</span>
           <h3 className="mt-2 text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
             {item.title}
           </h3>
@@ -58,9 +56,7 @@ export function EventDetailInsights() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="mb-2 text-xs font-bold uppercase tracking-widest text-[#006759] dark:text-emerald-400">
-              // LATEST ARTICLES
-            </div>
+            <div className="mb-2 text-xs font-bold uppercase tracking-widest text-[#006759] dark:text-emerald-400">// LATEST ARTICLES</div>
             <h2 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               New <span className="text-foreground/40 font-bold">Insight</span>
             </h2>
