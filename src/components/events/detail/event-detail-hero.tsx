@@ -1,8 +1,6 @@
-import {Link} from "@tanstack/react-router";
 import {ArrowUpRight} from "lucide-react";
 
 import type {EventItem} from "#/components/events/events-data.ts";
-import {Button} from "#/components/ui/button.tsx";
 
 function HeroHeadline({title}: {readonly title: string}) {
   const words = title.split(" ");
@@ -32,9 +30,8 @@ function HeroGlassWidget({event}: {readonly event: EventItem}) {
             FA
           </div>
         </div>
-        <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-bold text-white">120+</span>
       </div>
-      <p className="text-[11px] font-medium text-slate-300">Nov 12 // Lagos, Nigeria</p>
+      <p className="text-[11px] font-medium text-slate-300">{event.date} // Lagos, Nigeria</p>
       <div className="mt-1 flex items-center justify-between gap-3 text-sm font-black text-white">
         <span className="truncate">{event.title}</span>
         <ArrowUpRight className="h-4 w-4 shrink-0 text-emerald-400" />
@@ -75,12 +72,6 @@ export function EventDetailHero({event}: {readonly event: EventItem}) {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-10">
         <div className="mb-8">
           <HeroHeadline title={event.title} />
-          <Link to="/contact">
-            <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
-              <span>Register Now</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </Button>
-          </Link>
         </div>
 
         <HeroBottomRow event={event} />

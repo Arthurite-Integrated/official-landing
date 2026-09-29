@@ -18,13 +18,16 @@ describe("EventDetailView", () => {
     expect(screen.getByRole("heading", {name: "Event Not Found"})).toBeInTheDocument();
   });
 
-  it("renders single event details, sessions, speakers, and gallery", () => {
+  it("renders single event details, venue location, speakers, and gallery wall", () => {
     const mockEvent = FEATURED_EVENTS[0];
     render(<EventDetailView event={mockEvent} />);
 
     expect(screen.getByRole("heading", {level: 1})).toHaveTextContent(mockEvent.title.split(" ")[0]);
-    expect(screen.getByRole("heading", {name: /con-fret event/i})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: /our speakers/i})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: /event gallery/i})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: /Hosted in/i})).toHaveTextContent("Lagos, Nigeria");
+    expect(screen.getByRole("heading", {name: "Speakers"})).toBeInTheDocument();
+    expect(screen.getByAltText("Mildred N. Ekanem")).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: /moments from/i})).toBeInTheDocument();
+    expect(screen.getAllByRole("button", {name: /Open photo/i}).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/Con-fret Event/i)).not.toBeInTheDocument();
   });
 });

@@ -8,6 +8,7 @@ import {EventsGallery} from "#/components/events/events-gallery.tsx";
 import {EventsHero} from "#/components/events/events-hero.tsx";
 import {EventsSpeakers} from "#/components/events/events-speakers.tsx";
 import {EventsTracks} from "#/components/events/events-tracks.tsx";
+import {EventsUpcoming} from "#/components/events/events-upcoming.tsx";
 
 vi.mock("@tanstack/react-router", async () => {
   const React = await import("react");
@@ -18,72 +19,91 @@ vi.mock("@tanstack/react-router", async () => {
 });
 
 describe("EventsHero", () => {
-  it("renders main heading, dates, and subtitle", () => {
+  it("renders main heading and subtitle", () => {
     render(<EventsHero />);
 
-    expect(screen.getByRole("heading", {level: 1})).toHaveTextContent(/FUTURE TECH/i);
-    expect(screen.getByText("September 10-12")).toBeInTheDocument();
-    expect(screen.getByText("2026")).toBeInTheDocument();
+    expect(screen.getByRole("heading", {level: 1})).toHaveTextContent(/ARTHURITE/i);
+    expect(screen.getByText("EVENTS")).toBeInTheDocument();
   });
 });
 
 describe("EventsTracks", () => {
-  it("renders lead statement, CTA button, and 3 track headings matching card style", () => {
+  it("renders lead statement, CTA button, and 3 track headings", () => {
     render(<EventsTracks />);
 
-    expect(screen.getByText(/Bringing together tech enthusiasts, industry leaders, and innovators/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", {name: /Get Ticket Now/i})).toHaveAttribute("href", "/contact");
+    expect(screen.getByText(/Bringing together technology leaders/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", {name: /Get in Touch/i})).toHaveAttribute("href", "/contact");
 
-    expect(screen.getByRole("heading", {name: "Robotics and Automation"})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: "Artificial Intelligence"})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: "Quantum Computing"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "Generative AI & AWS"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "EV & Smart Mobility"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "Digital Transformation"})).toBeInTheDocument();
   });
 });
 
 describe("EventsAgenda", () => {
-  it("renders event schedule timeline days and session titles", () => {
+  it("renders event schedule heading and first event day title", () => {
     render(<EventsAgenda />);
 
     expect(screen.getByRole("heading", {name: "Event Schedule & Agenda"})).toBeInTheDocument();
-    expect(screen.getByText("Day 1 - Cloud & AI Summit")).toBeInTheDocument();
+    expect(screen.getByText(/One with AI/i)).toBeInTheDocument();
   });
 });
 
 describe("EventsSpeakers", () => {
-  it("renders keynote speakers section heading", () => {
+  it("renders speakers section heading and speaker names from One with AI", () => {
     render(<EventsSpeakers />);
 
-    expect(screen.getByRole("heading", {name: "Featured Speakers"})).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "Speakers"})).toBeInTheDocument();
+    expect(screen.getByAltText("Mildred N. Ekanem")).toBeInTheDocument();
   });
 });
 
 describe("EventsFeatured", () => {
-  it("renders featured events heading and carousel slides", async () => {
+  it("renders featured events heading and first event title without register button", async () => {
     const user = userEvent.setup();
     render(<EventsFeatured />);
 
     expect(screen.getByRole("heading", {name: "Featured Events"})).toBeInTheDocument();
-    expect(screen.getAllByText(/BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/ONE WITH AI/i)[0]).toBeInTheDocument();
+    expect(screen.queryByText("Register Now")).not.toBeInTheDocument();
 
     const nextButton = screen.getByRole("button", {name: "Next event"});
     await user.click(nextButton);
 
-    expect(screen.getAllByText(/NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/NEXT-GEN INTELLIGENCE/i)[0]).toBeInTheDocument();
+  });
+});
 
-    await user.click(nextButton);
-    expect(screen.getAllByText(/AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES/i)[0]).toBeInTheDocument();
+describe("EventsUpcoming", () => {
+  it("renders single full-width card with no upcoming events notice and link to events platform", () => {
+    render(<EventsUpcoming />);
+
+    expect(screen.getByRole("heading", {name: "No Upcoming Event Yet"})).toBeInTheDocument();
+    const externalLink = screen.getByRole("link", {name: /Visit Arthurite Events Website/i});
+    expect(externalLink).toHaveAttribute("href", "https://arthuriteevents.com/");
   });
 });
 
 describe("EventsGallery", () => {
-  it("renders masonry photo gallery with search and category filters", async () => {
+  it("renders bento photo gallery with 25 per page pagination, search, and category filters", async () => {
     const user = userEvent.setup();
     render(<EventsGallery />);
 
-    expect(screen.getByRole("heading", {name: "Event Gallery"})).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Search past events...")).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: "Page 1"})).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: "Page 2"})).toBeInTheDocument();
+
+    // Check pagination navigation
+    const nextPageBtn = screen.getByRole("button", {name: "Next page"});
+    await user.click(nextPageBtn);
+    expect(screen.getByRole("button", {name: "Page 2"})).toHaveAttribute("aria-current", "page");
+
+    // Search filter
     const searchInput = screen.getByPlaceholderText("Search past events...");
     await user.type(searchInput, "One with AI");
 
-    expect(screen.getByText("One with AI Masterclass Stage")).toBeInTheDocument();
+    const photoButtons = screen.getAllByRole("button", {name: /Open photo/i});
+    expect(photoButtons.length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("img", {name: /Event showcase/i})[0]).toHaveAttribute("src", expect.stringContaining("DSC_"));
   });
 });
