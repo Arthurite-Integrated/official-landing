@@ -76,6 +76,12 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", {name: "Arthurite Integrated on LinkedIn"})).toHaveAttribute("target", "_blank");
   });
 
+  it("offers a newsletter signup", () => {
+    render(<SiteFooter />);
+
+    expect(screen.getByRole("button", {name: "Subscribe"})).toBeInTheDocument();
+  });
+
   it("shows the copyright for the current year", () => {
     render(<SiteFooter />);
 

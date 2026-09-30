@@ -1,17 +1,21 @@
+import {QueryClient} from "@tanstack/react-query";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
 import type {ApiEvent, ApiJob} from "#/lib/api/types.ts";
 import {
   applyForInternship,
   applyForJob,
+  eventsQueryOptions,
   getEvent,
   getJob,
+  jobsQueryOptions,
   listEvents,
   listJobs,
   registerForEvent,
-  requestCvUpload,
   submitContactRequest,
-  uploadFileToS3,
+  subscribeToNewsletter,
+  unsubscribeFromNewsletter,
+  uploadCv,
 } from "#/lib/api/endpoints.ts";
 
 const BASE = "https://api.arthurite.test/v1";
@@ -48,6 +52,13 @@ const ok = (data: unknown, status = 200) =>
     headers: {"content-type": "application/json"},
   });
 
+const UPLOAD = {
+  uploadUrl: "https://s3.example.com/bucket",
+  fields: {key: "cv/a.pdf", policy: "p"},
+  fileUrl: "https://cdn.example.com/a.pdf",
+  expiresIn: 300,
+};
+
 const page = (items: unknown[]) => ({items, pagination: {limit: 20, nextCursor: null}});
 
 describe("api endpoints", () => {
@@ -64,12 +75,12 @@ describe("api endpoints", () => {
     vi.unstubAllGlobals();
   });
 
-  it("lists events with filters and cursor", async () => {
+  it("lists events with cursor and limit", async () => {
     vi.mocked(fetch).mockResolvedValue(ok(page([eventFixture])));
 
-    const result = await listEvents({status: "upcoming", cursor: "abc", limit: 10});
+    const result = await listEvents({cursor: "abc", limit: 10});
 
-    expect(fetch).toHaveBeenCalledWith(`${BASE}/events?status=upcoming&cursor=abc&limit=10`, expect.objectContaining({method: "GET"}));
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/events?cursor=abc&limit=10`, expect.objectContaining({method: "GET"}));
     expect(result.items).toHaveLength(1);
     expect(result.pagination.nextCursor).toBeNull();
   });
@@ -123,12 +134,12 @@ describe("api endpoints", () => {
     );
   });
 
-  it("lists open jobs and filters by status", async () => {
+  it("lists jobs without any admin-only filter", async () => {
     vi.mocked(fetch).mockResolvedValue(ok(page([jobFixture])));
 
-    const result = await listJobs({status: "open"});
+    const result = await listJobs();
 
-    expect(fetch).toHaveBeenCalledWith(`${BASE}/careers?status=open`, expect.anything());
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/careers`, expect.anything());
     expect(result.items[0]?.title).toBe("Backend Engineer");
   });
 
@@ -141,56 +152,39 @@ describe("api endpoints", () => {
     expect(job.mode).toBe("Remote");
   });
 
-  it("requests a presigned CV upload", async () => {
-    vi.mocked(fetch).mockResolvedValue(
-      ok({
-        uploadUrl: "https://s3.example.com/bucket",
-        fields: {key: "cv/a.pdf", policy: "p"},
-        fileUrl: "https://cdn.example.com/a.pdf",
-        expiresIn: 300,
-      })
-    );
+  it("requests a presigned CV upload describing the file", async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, {status: 500}));
 
-    const result = await requestCvUpload({fileName: "ada-cv.pdf", contentType: "application/pdf", size: 1024});
+    await uploadCv(new File(["pdf"], "ada-cv.pdf", {type: "application/pdf"})).catch(() => undefined);
 
     const [url, init] = vi.mocked(fetch).mock.calls[0] as [string, RequestInit];
     expect(url).toBe(`${BASE}/upload`);
-    expect(init.body).toBe(JSON.stringify({purpose: "cv", fileName: "ada-cv.pdf", contentType: "application/pdf", size: 1024}));
-    expect(result.fileUrl).toBe("https://cdn.example.com/a.pdf");
+    expect(init.body).toBe(JSON.stringify({purpose: "cv", fileName: "ada-cv.pdf", contentType: "application/pdf", size: 3}));
   });
 
   it("posts the file to the presigned S3 URL with fields before the file", async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok(UPLOAD))
+      .mockResolvedValueOnce(new Response(null, {status: 204}));
     const file = new File(["pdf"], "ada-cv.pdf", {type: "application/pdf"});
 
-    await uploadFileToS3(
-      {
-        uploadUrl: "https://s3.example.com/bucket",
-        fields: {key: "cv/a.pdf", policy: "p"},
-        fileUrl: "https://cdn.example.com/a.pdf",
-        expiresIn: 300,
-      },
-      file
-    );
+    await uploadCv(file);
 
-    const [url, init] = vi.mocked(fetch).mock.calls[0] as [string, RequestInit];
-    expect(url).toBe("https://s3.example.com/bucket");
+    const [url, init] = vi.mocked(fetch).mock.calls[1] as [string, RequestInit];
+    expect(url).toBe(UPLOAD.uploadUrl);
     expect(init.method).toBe("POST");
     const form = init.body as FormData;
     expect(form.get("key")).toBe("cv/a.pdf");
     expect(form.get("file")).toBe(file);
-    const keys = [...form.keys()];
-    expect(keys[keys.length - 1]).toBe("file");
+    expect([...form.keys()].at(-1)).toBe("file");
   });
 
-  it("rejects the S3 upload when it fails", async () => {
-    vi.mocked(fetch).mockResolvedValue(new Response(null, {status: 403}));
+  it("rejects the CV upload when S3 refuses the file", async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok(UPLOAD))
+      .mockResolvedValueOnce(new Response(null, {status: 403}));
 
-    await expect(
-      uploadFileToS3(
-        {uploadUrl: "https://s3.example.com/bucket", fields: {}, fileUrl: "https://cdn.example.com/a.pdf", expiresIn: 300},
-        new File(["pdf"], "a.pdf", {type: "application/pdf"})
-      )
-    ).rejects.toThrow(/upload/i);
+    await expect(uploadCv(new File(["pdf"], "a.pdf", {type: "application/pdf"}))).rejects.toThrow(/upload/i);
   });
 
   it("submits a job application", async () => {
@@ -215,5 +209,59 @@ describe("api endpoints", () => {
     const [url, init] = vi.mocked(fetch).mock.calls[0] as [string, RequestInit];
     expect(url).toBe(`${BASE}/careers/internship`);
     expect(init.body).toBe(JSON.stringify({fullName: "Ada Okafor", email: "ada@acme.com", areaOfInterest: "DevOps"}));
+  });
+
+  it("follows the cursor until every job is loaded", async () => {
+    const second = {...jobFixture, id: "second", title: "Solutions Engineer"};
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok({items: [jobFixture], pagination: {limit: 100, nextCursor: "next"}}))
+      .mockResolvedValueOnce(ok(page([second])));
+
+    const jobs = await new QueryClient().fetchQuery(jobsQueryOptions());
+
+    expect(jobs.map((job) => job.title)).toEqual(["Backend Engineer", "Solutions Engineer"]);
+    expect(vi.mocked(fetch).mock.calls.map(([url]) => url)).toEqual([`${BASE}/careers?limit=100`, `${BASE}/careers?cursor=next&limit=100`]);
+  });
+
+  it("follows the cursor until every event is loaded", async () => {
+    const second = {...eventFixture, id: "second", title: "Re:Invent recap"};
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok({items: [eventFixture], pagination: {limit: 100, nextCursor: "next"}}))
+      .mockResolvedValueOnce(ok(page([second])));
+
+    const events = await new QueryClient().fetchQuery(eventsQueryOptions());
+
+    expect(events.map((event) => event.title)).toEqual(["AWS Cloud Summit", "Re:Invent recap"]);
+  });
+
+  it("subscribes an email to the newsletter", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok({message: "Subscribed"}, 201));
+
+    await subscribeToNewsletter("ada@acme.com");
+
+    const [url, init] = vi.mocked(fetch).mock.calls[0] as [string, RequestInit];
+    expect(url).toBe(`${BASE}/newsletter/signup`);
+    expect(init.method).toBe("POST");
+    expect(init.body).toBe(JSON.stringify({email: "ada@acme.com"}));
+  });
+
+  it("unsubscribes an email from the newsletter", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok({message: "Unsubscribed"}));
+
+    await unsubscribeFromNewsletter("ada@acme.com");
+
+    const [url, init] = vi.mocked(fetch).mock.calls[0] as [string, RequestInit];
+    expect(url).toBe(`${BASE}/newsletter/unsubscribe`);
+    expect(init.body).toBe(JSON.stringify({email: "ada@acme.com"}));
+  });
+
+  it("uploads a CV and returns the stored file url", async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok(UPLOAD))
+      .mockResolvedValueOnce(new Response(null, {status: 204}));
+
+    const fileUrl = await uploadCv(new File(["pdf"], "ada-cv.pdf", {type: "application/pdf"}));
+
+    expect(fileUrl).toBe(UPLOAD.fileUrl);
   });
 });

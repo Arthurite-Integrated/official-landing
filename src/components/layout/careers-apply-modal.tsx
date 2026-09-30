@@ -5,17 +5,17 @@ import {z} from "zod";
 
 import type {OpenRole} from "#/components/layout/careers-data.ts";
 import {DialogCloseButton, DialogFrame} from "#/components/ui/dialog-frame.tsx";
-import {applyForJob, requestCvUpload, uploadFileToS3} from "#/lib/api/endpoints.ts";
+import {ApiError} from "#/lib/api/client.ts";
+import {applyForJob, uploadCv} from "#/lib/api/endpoints.ts";
+import {CV_HINT, cvFileError} from "#/lib/cv-file.ts";
+import {phoneSchema} from "#/lib/phone.ts";
 
 const TITLE_ID = "careers-apply-title";
-const E164 = /^\+[1-9]\d{7,14}$/;
-const MAX_CV_BYTES = 5 * 1024 * 1024;
-const CV_TYPES = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
 const applicationSchema = z.object({
   fullName: z.string().trim().min(2, "Enter your full name"),
   email: z.email("Enter a valid email address"),
-  phone: z.string().trim().regex(E164, "Enter your phone number with country code, e.g. +2348012345678"),
+  phone: phoneSchema,
 });
 
 type ApplyFieldErrors = Partial<Record<"fullName" | "email" | "phone" | "cv", string>>;
@@ -43,10 +43,12 @@ function ApplyField({id, label, error, children}: ApplyFieldProps) {
 }
 
 function validateFile(file: File | null): string | undefined {
-  if (!file) return "Attach your CV (PDF or DOCX, max 5 MB)";
-  if (!CV_TYPES.includes(file.type)) return "Your CV must be a PDF or DOCX file";
-  if (file.size > MAX_CV_BYTES) return "Your CV must be smaller than 5 MB";
-  return undefined;
+  return file ? cvFileError(file) : `Attach your CV (${CV_HINT})`;
+}
+
+function applicationErrorMessage(error: unknown): string {
+  if (error instanceof ApiError && error.type === "JOB_CLOSED") return "This role is no longer accepting applications.";
+  return "We couldn't submit your application. Please try again.";
 }
 
 function fieldErrorsOf(error: z.ZodError): ApplyFieldErrors {
@@ -75,7 +77,7 @@ function ApplyFormFields({errors, onFileChange}: ApplyFormFieldsProps) {
         </ApplyField>
       </div>
 
-      <ApplyField id="apply-cv" label="CV (PDF or DOCX, max 5 MB)" error={errors.cv}>
+      <ApplyField id="apply-cv" label={`CV (${CV_HINT})`} error={errors.cv}>
         <input
           id="apply-cv"
           name="cv"
@@ -106,9 +108,8 @@ function ApplyForm({role}: {readonly role: OpenRole}) {
   const [cv, setCv] = useState<File | null>(null);
   const mutation = useMutation({
     mutationFn: async (values: z.infer<typeof applicationSchema> & {readonly cv: File}) => {
-      const upload = await requestCvUpload({fileName: values.cv.name, contentType: values.cv.type, size: values.cv.size});
-      await uploadFileToS3(upload, values.cv);
-      return applyForJob({jobId: role.id, fullName: values.fullName, email: values.email, phone: values.phone, cvUrl: upload.fileUrl});
+      const cvUrl = await uploadCv(values.cv);
+      return applyForJob({jobId: role.id, fullName: values.fullName, email: values.email, phone: values.phone, cvUrl});
     },
   });
 
@@ -132,7 +133,7 @@ function ApplyForm({role}: {readonly role: OpenRole}) {
 
       {mutation.isError ? (
         <p role="alert" className="text-sm text-destructive">
-          We couldn&apos;t submit your application. Please try again.
+          {applicationErrorMessage(mutation.error)}
         </p>
       ) : null}
 

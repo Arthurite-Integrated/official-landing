@@ -3,8 +3,10 @@ import {useMutation} from "@tanstack/react-query";
 import {Award, CheckCircle, GraduationCap, Users} from "lucide-react";
 import {z} from "zod";
 
-import {applyForInternship} from "#/lib/api/endpoints.ts";
+import {AtipCvField} from "#/components/layout/careers-atip-cv-field.tsx";
+import {applyForInternship, uploadCv} from "#/lib/api/endpoints.ts";
 import {areaOfInterestSchema} from "#/lib/api/types.ts";
+import {cvFileError} from "#/lib/cv-file.ts";
 
 const SECTION_TITLE_ID = "atip-program-title";
 
@@ -20,6 +22,15 @@ const atipSchema = z.object({
   email: z.email("Enter a valid email address"),
   areaOfInterest: areaOfInterestSchema,
 });
+
+type AtipSubmission = {
+  readonly payload: z.infer<typeof atipSchema>;
+  readonly cv: File | null;
+};
+
+async function submitApplication({payload, cv}: AtipSubmission) {
+  return applyForInternship(cv ? {...payload, cvUrl: await uploadCv(cv)} : payload);
+}
 
 function AtipHighlights() {
   return (
@@ -143,15 +154,35 @@ function AtipTrackSelect({track, onTrackChange}: {readonly track: string; readon
   );
 }
 
+function AtipFormFooter({formError, isPending}: {readonly formError: string | null; readonly isPending: boolean}) {
+  return (
+    <>
+      {formError !== null ? (
+        <p role="alert" className="text-sm text-destructive">
+          {formError}
+        </p>
+      ) : null}
+      <button
+        type="submit"
+        disabled={isPending}
+        className="w-full rounded-full bg-primary py-3.5 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {isPending ? "Submitting…" : "Submit Application"}
+      </button>
+    </>
+  );
+}
+
 function AtipForm() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [track, setTrack] = useState<string>("Cloud Architecture");
+  const [cv, setCv] = useState<File | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: (payload: z.infer<typeof atipSchema>) => applyForInternship(payload),
+    mutationFn: submitApplication,
     onSuccess: () => setIsSubmitted(true),
     onError: () => setFormError("We couldn't submit your application. Please try again."),
   });
@@ -166,8 +197,9 @@ function AtipForm() {
       return;
     }
 
-    setFormError(null);
-    mutation.mutate(parsed.data);
+    const cvError = cv ? cvFileError(cv) : undefined;
+    setFormError(cvError ?? null);
+    if (cvError === undefined) mutation.mutate({payload: parsed.data, cv});
   };
 
   if (isSubmitted) {
@@ -184,18 +216,8 @@ function AtipForm() {
         onEmailChange={setEmail}
         onTrackChange={setTrack}
       />
-      {formError !== null ? (
-        <p role="alert" className="text-sm text-destructive">
-          {formError}
-        </p>
-      ) : null}
-      <button
-        type="submit"
-        disabled={mutation.isPending}
-        className="w-full rounded-full bg-primary py-3.5 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {mutation.isPending ? "Submitting…" : "Submit Application"}
-      </button>
+      <AtipCvField onChange={setCv} />
+      <AtipFormFooter formError={formError} isPending={mutation.isPending} />
     </form>
   );
 }

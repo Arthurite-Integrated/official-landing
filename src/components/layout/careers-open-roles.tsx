@@ -8,7 +8,7 @@ import {CareersRoleRow} from "#/components/layout/careers-role-card.tsx";
 import {MobileCategoryFilter, RoleSearchBar, RoleSidebar} from "#/components/layout/careers-role-filters.tsx";
 import {jobsQueryOptions} from "#/lib/api/endpoints.ts";
 
-const SECTION_TITLE_ID = "open-roles";
+const SECTION_TITLE_ID = "open-roles-title";
 
 type GroupedDepartment = {
   readonly department: string;
@@ -68,7 +68,7 @@ function RoleListing({groups, hasAnyRoles, onApply}: RoleListingProps) {
           {group.departments.map((dept) => (
             <div key={dept.department} className="mt-6">
               <p className="text-[11px] font-semibold tracking-[0.15em] text-primary/80 uppercase">{dept.department}</p>
-              <div className="mt-2">
+              <div className="mt-3 space-y-3">
                 {dept.roles.map((role) => (
                   <CareersRoleRow key={role.id} role={role} onApply={onApply} />
                 ))}
@@ -165,9 +165,9 @@ function RolesBody({roles, isPending, isError, onApply}: RolesBodyProps) {
 
 export function CareersOpenRoles() {
   const [applyRole, setApplyRole] = useState<OpenRole | null>(null);
-  const {data, isPending, isError} = useQuery(jobsQueryOptions({status: "open"}));
+  const {data, isPending, isError} = useQuery(jobsQueryOptions());
 
-  const roles = useMemo(() => (data?.items ?? []).map(toOpenRole), [data]);
+  const roles = useMemo(() => (data ?? []).map(toOpenRole), [data]);
   const roleCount = isPending || isError ? 0 : roles.length;
 
   return (

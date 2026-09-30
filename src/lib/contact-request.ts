@@ -1,8 +1,8 @@
 import {z} from "zod";
 
-export const COMPANY_SIZES = ["1-50", "51-200", "201-1,000", "1,001-10,000", "10,000+"] as const;
+import {phoneSchema} from "#/lib/phone.ts";
 
-const E164 = /^\+[1-9]\d{7,14}$/;
+export const COMPANY_SIZES = ["1-50", "51-200", "201-1,000", "1,001-10,000", "10,000+"] as const;
 
 const ContactRequestSchema = z.object({
   companyName: z.string().trim().min(1, "Enter your company name"),
@@ -12,7 +12,7 @@ const ContactRequestSchema = z.object({
   jobTitle: z.string().trim().min(1, "Enter your job title"),
   lastName: z.string().trim().min(1, "Enter your last name"),
   message: z.string().trim().min(10, "Tell us a bit more about what you need"),
-  phone: z.string().trim().regex(E164, "Enter your phone number with country code, e.g. +2348012345678"),
+  phone: phoneSchema,
 });
 
 export const EnquiryDetailsSchema = ContactRequestSchema.omit({message: true});

@@ -99,6 +99,22 @@ describe("CareersOpenRoles", () => {
     expect(screen.getByRole("region", {name: /open roles/i})).toBeInTheDocument();
   });
 
+  it("keeps the open-roles anchor unique so the hero link scrolls to the section", async () => {
+    const {container} = renderWithQueryClient(<CareersOpenRoles />);
+    await screen.findByRole("heading", {name: "Solution Architect"});
+
+    expect(container.querySelectorAll("#open-roles")).toHaveLength(1);
+  });
+
+  it("opens the apply dialog when any part of a role row is clicked", async () => {
+    renderWithQueryClient(<CareersOpenRoles />);
+    await screen.findByRole("heading", {name: "Solution Architect"});
+
+    fireEvent.click(within(screen.getByRole("button", {name: /solution architect/i})).getByText("Hybrid / Lagos"));
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
   it("renders every role returned by the API", async () => {
     renderWithQueryClient(<CareersOpenRoles />);
 
@@ -203,6 +219,132 @@ describe("CareersAtip", () => {
     fireEvent.click(screen.getByRole("button", {name: /submit application/i}));
 
     expect(await screen.findByRole("alert")).toHaveTextContent(/couldn't submit/i);
+  });
+});
+
+const UPLOAD = {
+  uploadUrl: "https://s3.example.com/bucket",
+  fields: {key: "cv/ada.pdf"},
+  fileUrl: "https://cdn.example.com/cv/ada.pdf",
+  expiresIn: 300,
+};
+
+const errorEnvelope = (status: number, type: string) =>
+  new Response(JSON.stringify({timestamp: "t", status, success: false, error: {message: "nope", type}}), {status});
+
+function stubSubmissionFetch(apiResponse: Response) {
+  vi.stubEnv("VITE_API_BASE_URL", "https://api.arthurite.test/v1");
+  vi.stubGlobal(
+    "fetch",
+    vi.fn((url: string) => {
+      if (url.endsWith("/upload")) return Promise.resolve(envelope(UPLOAD));
+      if (url === UPLOAD.uploadUrl) return Promise.resolve(new Response(null, {status: 204}));
+      if (new URL(url).pathname.endsWith("/careers")) return Promise.resolve(jobsPage(JOBS));
+      return Promise.resolve(apiResponse);
+    })
+  );
+}
+
+const pdf = (name = "ada-cv.pdf") => new File(["pdf"], name, {type: "application/pdf"});
+
+function submittedBodyFor(path: string): Record<string, unknown> {
+  const call = vi.mocked(fetch).mock.calls.find(([url]) => String(url).endsWith(path)) as [string, RequestInit] | undefined;
+  return JSON.parse(String(call?.[1].body)) as Record<string, unknown>;
+}
+
+async function openApplyDialog() {
+  renderWithQueryClient(<CareersOpenRoles />);
+  fireEvent.click(await screen.findByRole("button", {name: /solution architect/i}));
+  return within(screen.getByRole("dialog"));
+}
+
+function fillApplication(dialog: ReturnType<typeof within>, cv: File) {
+  fireEvent.change(dialog.getByLabelText(/full name/i), {target: {value: "Ada Okafor"}});
+  fireEvent.change(dialog.getByLabelText(/email/i), {target: {value: "ada@acme.com"}});
+  fireEvent.change(dialog.getByLabelText(/phone/i), {target: {value: "+2348012345678"}});
+  fireEvent.change(dialog.getByLabelText(/cv/i), {target: {files: [cv]}});
+  fireEvent.click(dialog.getByRole("button", {name: /submit application/i}));
+}
+
+describe("job application", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  it("uploads the CV and applies with its stored url", async () => {
+    stubSubmissionFetch(envelope({id: "app-1"}, 201));
+    const dialog = await openApplyDialog();
+
+    fillApplication(dialog, pdf());
+
+    expect(await dialog.findByText(/application sent/i)).toBeInTheDocument();
+    expect(submittedBodyFor("/careers/apply")).toEqual({
+      jobId: "j-1",
+      fullName: "Ada Okafor",
+      email: "ada@acme.com",
+      phone: "+2348012345678",
+      cvUrl: UPLOAD.fileUrl,
+    });
+  });
+
+  it("tells the applicant when the role has closed", async () => {
+    stubSubmissionFetch(errorEnvelope(409, "JOB_CLOSED"));
+    const dialog = await openApplyDialog();
+
+    fillApplication(dialog, pdf());
+
+    expect(await dialog.findByRole("alert")).toHaveTextContent(/no longer accepting applications/i);
+  });
+
+  it("asks for a CV before submitting", async () => {
+    stubSubmissionFetch(envelope({id: "app-1"}, 201));
+    const dialog = await openApplyDialog();
+
+    fireEvent.click(dialog.getByRole("button", {name: /submit application/i}));
+
+    expect(await dialog.findByText(/attach your cv/i)).toBeInTheDocument();
+  });
+});
+
+describe("internship CV", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  function submitInternship(cv?: File) {
+    renderWithQueryClient(<CareersAtip />);
+    fireEvent.change(screen.getByLabelText(/full name/i), {target: {value: "Alex Johnson"}});
+    fireEvent.change(screen.getByLabelText(/email address/i), {target: {value: "alex@example.com"}});
+    if (cv) fireEvent.change(screen.getByLabelText(/cv/i), {target: {files: [cv]}});
+    fireEvent.click(screen.getByRole("button", {name: /submit application/i}));
+  }
+
+  it("sends the uploaded CV url when a CV is attached", async () => {
+    stubSubmissionFetch(envelope({id: "int-1"}, 201));
+
+    submitInternship(pdf());
+
+    expect(await screen.findByText(/application submitted successfully/i)).toBeInTheDocument();
+    expect(submittedBodyFor("/careers/internship")).toMatchObject({cvUrl: UPLOAD.fileUrl});
+  });
+
+  it("applies without a CV when none is attached", async () => {
+    stubSubmissionFetch(envelope({id: "int-1"}, 201));
+
+    submitInternship();
+
+    expect(await screen.findByText(/application submitted successfully/i)).toBeInTheDocument();
+    expect(submittedBodyFor("/careers/internship")).not.toHaveProperty("cvUrl");
+  });
+
+  it("rejects a CV that is not a PDF or DOCX", () => {
+    stubSubmissionFetch(envelope({id: "int-1"}, 201));
+
+    submitInternship(new File(["x"], "cv.png", {type: "image/png"}));
+
+    expect(screen.getByRole("alert")).toHaveTextContent(/pdf or docx/i);
   });
 });
 

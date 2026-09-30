@@ -1,6 +1,7 @@
 import {describe, expect, it} from "vite-plus/test";
 
 import {parseContactRequest, parseEnquiryDetails} from "#/lib/contact-request.ts";
+import {PHONE_ERROR} from "#/lib/phone.ts";
 
 const completeRequest = {
   companyName: "Acme Logistics",
@@ -52,8 +53,14 @@ describe("parseContactRequest", () => {
   it("requires a phone number in E.164 format", () => {
     expect(parseContactRequest({...completeRequest, phone: "08012345678"})).toEqual({
       success: false,
-      errors: {phone: "Enter your phone number with country code, e.g. +2348012345678"},
+      errors: {phone: PHONE_ERROR},
     });
+  });
+
+  it("sends a phone number typed with spaces in E.164 format", () => {
+    const result = parseContactRequest({...completeRequest, phone: "+234 801 234 5678"});
+
+    expect(result.success && result.data.phone).toBe("+2348012345678");
   });
 
   it("rejects a missing phone number", () => {

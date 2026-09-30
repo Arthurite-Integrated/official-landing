@@ -188,8 +188,8 @@ function FeaturedControls({
 
 export function EventsFeatured() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const {data, isPending, isError, refetch} = useQuery(eventsQueryOptions({status: "upcoming"}));
-  const events = (data?.items ?? []).map(toEventItem);
+  const {data, isPending, isError, refetch} = useQuery(eventsQueryOptions());
+  const events = (data ?? []).map(toEventItem);
   const current = events[currentIndex] ?? events[0];
 
   const handlePrev = () => {

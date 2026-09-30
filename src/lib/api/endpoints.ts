@@ -15,21 +15,36 @@ import {
   type ApiUploadResult,
 } from "#/lib/api/types.ts";
 
-export type ListEventsParams = {
-  readonly status?: "upcoming" | "ongoing" | "completed" | "cancelled";
+const PAGE_SIZE = 100;
+
+type PageParams = {
   readonly cursor?: string;
   readonly limit?: number;
 };
 
-export function listEvents(params: ListEventsParams = {}) {
-  return apiRequest("/events", {
-    query: {status: params.status, cursor: params.cursor, limit: params.limit},
-    schema: apiEventPageSchema,
-  });
+type CursorPage<Item> = {
+  readonly items: readonly Item[];
+  readonly pagination: {readonly nextCursor: string | null};
+};
+
+async function collectAllPages<Item>(fetchPage: (params: PageParams) => Promise<CursorPage<Item>>): Promise<Item[]> {
+  const items: Item[] = [];
+  let cursor: string | undefined;
+
+  do {
+    const page = await fetchPage({cursor, limit: PAGE_SIZE});
+    items.push(...page.items);
+    cursor = page.pagination.nextCursor ?? undefined;
+  } while (cursor !== undefined);
+
+  return items;
 }
 
-export const eventsQueryOptions = (params: ListEventsParams = {status: "upcoming"}) =>
-  queryOptions({queryKey: ["events", params], queryFn: () => listEvents(params), retry: 1});
+export function listEvents(params: PageParams = {}) {
+  return apiRequest("/events", {query: {cursor: params.cursor, limit: params.limit}, schema: apiEventPageSchema});
+}
+
+export const eventsQueryOptions = () => queryOptions({queryKey: ["events", "list"], queryFn: () => collectAllPages(listEvents), retry: 1});
 
 export function getEvent(id: string) {
   return apiRequest(`/events/${id}`, {schema: apiEventSchema});
@@ -46,21 +61,11 @@ export function submitContactRequest(payload: ApiContactPayload) {
   return apiRequest("/contact", {method: "POST", body: payload, schema: createdDataSchema});
 }
 
-export type ListJobsParams = {
-  readonly status?: "open" | "closed";
-  readonly cursor?: string;
-  readonly limit?: number;
-};
-
-export function listJobs(params: ListJobsParams = {status: "open"}) {
-  return apiRequest("/careers", {
-    query: {status: params.status, cursor: params.cursor, limit: params.limit},
-    schema: apiJobPageSchema,
-  });
+export function listJobs(params: PageParams = {}) {
+  return apiRequest("/careers", {query: {cursor: params.cursor, limit: params.limit}, schema: apiJobPageSchema});
 }
 
-export const jobsQueryOptions = (params: ListJobsParams = {status: "open"}) =>
-  queryOptions({queryKey: ["careers", params], queryFn: () => listJobs(params), retry: 1});
+export const jobsQueryOptions = () => queryOptions({queryKey: ["careers", "list"], queryFn: () => collectAllPages(listJobs), retry: 1});
 
 export function getJob(id: string) {
   return apiRequest(`/careers/${id}`, {schema: apiJobSchema});
@@ -68,17 +73,15 @@ export function getJob(id: string) {
 
 export const jobQueryOptions = (id: string) => queryOptions({queryKey: ["careers", "detail", id], queryFn: () => getJob(id), retry: false});
 
-export type CvUploadFile = {
-  readonly fileName: string;
-  readonly contentType: string;
-  readonly size: number;
-};
-
-export function requestCvUpload(file: CvUploadFile) {
-  return apiRequest("/upload", {method: "POST", body: {purpose: "cv", ...file}, schema: uploadResultSchema});
+function requestCvUpload(file: File) {
+  return apiRequest("/upload", {
+    method: "POST",
+    body: {purpose: "cv", fileName: file.name, contentType: file.type, size: file.size},
+    schema: uploadResultSchema,
+  });
 }
 
-export async function uploadFileToS3(upload: ApiUploadResult, file: File): Promise<void> {
+async function uploadFileToS3(upload: ApiUploadResult, file: File): Promise<void> {
   const form = new FormData();
   for (const [key, value] of Object.entries(upload.fields)) {
     form.append(key, value);
@@ -91,10 +94,24 @@ export async function uploadFileToS3(upload: ApiUploadResult, file: File): Promi
   }
 }
 
+export async function uploadCv(file: File): Promise<string> {
+  const upload = await requestCvUpload(file);
+  await uploadFileToS3(upload, file);
+  return upload.fileUrl;
+}
+
 export function applyForJob(payload: ApiJobApplicationPayload) {
   return apiRequest("/careers/apply", {method: "POST", body: payload, schema: createdDataSchema});
 }
 
 export function applyForInternship(payload: ApiInternshipPayload) {
   return apiRequest("/careers/internship", {method: "POST", body: payload, schema: createdDataSchema});
+}
+
+export function subscribeToNewsletter(email: string) {
+  return apiRequest("/newsletter/signup", {method: "POST", body: {email}, schema: createdDataSchema});
+}
+
+export function unsubscribeFromNewsletter(email: string) {
+  return apiRequest("/newsletter/unsubscribe", {method: "POST", body: {email}, schema: createdDataSchema});
 }
