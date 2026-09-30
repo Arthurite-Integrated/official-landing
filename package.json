@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vp dev --port 3000",
-    "build": "vp build",
+    "build": "bun run sync:blog-images && vp build",
     "preview": "vp preview",
     "test": "vp test run",
     "test:ui": "vp test --ui",
@@ -17,7 +17,9 @@
     "format": "vp fmt",
     "lint": "vp lint --max-warnings=0 --no-error-on-unmatched-pattern",
     "lint:fix": "vp lint --fix",
-    "prepare": "vp config"
+    "postinstall": "fumadocs-mdx",
+    "prepare": "vp config",
+    "sync:blog-images": "bun scripts/sync-blog-images.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.0",

@@ -1,4 +1,5 @@
 import {render, screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import {describe, expect, it, vi} from "vite-plus/test";
 
 import {BlogList} from "#/components/blog/blog-list.tsx";
@@ -57,6 +58,20 @@ const older: BlogPost = {
 
 const posts = [newest, featured, older];
 
+function generateTestPosts(count: number): BlogPost[] {
+  return Array.from({length: count}, (_, i) => ({
+    author: `Author ${i}`,
+    category: i % 2 === 0 ? "Cloud" : "AI & Data",
+    cover: null,
+    date: `2026-09-${String(28 - (i % 20)).padStart(2, "0")}`,
+    excerpt: `Excerpt for post number ${i + 1}`,
+    featured: i === 0,
+    path: `post-${i + 1}.mdx`,
+    slug: `post-${i + 1}`,
+    title: `Blog Post Title ${i + 1}`,
+  }));
+}
+
 describe("BlogList", () => {
   it("introduces the page with a heading", () => {
     render(<BlogList posts={posts} />);
@@ -99,12 +114,66 @@ describe("BlogList", () => {
   it("labels each post with its category", () => {
     render(<BlogList posts={posts} />);
 
-    expect(screen.getByText("Company")).toBeInTheDocument();
+    expect(screen.getAllByText("Company").length).toBeGreaterThan(0);
   });
 
   it("shows a cover image only for posts that have one", () => {
     const {container} = render(<BlogList posts={posts} />);
 
     expect([...container.querySelectorAll("img")].map((image) => image.getAttribute("src"))).toEqual([newest.cover]);
+  });
+
+  it("filters posts by search query input", async () => {
+    const user = userEvent.setup();
+    render(<BlogList posts={posts} />);
+
+    const searchInput = screen.getByPlaceholderText(/search blog posts/i);
+    await user.type(searchInput, "Graviton");
+
+    expect(screen.getByText("Why we run on Graviton")).toBeInTheDocument();
+    expect(screen.queryByText("Planning a migration to AWS")).not.toBeInTheDocument();
+  });
+
+  it("filters posts by category tab", async () => {
+    const user = userEvent.setup();
+    render(<BlogList posts={posts} />);
+
+    const cloudTab = screen.getByRole("button", {name: "Cloud"});
+    await user.click(cloudTab);
+
+    expect(screen.getByText("Planning a migration to AWS")).toBeInTheDocument();
+    expect(screen.queryByText("What we learned hosting GenAI Lagos")).not.toBeInTheDocument();
+  });
+
+  it("paginates posts at 9 posts per page", async () => {
+    const user = userEvent.setup();
+    const manyPosts = generateTestPosts(15);
+    render(<BlogList posts={manyPosts} />);
+
+    // 1 featured + 9 rest on page 1 = 10 articles on page 1
+    const page1Articles = screen.getAllByRole("article");
+    expect(page1Articles).toHaveLength(10);
+
+    const nextButton = screen.getByRole("button", {name: /next/i});
+    await user.click(nextButton);
+
+    // Page 2 displays the remaining 5 rest posts
+    const page2Articles = screen.getAllByRole("article");
+    expect(page2Articles).toHaveLength(5);
+  });
+
+  it("displays empty state when search returns no results", async () => {
+    const user = userEvent.setup();
+    render(<BlogList posts={posts} />);
+
+    const searchInput = screen.getByPlaceholderText(/search blog posts/i);
+    await user.type(searchInput, "nonexistentquery123");
+
+    expect(screen.getByText(/no blog posts found/i)).toBeInTheDocument();
+
+    const resetButton = screen.getByRole("button", {name: /reset filters/i});
+    await user.click(resetButton);
+
+    expect(screen.getByRole("heading", {level: 2, name: featured.title})).toBeInTheDocument();
   });
 });
