@@ -29,7 +29,7 @@ export function listEvents(params: ListEventsParams = {}) {
 }
 
 export const eventsQueryOptions = (params: ListEventsParams = {status: "upcoming"}) =>
-  queryOptions({queryKey: ["events", params], queryFn: () => listEvents(params)});
+  queryOptions({queryKey: ["events", params], queryFn: () => listEvents(params), retry: 1});
 
 export function getEvent(id: string) {
   return apiRequest(`/events/${id}`, {schema: apiEventSchema});
@@ -60,7 +60,7 @@ export function listJobs(params: ListJobsParams = {status: "open"}) {
 }
 
 export const jobsQueryOptions = (params: ListJobsParams = {status: "open"}) =>
-  queryOptions({queryKey: ["careers", params], queryFn: () => listJobs(params)});
+  queryOptions({queryKey: ["careers", params], queryFn: () => listJobs(params), retry: 1});
 
 export function getJob(id: string) {
   return apiRequest(`/careers/${id}`, {schema: apiJobSchema});

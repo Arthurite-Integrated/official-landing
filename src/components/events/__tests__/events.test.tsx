@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
@@ -8,7 +8,6 @@ import {EventsGallery} from "#/components/events/events-gallery.tsx";
 import {EventsHero} from "#/components/events/events-hero.tsx";
 import {EventsSpeakers} from "#/components/events/events-speakers.tsx";
 import {EventsTracks} from "#/components/events/events-tracks.tsx";
-import {EventsUpcoming} from "#/components/events/events-upcoming.tsx";
 import type {ApiEvent} from "#/lib/api/types.ts";
 import {renderWithQueryClient} from "#/test-utils/query-client.tsx";
 
@@ -113,22 +112,21 @@ describe("EventsFeatured", () => {
     expect(screen.getAllByText(/NEXT-GEN INTELLIGENCE/i)[0]).toBeInTheDocument();
   });
 
-  it("renders nothing while the API has no upcoming events", async () => {
+  it("shows the empty state while the API has no upcoming events", async () => {
     stubEventsFetch([]);
     renderWithQueryClient(<EventsFeatured />);
 
-    await waitFor(() => expect(fetch).toHaveBeenCalled());
-    expect(screen.queryByRole("heading", {name: "Featured Events"})).not.toBeInTheDocument();
-  });
-});
-
-describe("EventsUpcoming", () => {
-  it("renders single full-width card with no upcoming events notice and link to events platform", () => {
-    render(<EventsUpcoming />);
-
-    expect(screen.getByRole("heading", {name: "No Upcoming Event Yet"})).toBeInTheDocument();
+    expect(await screen.findByRole("heading", {name: "No Upcoming Event Yet"})).toBeInTheDocument();
     const externalLink = screen.getByRole("link", {name: /Visit Arthurite Events Website/i});
     expect(externalLink).toHaveAttribute("href", "https://arthuriteevents.com/");
+  });
+
+  it("explains when events fail to load and offers a retry", async () => {
+    vi.mocked(fetch).mockRejectedValue(new Error("network down"));
+    renderWithQueryClient(<EventsFeatured />);
+
+    expect(await screen.findByRole("alert", undefined, {timeout: 3000})).toHaveTextContent(/couldn't load our events/i);
+    expect(screen.getByRole("button", {name: /try again/i})).toBeInTheDocument();
   });
 });
 

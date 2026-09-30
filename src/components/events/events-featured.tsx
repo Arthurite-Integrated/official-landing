@@ -4,24 +4,15 @@ import {Link} from "@tanstack/react-router";
 import {ArrowUpRight, Calendar, ChevronLeft, ChevronRight, MapPin} from "lucide-react";
 
 import {toEventItem, type EventItem} from "#/components/events/events-data.ts";
+import {
+  FeaturedEmpty,
+  FeaturedError,
+  FeaturedHeader,
+  FeaturedShell,
+  FeaturedSkeleton,
+} from "#/components/events/events-featured-states.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {eventsQueryOptions} from "#/lib/api/endpoints.ts";
-
-function FeaturedHeader() {
-  return (
-    <div className="mb-12 text-center">
-      <span className="inline-block rounded-full border border-foreground/20 bg-foreground/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-foreground/70">
-        - FLAGSHIP CONFERENCES -
-      </span>
-      <h2 className="mt-3 text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        Featured <span className="text-primary">Events</span>
-      </h2>
-      <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
-        Experience world-class AWS cloud architectures, GenAI engineering, and enterprise compliance live in Nigeria
-      </p>
-    </div>
-  );
-}
 
 function FeaturedCardBg({event}: {readonly event: EventItem}) {
   return (
@@ -197,7 +188,7 @@ function FeaturedControls({
 
 export function EventsFeatured() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const {data} = useQuery(eventsQueryOptions({status: "upcoming"}));
+  const {data, isPending, isError, refetch} = useQuery(eventsQueryOptions({status: "upcoming"}));
   const events = (data?.items ?? []).map(toEventItem);
   const current = events[currentIndex] ?? events[0];
 
@@ -209,21 +200,21 @@ export function EventsFeatured() {
     setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
   };
 
-  if (!current) return null;
+  if (isPending) return <FeaturedSkeleton />;
+  if (isError) return <FeaturedError onRetry={() => void refetch()} />;
+  if (!current) return <FeaturedEmpty />;
 
   return (
-    <section className="bg-background py-20 text-foreground sm:py-28 border-t border-foreground/10">
-      <div className="mx-auto max-w-7xl px-6 sm:px-10">
-        <FeaturedHeader />
-        <FeaturedHeroCard event={current} />
-        <FeaturedControls
-          events={events}
-          currentIndex={currentIndex}
-          onSelectIndex={setCurrentIndex}
-          onPrev={handlePrev}
-          onNext={handleNext}
-        />
-      </div>
-    </section>
+    <FeaturedShell>
+      <FeaturedHeader />
+      <FeaturedHeroCard event={current} />
+      <FeaturedControls
+        events={events}
+        currentIndex={currentIndex}
+        onSelectIndex={setCurrentIndex}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
+    </FeaturedShell>
   );
 }

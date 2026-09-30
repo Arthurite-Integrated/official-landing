@@ -129,6 +129,13 @@ describe("CareersOpenRoles", () => {
     expect(screen.queryByRole("heading", {name: "Solution Architect"})).not.toBeInTheDocument();
   });
 
+  it("explains when the API returns no open roles", async () => {
+    stubJobsFetch([]);
+    renderWithQueryClient(<CareersOpenRoles />);
+
+    expect(await screen.findByText(/don't have any open roles right now/i)).toBeInTheDocument();
+  });
+
   it("shows empty state when no roles match", async () => {
     renderWithQueryClient(<CareersOpenRoles />);
     await screen.findByRole("heading", {name: "Solution Architect"});

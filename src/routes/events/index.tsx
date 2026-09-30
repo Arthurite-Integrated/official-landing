@@ -4,7 +4,6 @@ import {EventsFeatured} from "#/components/events/events-featured.tsx";
 import {EventsGallery} from "#/components/events/events-gallery.tsx";
 import {EventsHero} from "#/components/events/events-hero.tsx";
 import {EventsTracks} from "#/components/events/events-tracks.tsx";
-import {EventsUpcoming} from "#/components/events/events-upcoming.tsx";
 
 export const Route = createFileRoute("/events/")({
   component: EventsPage,
@@ -16,7 +15,6 @@ function EventsPage() {
       <EventsHero />
       <EventsFeatured />
       <EventsTracks />
-      <EventsUpcoming />
       <EventsGallery />
     </main>
   );
