@@ -34,118 +34,178 @@ export interface EventItem {
   readonly imageSrc?: string;
   readonly fullContent?: string;
   readonly keyTakeaways?: readonly string[];
+  readonly galleryImages: readonly string[];
 }
 
 export interface GalleryPhoto {
   readonly id: string;
   readonly title: string;
-  readonly category: "GenAI" | "AWS Cloud" | "Workshops" | "Community";
+  readonly category: "One with AI 2026" | "Next-Gen AI 2025";
   readonly date: string;
   readonly imageSrc: string;
   readonly aspectClass: string;
 }
 
 export const EVENT_INFO: EventInfo = {
-  dates: "September 10-12",
-  tagline: "The latest advancements and future breakthroughs",
-  location: "Lagos Nigeria",
-  title: "FUTURE TECH",
-  subtitle: "2026",
-  introText: "Bringing together tech enthusiasts, industry leaders, and innovators to explore the future of technology",
-  ctaText: "Get Ticket Now",
+  dates: "2025 – 2026",
+  tagline: "Cloud, AI and digital transformation — live in Nigeria",
+  location: "Lagos, Nigeria",
+  title: "ARTHURITE",
+  subtitle: "EVENTS",
+  introText: "Bringing together technology leaders, cloud practitioners, and innovators to explore the future of cloud and AI on AWS",
+  ctaText: "Get in Touch",
   ctaLink: "/contact",
 };
 
 export const EVENT_TRACKS: readonly EventTrack[] = [
   {
-    id: "robotics",
-    title: "Robotics and Automation",
+    id: "genai",
+    title: "Generative AI & AWS",
     description:
-      "Involve the use of intelligent machines to perform tasks, enhancing efficiency and precision across industries like manufacturing, healthcare, and logistics.",
-    iconType: "robotics",
-  },
-  {
-    id: "ai",
-    title: "Artificial Intelligence",
-    description:
-      "Encompasses machines' ability to simulate human intelligence, enabling automation, data analysis, and autonomous decision-making across various applications from healthcare to finance.",
+      "Explore how AWS services like Amazon Bedrock and SageMaker power the next generation of intelligent applications, from autonomous agents to real-time inference at enterprise scale.",
     iconType: "ai",
   },
   {
-    id: "quantum",
-    title: "Quantum Computing",
+    id: "ev-mobility",
+    title: "EV & Smart Mobility",
     description:
-      "Harnesses quantum mechanics to process information exponentially faster than classical computers and solving complex problems across fields like cryptography, material science, and optimization algorithms.",
+      "Discover how cloud-native architectures on AWS are accelerating the electric vehicle ecosystem — from connected vehicle platforms to predictive fleet management and charging infrastructure.",
+    iconType: "robotics",
+  },
+  {
+    id: "digital-transformation",
+    title: "Digital Transformation",
+    description:
+      "Learn how African enterprises are migrating legacy workloads, modernising data platforms, and building resilient cloud-first operations with AWS as their foundation.",
     iconType: "quantum",
   },
 ];
 
 export const EVENT_STATS: readonly EventStat[] = [
-  {value: "34", label: "SPEAKERS"},
-  {value: "80", label: "HOURS", highlight: true},
-  {value: "3", label: "DAYS"},
-  {value: "∞", label: "IDEAS"},
+  {value: "2", label: "EVENTS"},
+  {value: "100+", label: "ATTENDEES", highlight: true},
+  {value: "Lagos", label: "LOCATION"},
+  {value: "AWS", label: "POWERED BY"},
 ];
 
 export const FEATURED_EVENTS: readonly EventItem[] = [
   {
-    id: "bedrock-agent-core",
-    slug: "bedrock-agent-core",
-    title: "BUILDING SECURE, SCALABLE AI SOLUTIONS WITH AMAZON BEDROCK AGENT CORE.",
+    id: "one-with-ai-ev-ecosystems",
+    slug: "one-with-ai-ev-ecosystems",
+    title: "ONE WITH AI — POWERING MOBILITY AND EV ECOSYSTEMS WITH AWS",
     description:
-      "Discover how Amazon Bedrock Agent Core enables enterprises to deploy production-ready AI agents with custom knowledge bases and strict security controls.",
-    date: "Date: Oct 24, 2026 - 10:00 AM",
-    location: "Location: Victoria Island, Lagos & Hybrid",
-    category: "GenAI & Autonomous Agents",
+      "A deep-dive into how AWS cloud services are transforming the electric vehicle industry — from intelligent fleet management and connected vehicle platforms to AI-powered charging infrastructure and predictive maintenance at scale.",
+    date: "June 11, 2026",
+    location: "Federal Palace Hotel, Lagos, Nigeria",
+    category: "AI & EV Mobility",
     badge: "AI EVENT",
-    imageSrc: "/events/one_with_ai.jpg",
+    imageSrc: "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2332_lya0sv?_a=BAMAROFG0",
     fullContent:
-      "Join senior AWS architects and AI engineers for an intensive session on building production-grade autonomous agents. Learn how Amazon Bedrock Agent Core provides deterministic execution guardrails, real-time memory retrieval, and seamless enterprise tool orchestration without compromising corporate data privacy.",
+      "Join AWS architects, EV industry pioneers, and cloud engineers for an immersive event exploring how artificial intelligence and AWS cloud technology are reshaping the mobility landscape. From real-time vehicle telemetry to GenAI-powered customer experiences, this session showcases what's possible when cloud meets clean energy.",
     keyTakeaways: [
-      "Architecting production-ready agents using Bedrock Agent Core",
-      "Retrieval-Augmented Generation (RAG) with vector databases",
-      "Enterprise security, IAM scoping, and data protection",
-      "Real-world case studies from African cloud deployments",
+      "Building connected vehicle platforms on AWS IoT Core",
+      "AI-driven predictive maintenance for EV fleets",
+      "Real-time charging station optimisation with AWS analytics",
+      "GenAI use cases across the EV customer journey",
+    ],
+    galleryImages: [
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2332_lya0sv?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2327_pxh5hk?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2319_ublwkb?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2286_cdml4q?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2354_vivrcb?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2267_w79lzp?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2315_konn3d?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2307_dzu4e5?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2163_hr3gdf?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2104_atwwsv?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2242_qgnapn?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2087_angqqa?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2357_hqk5zb?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2353_o67d9o?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2350_uxpw0f?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2318_znvs3y?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2346_ctclpo?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2210_ld8e1y?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2253_z5jnmi?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2231_muuzss?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2234_zqee7m?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2196_mqlc1p?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2228_ddtint?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2193_mrfmve?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2130_ue9l90?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2186_ycdxsr?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2337_sepz07?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2131_hyyw2z?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2114_tcy72l?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2086_djtlr8?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2107_juef8r?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2356_ddiz2l?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2295_ultcf6?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2297_taxhfg?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2281_s4293h?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2296_fbs0b1?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2145_vd6nmo?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2278_ltw7u0?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2237_xpyvfk?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2202_xblcrz?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2141_yhepad?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2205_ovww3h?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2175_es16md?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2134_c3z9vo?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2338_m9xnod?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2301_sabo9e?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2075_ewn5fk?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2343_xzmalw?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2325_rnbcrt?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2264_azwotw?_a=BAMAROFG0",
     ],
   },
   {
-    id: "next-gen-intelligence-summit",
-    slug: "next-gen-intelligence-summit",
-    title: "NEXT-GEN INTELLIGENCE & CLOUD AUTOMATION SUMMIT",
+    id: "next-gen-intelligence-digital-transformation",
+    slug: "next-gen-intelligence-digital-transformation",
+    title: "NEXT-GEN INTELLIGENCE: DRIVING DIGITAL TRANSFORMATION WITH AWS AND GENAI",
     description:
-      "Explore the frontier of cloud-native AI pipelines, real-time predictive analytics, and automated MLOps for enterprise scale.",
-    date: "Date: Nov 12, 2026 - 09:30 AM",
-    location: "Location: Eko Convention Centre, Lagos",
+      "An executive and engineering summit exploring how generative AI and AWS cloud services are enabling African enterprises to modernise operations, automate workflows, and build competitive digital advantages.",
+    date: "August 22, 2025",
+    location: "Federal Palace Hotel, Lagos, Nigeria",
     category: "Next-Gen Intelligence",
     badge: "NEXT-GEN INTELLIGENCE",
-    imageSrc: "/events/next_gen.jpg",
+    imageSrc: "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0605_put1kc?_a=BAMAROFG0",
     fullContent:
-      "Experience live demonstrations of automated feature stores, Amazon SageMaker pipelines, and serverless AI orchestration. Industry leaders will reveal how next-gen intelligence automates complex business decisions and reduces operational latency.",
+      "Experience live demonstrations of how AWS GenAI services — Amazon Bedrock, Amazon Q, and SageMaker — are driving measurable digital transformation for enterprises across Nigeria and Africa. Industry leaders share real-world case studies on automating complex business processes, building intelligent data pipelines, and scaling cloud-native products.",
     keyTakeaways: [
-      "End-to-end MLOps pipeline automation on AWS",
-      "Real-time streaming data inference architectures",
-      "Cost-optimizing GPU compute workloads for GenAI",
-      "Integrating predictive analytics into legacy ERP systems",
+      "GenAI-powered workflow automation with Amazon Bedrock",
+      "Modernising enterprise data platforms on AWS",
+      "Building scalable AI products with SageMaker and Amazon Q",
+      "Digital transformation case studies from Nigerian enterprises",
     ],
-  },
-  {
-    id: "cloud-tax-filing-compliance",
-    slug: "cloud-tax-filing-compliance",
-    title: "AUTOMATED CLOUD TAX FILING & COMPLIANCE FOR ENTERPRISES",
-    description:
-      "Master automated enterprise tax computation, real-time audit reporting, and multi-region tax compliance pipelines built natively on AWS.",
-    date: "Date: Dec 05, 2026 - 11:00 AM",
-    location: "Location: Financial District, Abuja & Hybrid",
-    category: "Tax & Compliance",
-    badge: "TAX FILING EVENT",
-    imageSrc: "/services/real_sec.jpg",
-    fullContent:
-      "Navigating tax compliance across multiple jurisdictions requires precision, security, and automation. This workshop demonstrates how to build serverless tax calculation engines, immutable audit trails, and automated regulatory reporting pipelines on AWS.",
-    keyTakeaways: [
-      "Automating multi-currency tax calculation engines on AWS",
-      "Immutable audit logging using AWS KMS and CloudTrail",
-      "Filing automation for regulatory authorities",
-      "Zero-trust data encryption for corporate financial records",
+    galleryImages: [
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0605_put1kc?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5954_gtinyp?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_1001_rqmqax?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5949_mvbfvk?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0800_wji74n?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5965_u8qabn?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0842_fdjlyg?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0589_wfcbyd?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0682_vmda3o?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5936_tazgmf?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0992_q29ft9?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0829_bs3niu?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0620_kzpsa5?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0644_n6uddu?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0454_jrhlyf?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0701_f2pw9f?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0923_b5epdu?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0480_aedpku?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0687_rbddvn?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0908_mtytwh?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0863_thovcu?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0550_b6wpfw?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0526_apabd2?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0574_qkjovl?_a=BAMAROFG0",
+      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0460_hvq98g?_a=BAMAROFG0",
     ],
   },
 ];
@@ -156,85 +216,32 @@ export function getEventBySlug(slug: string): EventItem | undefined {
 
 export const UPCOMING_EVENTS: readonly EventItem[] = FEATURED_EVENTS;
 
-export const GALLERY_CATEGORIES = ["All", "Keynotes", "Workshops", "Community", "Networking"] as const;
+export const GALLERY_CATEGORIES = ["All", "One with AI 2026", "Next-Gen AI 2025"] as const;
+
+const ONE_WITH_AI = "One with AI 2026" as const;
+const NEXT_GEN_AI = "Next-Gen AI 2025" as const;
 
 export const GALLERY_PHOTOS: readonly GalleryPhoto[] = [
-  {
-    id: "g1",
-    title: "One with AI Masterclass Stage",
-    category: "Keynotes",
-    date: "Lagos, Oct 2025",
-    imageSrc: "/events/one_with_ai.jpg",
-    aspectClass: "aspect-[4/3]",
-  },
-  {
-    id: "g2",
-    title: "Next-Gen Intelligence Summit",
-    category: "Keynotes",
-    date: "Lagos, Nov 2025",
-    imageSrc: "/events/next_gen.jpg",
-    aspectClass: "aspect-[16/10]",
-  },
-  {
-    id: "g3",
-    title: "AWS Cloud Architecture Hands-on",
-    category: "Workshops",
-    date: "Lagos, Jul 2025",
-    imageSrc: "/services/real_arch.jpg",
-    aspectClass: "aspect-[4/3]",
-  },
-  {
-    id: "g4",
-    title: "Lagos Cloud Leaders Meetup",
-    category: "Community",
-    date: "Lagos, May 2025",
-    imageSrc: "/services/real_migration.jpg",
-    aspectClass: "aspect-[3/4]",
-  },
-  {
-    id: "g5",
-    title: "GenAI Production Deployment Panel",
-    category: "Keynotes",
-    date: "Abuja, Mar 2025",
-    imageSrc: "/services/real_ai.jpg",
-    aspectClass: "aspect-[4/3]",
-  },
-  {
-    id: "g6",
-    title: "Enterprise Cloud Security Workshop",
-    category: "Workshops",
-    date: "Lagos, Jan 2025",
-    imageSrc: "/services/real_sec.jpg",
-    aspectClass: "aspect-[16/9]",
-  },
-  {
-    id: "g7",
-    title: "MLOps & SageMaker Engineering Lab",
-    category: "Workshops",
-    date: "Abuja, Nov 2024",
-    imageSrc: "/services/real_ml.jpg",
-    aspectClass: "aspect-[4/3]",
-  },
-  {
-    id: "g8",
-    title: "Executive Cloud Networking Session",
-    category: "Networking",
-    date: "Lagos, Sep 2024",
-    imageSrc: "/events/speakers/speaker_arthur.png",
-    aspectClass: "aspect-square",
-  },
-  {
-    id: "g9",
-    title: "Arthurite Annual Cloud Roundtable",
-    category: "Community",
-    date: "Lagos, Jul 2024",
-    imageSrc: "/events/speakers/speaker_chidi.png",
-    aspectClass: "aspect-[3/4]",
-  },
+  ...(FEATURED_EVENTS[0]?.galleryImages ?? []).map((src, index) => ({
+    id: `owai-full-${index + 1}`,
+    title: `One with AI — Event Highlight ${index + 1}`,
+    category: ONE_WITH_AI,
+    date: "Lagos, June 2026",
+    imageSrc: src,
+    aspectClass: index % 3 === 0 ? "aspect-[4/3]" : index % 3 === 1 ? "aspect-[16/10]" : "aspect-[3/4]",
+  })),
+  ...(FEATURED_EVENTS[1]?.galleryImages ?? []).map((src, index) => ({
+    id: `nga-full-${index + 1}`,
+    title: `Next-Gen AI — Event Highlight ${index + 1}`,
+    category: NEXT_GEN_AI,
+    date: "Lagos, August 2025",
+    imageSrc: src,
+    aspectClass: index % 3 === 0 ? "aspect-[4/3]" : index % 3 === 1 ? "aspect-[16/10]" : "aspect-[3/4]",
+  })),
 ];
 
 export const CTA_CONTENT = {
-  title: "Want to get deeper into cloud topics?",
+  title: "Want to go deeper on cloud and AI topics?",
   buttonText: "Explore Blog",
   buttonLink: "/blog",
 };

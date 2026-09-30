@@ -1,5 +1,5 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
-import {afterEach, describe, expect, it, vi} from "vitest";
+import {afterEach, describe, expect, it, vi} from "vite-plus/test";
 
 import {ContactPage} from "#/components/contact/contact-page.tsx";
 import {CONTACT_EMAIL} from "#/components/layout/footer-content.ts";

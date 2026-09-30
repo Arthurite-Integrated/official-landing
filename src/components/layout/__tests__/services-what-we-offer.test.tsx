@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {ServicesWhatWeOffer} from "#/components/layout/services-what-we-offer.tsx";
 import {ServiceOffers} from "#/components/layout/services-offer-data.ts";

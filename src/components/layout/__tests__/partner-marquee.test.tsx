@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {PartnerLogos} from "#/components/layout/partner-logos.ts";
 import {PartnerMarquee} from "#/components/layout/partner-marquee.tsx";

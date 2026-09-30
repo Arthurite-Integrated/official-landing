@@ -15,9 +15,9 @@ trigger: always_on
 ## Before Every Commit
 
 ```sh
-bun lint
+vp lint --max-warnings=0
 bunx -y react-doctor@latest . --verbose --diff
-bun run test
+vp test run
 bun run stryker:incremental
 bun run test:ct  # if UI components changed
 ```

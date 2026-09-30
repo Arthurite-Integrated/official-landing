@@ -8,7 +8,7 @@ trigger: always_on
 
 | Tool          | Purpose                           | Command                    |
 | ------------- | --------------------------------- | -------------------------- |
-| Vitest        | Unit and integration tests        | bun run test               |
+| Vitest        | Unit and integration tests        | vp test run                |
 | fast-check    | Property-based testing            | Used within Vitest         |
 | react-doctor  | React best practices audit        | bunx react-doctor@latest . |
 | Stryker       | Mutation testing                  | bun run stryker            |

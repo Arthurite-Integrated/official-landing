@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {AwsServices} from "#/components/layout/aws-services.ts";
 import {CoreAwsServices} from "#/components/layout/core-aws-services.tsx";

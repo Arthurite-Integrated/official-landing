@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {VisionMissionContent} from "#/components/about/vision-mission-content.ts";
 import {VisionMission} from "#/components/about/vision-mission.tsx";

@@ -19,3 +19,5 @@ mcp-todos.json
 reports
 .idea
 .source
+.vitest/
+.vite-hooks/_

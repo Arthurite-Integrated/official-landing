@@ -4,11 +4,11 @@ import {Bot, Brain, Cpu, MoveUpRight, type LucideIcon} from "lucide-react";
 import {EVENT_INFO, EVENT_TRACKS, type EventTrack} from "#/components/events/events-data.ts";
 import {Button} from "#/components/ui/button.tsx";
 
-function getTrackLucideIcon(iconType: EventTrack["iconType"]): LucideIcon {
-  if (iconType === "robotics") return Bot;
-  if (iconType === "ai") return Brain;
-  return Cpu;
-}
+const TRACK_ICONS: Record<EventTrack["iconType"], LucideIcon> = {
+  robotics: Bot,
+  ai: Brain,
+  quantum: Cpu,
+};
 
 function CardNetArt({icon: Icon}: {readonly icon: LucideIcon}) {
   return (
@@ -24,7 +24,7 @@ function CardNetArt({icon: Icon}: {readonly icon: LucideIcon}) {
 }
 
 function TrackCard({track}: {readonly track: EventTrack}) {
-  const IconComponent = getTrackLucideIcon(track.iconType);
+  const IconComponent = TRACK_ICONS[track.iconType];
 
   return (
     <div className="group relative isolate flex flex-col justify-between overflow-hidden rounded-[2rem] border border-[#006759]/15 bg-[#f9f9f8] p-10 shadow-sm transition-all duration-300 hover:border-[#006759]/40 hover:shadow-lg lg:p-14 min-h-[340px] dark:bg-card">

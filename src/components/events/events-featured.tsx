@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {Link} from "@tanstack/react-router";
-import {ArrowUpRight, Calendar, ChevronLeft, ChevronRight, MapPin, Users} from "lucide-react";
+import {ArrowUpRight, Calendar, ChevronLeft, ChevronRight, MapPin} from "lucide-react";
 
 import {FEATURED_EVENTS, type EventItem} from "#/components/events/events-data.ts";
 import {Button} from "#/components/ui/button.tsx";
@@ -42,10 +42,6 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
         <span className="rounded-full bg-[#006759] px-4 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg">
           {event.badge ?? "FEATURED EVENT"}
         </span>
-        <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-300 backdrop-blur-md">
-          <Users className="h-3.5 w-3.5 text-emerald-400" />
-          120+ Registered
-        </span>
       </div>
 
       <h3 className="mb-4 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl leading-tight">{event.title}</h3>
@@ -63,17 +59,8 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <Link to="/contact">
-          <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
-            <span>Register Now</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </Button>
-        </Link>
         <Link to="/events/$slug" params={{slug: event.slug}}>
-          <Button
-            variant="outline"
-            className="h-12 rounded-full border-white/25 bg-white/10 px-7 text-xs font-bold text-white backdrop-blur-md hover:bg-white/20"
-          >
+          <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
             <span>View Event Details</span>
             <ArrowUpRight className="h-4 w-4" />
           </Button>

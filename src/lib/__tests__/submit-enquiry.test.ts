@@ -1,4 +1,4 @@
-import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
+import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
 import type {ContactRequest} from "#/lib/contact-request.ts";
 import {submitContactRequest, submitEnquiry} from "#/lib/submit-enquiry.ts";
