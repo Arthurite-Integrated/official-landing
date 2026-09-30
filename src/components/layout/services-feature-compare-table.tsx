@@ -26,7 +26,7 @@ function FeatureCell({value}: {readonly value: boolean | string}) {
 
 export function ServicesFeatureCompareTable({rows}: CompareTableProps) {
   return (
-    <div className="overflow-x-auto rounded-3xl border border-foreground/10 bg-[#f2f2f0] shadow-sm">
+    <div className="overflow-x-auto rounded-3xl border border-foreground/10 bg-sand shadow-sm">
       <table className="w-full text-left">
         <thead>
           <tr className="border-b border-foreground/10 bg-foreground/5 text-xs font-semibold uppercase tracking-wider text-foreground/60">

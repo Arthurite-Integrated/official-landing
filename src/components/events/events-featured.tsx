@@ -1,25 +1,18 @@
 import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 import {Link} from "@tanstack/react-router";
 import {ArrowUpRight, Calendar, ChevronLeft, ChevronRight, MapPin} from "lucide-react";
 
-import {FEATURED_EVENTS, type EventItem} from "#/components/events/events-data.ts";
+import {toEventItem, type EventItem} from "#/components/events/events-data.ts";
+import {
+  FeaturedEmpty,
+  FeaturedError,
+  FeaturedHeader,
+  FeaturedShell,
+  FeaturedSkeleton,
+} from "#/components/events/events-featured-states.tsx";
 import {Button} from "#/components/ui/button.tsx";
-
-function FeaturedHeader() {
-  return (
-    <div className="mb-12 text-center">
-      <span className="inline-block rounded-full border border-foreground/20 bg-foreground/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-foreground/70">
-        - FLAGSHIP CONFERENCES -
-      </span>
-      <h2 className="mt-3 text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        Featured <span className="text-[#006759] dark:text-emerald-400">Events</span>
-      </h2>
-      <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
-        Experience world-class AWS cloud architectures, GenAI engineering, and enterprise compliance live in Nigeria
-      </p>
-    </div>
-  );
-}
+import {eventsQueryOptions} from "#/lib/api/endpoints.ts";
 
 function FeaturedCardBg({event}: {readonly event: EventItem}) {
   return (
@@ -39,7 +32,7 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
   return (
     <div className="relative z-10 p-8 sm:p-12 lg:p-14 text-white max-w-3xl">
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <span className="rounded-full bg-[#006759] px-4 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg">
+        <span className="rounded-full bg-primary px-4 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg">
           {event.badge ?? "FEATURED EVENT"}
         </span>
       </div>
@@ -60,7 +53,7 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
 
       <div className="flex flex-wrap items-center gap-4">
         <Link to="/events/$slug" params={{slug: event.slug}}>
-          <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
+          <Button className="h-12 rounded-full bg-primary px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-lagoon-deep">
             <span>View Event Details</span>
             <ArrowUpRight className="h-4 w-4" />
           </Button>
@@ -96,7 +89,7 @@ function FeaturedPreviewThumb({
       onClick={onSelect}
       className={`group relative flex w-full text-left overflow-hidden rounded-2xl border p-4 transition-all duration-300 ${
         isActive
-          ? "border-[#006759] bg-[#006759]/10 shadow-lg dark:bg-emerald-950/30 ring-2 ring-[#006759]"
+          ? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary"
           : "border-foreground/10 bg-card hover:border-foreground/30 hover:bg-muted/50"
       }`}
     >
@@ -110,12 +103,8 @@ function FeaturedPreviewThumb({
       </div>
 
       <div className="ml-4 flex flex-col justify-center min-w-0">
-        <span className="text-[10px] font-bold text-[#006759] uppercase tracking-wider dark:text-emerald-400">
-          {event.badge ?? "EVENT"}
-        </span>
-        <h4 className="text-xs font-extrabold text-foreground truncate group-hover:text-[#006759] dark:group-hover:text-emerald-400">
-          {event.title}
-        </h4>
+        <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{event.badge ?? "EVENT"}</span>
+        <h4 className="text-xs font-extrabold text-foreground truncate group-hover:text-primary">{event.title}</h4>
         <p className="mt-0.5 text-[11px] text-muted-foreground truncate">{event.date}</p>
       </div>
     </button>
@@ -123,11 +112,13 @@ function FeaturedPreviewThumb({
 }
 
 function FeaturedPagination({
+  events,
   currentIndex,
   onSelectIndex,
   onPrev,
   onNext,
 }: {
+  readonly events: readonly EventItem[];
   readonly currentIndex: number;
   readonly onSelectIndex: (index: number) => void;
   readonly onPrev: () => void;
@@ -136,13 +127,13 @@ function FeaturedPagination({
   return (
     <div className="flex items-center justify-between pt-2">
       <div className="flex items-center gap-2">
-        {FEATURED_EVENTS.map((evt, idx) => (
+        {events.map((evt, idx) => (
           <button
             key={evt.id}
             type="button"
             onClick={() => onSelectIndex(idx)}
             aria-label={`Go to slide ${idx + 1}`}
-            className={`h-2 rounded-full transition-all ${idx === currentIndex ? "w-8 bg-[#006759]" : "w-2 bg-foreground/20"}`}
+            className={`h-2 rounded-full transition-all ${idx === currentIndex ? "w-8 bg-primary" : "w-2 bg-foreground/20"}`}
           />
         ))}
       </div>
@@ -171,11 +162,13 @@ function FeaturedPagination({
 }
 
 function FeaturedControls({
+  events,
   currentIndex,
   onSelectIndex,
   onPrev,
   onNext,
 }: {
+  readonly events: readonly EventItem[];
   readonly currentIndex: number;
   readonly onSelectIndex: (index: number) => void;
   readonly onPrev: () => void;
@@ -184,36 +177,44 @@ function FeaturedControls({
   return (
     <div className="mt-8 space-y-4">
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-        {FEATURED_EVENTS.map((evt, idx) => (
+        {events.slice(0, 3).map((evt, idx) => (
           <FeaturedPreviewThumb key={evt.id} event={evt} index={idx} isActive={idx === currentIndex} onSelect={() => onSelectIndex(idx)} />
         ))}
       </div>
-      <FeaturedPagination currentIndex={currentIndex} onSelectIndex={onSelectIndex} onPrev={onPrev} onNext={onNext} />
+      <FeaturedPagination events={events} currentIndex={currentIndex} onSelectIndex={onSelectIndex} onPrev={onPrev} onNext={onNext} />
     </div>
   );
 }
 
 export function EventsFeatured() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const current = FEATURED_EVENTS[currentIndex] ?? FEATURED_EVENTS[0];
+  const {data, isPending, isError, refetch} = useQuery(eventsQueryOptions());
+  const events = (data ?? []).map(toEventItem);
+  const current = events[currentIndex] ?? events[0];
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? FEATURED_EVENTS.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? events.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === FEATURED_EVENTS.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
   };
 
-  if (!current) return null;
+  if (isPending) return <FeaturedSkeleton />;
+  if (isError) return <FeaturedError onRetry={() => void refetch()} />;
+  if (!current) return <FeaturedEmpty />;
 
   return (
-    <section className="bg-background py-20 text-foreground sm:py-28 border-t border-foreground/10">
-      <div className="mx-auto max-w-7xl px-6 sm:px-10">
-        <FeaturedHeader />
-        <FeaturedHeroCard event={current} />
-        <FeaturedControls currentIndex={currentIndex} onSelectIndex={setCurrentIndex} onPrev={handlePrev} onNext={handleNext} />
-      </div>
-    </section>
+    <FeaturedShell>
+      <FeaturedHeader />
+      <FeaturedHeroCard event={current} />
+      <FeaturedControls
+        events={events}
+        currentIndex={currentIndex}
+        onSelectIndex={setCurrentIndex}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
+    </FeaturedShell>
   );
 }

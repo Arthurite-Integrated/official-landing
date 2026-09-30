@@ -34,7 +34,7 @@ describe("BentoCard", () => {
   it("applies the card background class to the card", () => {
     render(<BentoCard card={baseCard} />);
 
-    expect(screen.getByRole("article")).toHaveClass("bg-[#f2f2f0]");
+    expect(screen.getByRole("article")).toHaveClass("bg-sand");
   });
 
   it("lists every highlight when highlights are provided", () => {

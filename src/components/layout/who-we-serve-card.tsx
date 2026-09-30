@@ -9,7 +9,7 @@ export function WhoWeServeCard({index, item}: WhoWeServeCardProps) {
   const formattedIndex = String(index + 1).padStart(2, "0");
 
   return (
-    <article className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 sm:p-7">
+    <article className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 sm:p-7">
       <div>
         <div className="relative overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/5 sm:h-52">
           <img

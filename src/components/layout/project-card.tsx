@@ -9,7 +9,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({project}: ProjectCardProps) {
   return (
-    <article className="grid gap-10 rounded-[1.75rem] border border-primary/22 bg-white/45 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-12 lg:min-h-[40rem]">
+    <article className="grid gap-10 rounded-[1.75rem] border border-primary/22 bg-foam/45 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-12 lg:min-h-[40rem]">
       <div className="flex h-full flex-col justify-between gap-5">
         <ProjectMedia project={project} />
 

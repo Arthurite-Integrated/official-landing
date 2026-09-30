@@ -46,7 +46,7 @@ export function AwardsAndRecognition() {
           {AWARDS.map((item) => (
             <li
               key={`${item.year}-${item.award}`}
-              className="flex min-h-[22rem] flex-col justify-between rounded-2xl border border-foreground/10 bg-white p-7 sm:min-h-[24rem]"
+              className="flex min-h-[22rem] flex-col justify-between rounded-2xl border border-foreground/10 bg-foam p-7 sm:min-h-[24rem]"
             >
               <p className="text-3xl font-medium tracking-tight text-foreground">{item.year}</p>
               <p className="mt-6 text-base leading-snug text-foreground/80">{item.description}</p>

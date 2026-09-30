@@ -77,7 +77,7 @@ function ServiceCardItem({service}: {readonly service: ServiceItem}) {
       params={{slug: service.slug}}
       className="group flex flex-col gap-2.5 overflow-hidden transition-all duration-300 hover:-translate-y-1"
     >
-      <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-200 shadow-sm dark:bg-neutral-800">
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-200 shadow-sm">
         <img
           src={service.image}
           alt={service.title}

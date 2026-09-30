@@ -35,7 +35,7 @@ export const NavigationBar = () => {
               <Button
                 className={cn(
                   "h-10 rounded-full px-5 text-sm font-semibold shadow-none hidden sm:inline-flex",
-                  solid ? "bg-primary text-white hover:bg-primary/90" : "bg-white text-primary hover:bg-white/92"
+                  solid ? "bg-primary text-white hover:bg-primary/90" : "bg-foam text-primary hover:bg-foam/90"
                 )}
               >
                 Book Free

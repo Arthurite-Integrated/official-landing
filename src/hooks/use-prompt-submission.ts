@@ -2,7 +2,7 @@ import {useState} from "react";
 
 export type SendStatus = "idle" | "sending" | "sent" | "failed";
 
-export function usePromptSubmission<T = string>(onSubmit: (payload: T) => Promise<void>) {
+export function usePromptSubmission<T = string>(onSubmit: (payload: T) => Promise<unknown>) {
   const [status, setStatus] = useState<SendStatus>("idle");
 
   async function send(payload: T): Promise<boolean> {

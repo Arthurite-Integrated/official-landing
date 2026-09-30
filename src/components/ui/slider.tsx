@@ -10,7 +10,7 @@ function SliderThumbs({count}: {count: number}) {
     <SliderPrimitive.Thumb
       data-slot="slider-thumb"
       key={`thumb-${index}`}
-      className="block size-4 shrink-0 rounded-full border border-primary bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+      className="block size-4 shrink-0 rounded-full border border-primary bg-foam shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
     />
   ));
 }

@@ -66,7 +66,7 @@ function LightboxCardContent({
       />
       <div className="mt-3 flex items-center justify-between px-3 pb-1 text-white">
         <div>
-          <span className="rounded-full bg-[#006759] px-3 py-0.5 text-[10px] font-bold text-white">{activePhoto.category}</span>
+          <span className="rounded-full bg-primary px-3 py-0.5 text-[10px] font-bold text-white">{activePhoto.category}</span>
           <h3 className="mt-1 text-lg font-black text-white">{activePhoto.title}</h3>
           <p className="text-xs text-slate-400">{activePhoto.date}</p>
         </div>

@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EventsRouteRouteImport } from './routes/events/route'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ServicesRouteRouteImport } from './routes/services/route'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
@@ -64,6 +65,11 @@ const ServicesRouteRoute = ServicesRouteRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/mcp': typeof McpRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/mcp': typeof McpRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/mcp': typeof McpRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/contact'
     | '/mcp'
+    | '/unsubscribe'
     | '/blog/$slug'
     | '/events/$slug'
     | '/services/$slug'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/contact'
     | '/mcp'
+    | '/unsubscribe'
     | '/blog/$slug'
     | '/events/$slug'
     | '/services/$slug'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/contact'
     | '/mcp'
+    | '/unsubscribe'
     | '/blog/$slug'
     | '/events/$slug'
     | '/services/$slug'
@@ -198,6 +210,7 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
   McpRoute: typeof McpRoute
+  UnsubscribeRoute: typeof UnsubscribeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -256,6 +269,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -354,6 +374,7 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   McpRoute: McpRoute,
+  UnsubscribeRoute: UnsubscribeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

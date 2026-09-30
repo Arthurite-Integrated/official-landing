@@ -12,7 +12,7 @@ import {Input} from "#/components/ui/input.tsx";
 //         - PHOTO SHOWCASE
 //       </span>
 //       <h2 className="mt-3 text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-//         Event <span className="text-[#006759] dark:text-emerald-400">Gallery</span>
+//         Event <span className="text-primary">Gallery</span>
 //       </h2>
 //       <p className="mt-3 mx-auto max-w-xl text-sm text-muted-foreground">
 //         Authentic moments, stage presentations, and highlights from our AWS events in Lagos
@@ -31,7 +31,7 @@ function CategoryFilters({selected, onSelect}: {readonly selected: string; reado
           onClick={() => onSelect(cat)}
           className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
             selected === cat
-              ? "bg-[#006759] text-white shadow-md dark:bg-emerald-500"
+              ? "bg-primary text-white shadow-md"
               : "border border-foreground/10 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
           }`}
         >
@@ -70,7 +70,7 @@ export function EventsGallery() {
               placeholder="Search past events..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-11 rounded-full border-foreground/15 bg-card pl-10 pr-4 text-xs shadow-sm focus-visible:ring-[#006759]"
+              className="h-11 rounded-full border-foreground/15 bg-card pl-10 pr-4 text-xs shadow-sm focus-visible:ring-primary"
             />
           </div>
           <CategoryFilters selected={selectedCategory} onSelect={setSelectedCategory} />

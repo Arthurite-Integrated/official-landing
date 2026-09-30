@@ -1,91 +1,27 @@
-import {Search} from "lucide-react";
 import {useMemo, useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 
-import {cn} from "@/lib/utils";
-import {OPEN_ROLES, ROLE_CATEGORIES, ROLE_LOCATIONS} from "#/components/layout/careers-data.ts";
-import type {RoleCategory} from "#/components/layout/careers-data.ts";
+import {CareersApplyModal} from "#/components/layout/careers-apply-modal.tsx";
+import {toOpenRole} from "#/components/layout/careers-data.ts";
+import type {OpenRole} from "#/components/layout/careers-data.ts";
 import {CareersRoleRow} from "#/components/layout/careers-role-card.tsx";
+import {MobileCategoryFilter, RoleSearchBar, RoleSidebar} from "#/components/layout/careers-role-filters.tsx";
+import {jobsQueryOptions} from "#/lib/api/endpoints.ts";
 
-const SECTION_TITLE_ID = "open-roles";
-
-type RoleSidebarProps = {
-  readonly activeCategory: RoleCategory | null;
-  readonly onSelectCategory: (category: RoleCategory | null) => void;
-};
-
-function RoleSidebar({activeCategory, onSelectCategory}: RoleSidebarProps) {
-  return (
-    <nav aria-label="Role categories" className="hidden lg:block lg:w-48 xl:w-56">
-      <div className="sticky top-32 space-y-1">
-        {ROLE_CATEGORIES.map((category) => (
-          <button
-            key={category}
-            type="button"
-            onClick={() => onSelectCategory(activeCategory === category ? null : category)}
-            className={cn(
-              "block w-full rounded-lg px-3 py-2 text-left text-sm transition-all duration-200",
-              activeCategory === category
-                ? "border-l-2 border-primary bg-primary/10 font-medium text-foreground"
-                : "border-l-2 border-transparent text-foreground/50 hover:text-foreground/80"
-            )}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-type RoleSearchBarProps = {
-  readonly searchQuery: string;
-  readonly onSearchChange: (value: string) => void;
-  readonly locationFilter: string;
-  readonly onLocationChange: (value: string) => void;
-};
-
-function RoleSearchBar({searchQuery, onSearchChange, locationFilter, onLocationChange}: RoleSearchBarProps) {
-  return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-      <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-foreground/40" aria-hidden="true" />
-        <input
-          type="text"
-          placeholder="Search job titles..."
-          value={searchQuery}
-          onChange={(event) => onSearchChange(event.target.value)}
-          className="w-full rounded-xl border border-foreground/15 bg-white py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
-        />
-      </div>
-      <select
-        value={locationFilter}
-        onChange={(event) => onLocationChange(event.target.value)}
-        aria-label="Filter by location"
-        className="appearance-none rounded-xl border border-foreground/15 bg-white px-4 py-2.5 text-sm text-foreground/80 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
-      >
-        <option value="">All locations</option>
-        {ROLE_LOCATIONS.map((location) => (
-          <option key={location} value={location}>
-            {location}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
+const SECTION_TITLE_ID = "open-roles-title";
 
 type GroupedDepartment = {
   readonly department: string;
-  readonly roles: typeof OPEN_ROLES;
+  readonly roles: readonly OpenRole[];
 };
 
 type GroupedRoles = {
-  readonly category: RoleCategory;
+  readonly category: string;
   readonly departments: readonly GroupedDepartment[];
 };
 
-function groupRolesByCategory(roles: typeof OPEN_ROLES): readonly GroupedRoles[] {
-  const grouped = new Map<RoleCategory, Map<string, (typeof OPEN_ROLES)[number][]>>();
+function groupRolesByCategory(roles: readonly OpenRole[]): readonly GroupedRoles[] {
+  const grouped = new Map<string, Map<string, OpenRole[]>>();
 
   for (const role of roles) {
     if (!grouped.has(role.category)) {
@@ -98,22 +34,27 @@ function groupRolesByCategory(roles: typeof OPEN_ROLES): readonly GroupedRoles[]
     departments.get(role.department)!.push(role);
   }
 
-  return ROLE_CATEGORIES.filter((cat) => grouped.has(cat)).map((category) => ({
+  return [...grouped.entries()].map(([category, departments]) => ({
     category,
-    departments: [...grouped.get(category)!.entries()].map(([department, roles]) => ({
-      department,
-      roles,
-    })),
+    departments: [...departments.entries()].map(([department, roles]) => ({department, roles})),
   }));
 }
 
 type RoleListingProps = {
   readonly groups: readonly GroupedRoles[];
+  readonly hasAnyRoles: boolean;
+  readonly onApply: (role: OpenRole) => void;
 };
 
-function RoleListing({groups}: RoleListingProps) {
+function RoleListing({groups, hasAnyRoles, onApply}: RoleListingProps) {
   if (groups.length === 0) {
-    return <p className="py-16 text-center text-sm text-foreground/40">No roles match your current filters.</p>;
+    return (
+      <p className="py-16 text-center text-sm text-foreground/40">
+        {hasAnyRoles
+          ? "No roles match your current filters."
+          : "We don't have any open roles right now. Check back soon or reach out via the contact page."}
+      </p>
+    );
   }
 
   return (
@@ -127,9 +68,9 @@ function RoleListing({groups}: RoleListingProps) {
           {group.departments.map((dept) => (
             <div key={dept.department} className="mt-6">
               <p className="text-[11px] font-semibold tracking-[0.15em] text-primary/80 uppercase">{dept.department}</p>
-              <div className="mt-2">
+              <div className="mt-3 space-y-3">
                 {dept.roles.map((role) => (
-                  <CareersRoleRow key={role.id} role={role} />
+                  <CareersRoleRow key={role.id} role={role} onApply={onApply} />
                 ))}
               </div>
             </div>
@@ -140,50 +81,94 @@ function RoleListing({groups}: RoleListingProps) {
   );
 }
 
-type MobileCategoryFilterProps = {
-  readonly activeCategory: RoleCategory | null;
-  readonly onSelectCategory: (category: RoleCategory | null) => void;
-};
-
-function MobileCategoryFilter({activeCategory, onSelectCategory}: MobileCategoryFilterProps) {
+function RolesLoading() {
   return (
-    <div className="mt-8 flex flex-wrap items-center gap-2 lg:hidden">
-      {ROLE_CATEGORIES.map((category) => (
-        <button
-          key={category}
-          type="button"
-          onClick={() => onSelectCategory(activeCategory === category ? null : category)}
-          className={cn(
-            "rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide transition-all duration-200",
-            activeCategory === category
-              ? "bg-primary text-white"
-              : "border border-foreground/15 bg-foreground/5 text-foreground/60 hover:text-foreground"
-          )}
-        >
-          {category}
-        </button>
+    <div className="space-y-4" aria-busy="true" aria-label="Loading open roles">
+      {[0, 1, 2, 3].map((index) => (
+        <div key={index} className="h-14 animate-pulse rounded-xl border border-foreground/10 bg-foreground/5" />
       ))}
     </div>
   );
 }
 
-export function CareersOpenRoles() {
-  const [activeCategory, setActiveCategory] = useState<RoleCategory | null>(null);
+function RolesHeading({count}: {readonly count: number}) {
+  return (
+    <div className="max-w-2xl">
+      <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+        {count} open {count === 1 ? "role" : "roles"}
+      </h2>
+      <p className="mt-5 text-base leading-relaxed text-foreground/50 sm:text-lg">
+        We're looking for people who are excited to build what's next — from cloud architecture to platform engineering and operations.
+      </p>
+    </div>
+  );
+}
+
+type RolesBodyProps = {
+  readonly roles: readonly OpenRole[];
+  readonly isPending: boolean;
+  readonly isError: boolean;
+  readonly onApply: (role: OpenRole) => void;
+};
+
+function RolesBody({roles, isPending, isError, onApply}: RolesBodyProps) {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
 
+  const categories = useMemo(() => [...new Set(roles.map((role) => role.category))], [roles]);
+  const locations = useMemo(() => [...new Set(roles.map((role) => role.location))], [roles]);
+
   const filteredRoles = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
-    return OPEN_ROLES.filter((role) => {
-      if (activeCategory && role.category !== activeCategory) return false;
-      if (locationFilter && role.location !== locationFilter) return false;
-      if (query && !role.title.toLowerCase().includes(query)) return false;
-      return true;
-    });
-  }, [activeCategory, searchQuery, locationFilter]);
+    return roles.filter(
+      (role) =>
+        (!activeCategory || role.category === activeCategory) &&
+        (!locationFilter || role.location === locationFilter) &&
+        (!query || role.title.toLowerCase().includes(query))
+    );
+  }, [roles, activeCategory, searchQuery, locationFilter]);
 
   const groupedRoles = useMemo(() => groupRolesByCategory(filteredRoles), [filteredRoles]);
-  const roleCount = filteredRoles.length;
+
+  return (
+    <>
+      <div className="mt-12">
+        <RoleSearchBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          locationFilter={locationFilter}
+          onLocationChange={setLocationFilter}
+          locations={locations}
+        />
+      </div>
+
+      <MobileCategoryFilter categories={categories} activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
+
+      <div className="mt-12 flex gap-12">
+        <RoleSidebar categories={categories} activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
+        <div className="min-w-0 flex-1">
+          {isPending ? (
+            <RolesLoading />
+          ) : isError ? (
+            <p role="alert" className="py-16 text-center text-sm text-foreground/40">
+              We couldn't load open roles right now. Please try again later.
+            </p>
+          ) : (
+            <RoleListing groups={groupedRoles} hasAnyRoles={roles.length > 0} onApply={onApply} />
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function CareersOpenRoles() {
+  const [applyRole, setApplyRole] = useState<OpenRole | null>(null);
+  const {data, isPending, isError} = useQuery(jobsQueryOptions());
+
+  const roles = useMemo(() => (data ?? []).map(toOpenRole), [data]);
+  const roleCount = isPending || isError ? 0 : roles.length;
 
   return (
     <section
@@ -192,33 +177,11 @@ export function CareersOpenRoles() {
       className="relative isolate overflow-hidden bg-background px-5 py-24 sm:px-8 lg:py-32"
     >
       <div className="relative z-10 mx-auto max-w-6xl xl:max-w-7xl">
-        <div className="max-w-2xl">
-          <h2 id={SECTION_TITLE_ID} className="text-4xl leading-[1.06] font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            {roleCount} open {roleCount === 1 ? "role" : "roles"}
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-foreground/50 sm:text-lg">
-            We're looking for people who are excited to build what's next — from cloud architecture to platform engineering and operations.
-          </p>
-        </div>
-
-        <div className="mt-12">
-          <RoleSearchBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            locationFilter={locationFilter}
-            onLocationChange={setLocationFilter}
-          />
-        </div>
-
-        <MobileCategoryFilter activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
-
-        <div className="mt-12 flex gap-12">
-          <RoleSidebar activeCategory={activeCategory} onSelectCategory={setActiveCategory} />
-          <div className="min-w-0 flex-1">
-            <RoleListing groups={groupedRoles} />
-          </div>
-        </div>
+        <RolesHeading count={roleCount} />
+        <RolesBody roles={roles} isPending={isPending} isError={isError} onApply={setApplyRole} />
       </div>
+
+      {applyRole ? <CareersApplyModal role={applyRole} onClose={() => setApplyRole(null)} /> : null}
     </section>
   );
 }

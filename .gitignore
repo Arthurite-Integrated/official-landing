@@ -21,4 +21,6 @@ reports
 .source
 .vitest/
 .vite-hooks/_
+.ai/
+
 public/blog-images/

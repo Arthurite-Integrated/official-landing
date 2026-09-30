@@ -10,7 +10,7 @@ function HeroHeadline({title}: {readonly title: string}) {
 
   return (
     <h1 className="mb-6 max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl leading-tight sm:leading-tight">
-      {firstPart} <span className="inline-block rounded-xl bg-[#006759] px-3.5 py-1 text-white shadow-lg">{highlighted}</span> {lastPart}
+      {firstPart} <span className="inline-block rounded-xl bg-primary px-3.5 py-1 text-white shadow-lg">{highlighted}</span> {lastPart}
     </h1>
   );
 }
@@ -20,7 +20,7 @@ function HeroGlassWidget({event}: {readonly event: EventItem}) {
     <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md shadow-2xl transition-transform hover:scale-105">
       <div className="mb-3 flex items-center gap-2">
         <div className="flex -space-x-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#006759] text-[10px] font-bold text-white ring-2 ring-black">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-black">
             AO
           </div>
           <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white ring-2 ring-black">

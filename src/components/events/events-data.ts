@@ -1,3 +1,5 @@
+import type {ApiEvent} from "#/lib/api/types.ts";
+
 export interface EventInfo {
   readonly dates: string;
   readonly tagline: string;
@@ -88,133 +90,106 @@ export const EVENT_STATS: readonly EventStat[] = [
   {value: "AWS", label: "POWERED BY"},
 ];
 
-export const FEATURED_EVENTS: readonly EventItem[] = [
-  {
-    id: "one-with-ai-ev-ecosystems",
-    slug: "one-with-ai-ev-ecosystems",
-    title: "ONE WITH AI — POWERING MOBILITY AND EV ECOSYSTEMS WITH AWS",
-    description:
-      "A deep-dive into how AWS cloud services are transforming the electric vehicle industry — from intelligent fleet management and connected vehicle platforms to AI-powered charging infrastructure and predictive maintenance at scale.",
-    date: "June 11, 2026",
-    location: "Federal Palace Hotel, Lagos, Nigeria",
-    category: "AI & EV Mobility",
-    badge: "AI EVENT",
-    imageSrc: "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2332_lya0sv?_a=BAMAROFG0",
-    fullContent:
-      "Join AWS architects, EV industry pioneers, and cloud engineers for an immersive event exploring how artificial intelligence and AWS cloud technology are reshaping the mobility landscape. From real-time vehicle telemetry to GenAI-powered customer experiences, this session showcases what's possible when cloud meets clean energy.",
-    keyTakeaways: [
-      "Building connected vehicle platforms on AWS IoT Core",
-      "AI-driven predictive maintenance for EV fleets",
-      "Real-time charging station optimisation with AWS analytics",
-      "GenAI use cases across the EV customer journey",
-    ],
-    galleryImages: [
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2332_lya0sv?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2327_pxh5hk?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2319_ublwkb?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2286_cdml4q?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2354_vivrcb?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2267_w79lzp?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2315_konn3d?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2307_dzu4e5?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2163_hr3gdf?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2104_atwwsv?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2242_qgnapn?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2087_angqqa?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2357_hqk5zb?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2353_o67d9o?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2350_uxpw0f?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2318_znvs3y?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2346_ctclpo?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2210_ld8e1y?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2253_z5jnmi?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2231_muuzss?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2234_zqee7m?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2196_mqlc1p?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2228_ddtint?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2193_mrfmve?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2130_ue9l90?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2186_ycdxsr?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2337_sepz07?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2131_hyyw2z?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2114_tcy72l?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2086_djtlr8?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2107_juef8r?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2356_ddiz2l?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2295_ultcf6?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2297_taxhfg?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2281_s4293h?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2296_fbs0b1?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2145_vd6nmo?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2278_ltw7u0?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2237_xpyvfk?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2202_xblcrz?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2141_yhepad?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2205_ovww3h?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2175_es16md?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2134_c3z9vo?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2338_m9xnod?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2301_sabo9e?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2075_ewn5fk?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2343_xzmalw?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2325_rnbcrt?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2264_azwotw?_a=BAMAROFG0",
-    ],
-  },
-  {
-    id: "next-gen-intelligence-digital-transformation",
-    slug: "next-gen-intelligence-digital-transformation",
-    title: "NEXT-GEN INTELLIGENCE: DRIVING DIGITAL TRANSFORMATION WITH AWS AND GENAI",
-    description:
-      "An executive and engineering summit exploring how generative AI and AWS cloud services are enabling African enterprises to modernise operations, automate workflows, and build competitive digital advantages.",
-    date: "August 22, 2025",
-    location: "Federal Palace Hotel, Lagos, Nigeria",
-    category: "Next-Gen Intelligence",
-    badge: "NEXT-GEN INTELLIGENCE",
-    imageSrc: "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0605_put1kc?_a=BAMAROFG0",
-    fullContent:
-      "Experience live demonstrations of how AWS GenAI services — Amazon Bedrock, Amazon Q, and SageMaker — are driving measurable digital transformation for enterprises across Nigeria and Africa. Industry leaders share real-world case studies on automating complex business processes, building intelligent data pipelines, and scaling cloud-native products.",
-    keyTakeaways: [
-      "GenAI-powered workflow automation with Amazon Bedrock",
-      "Modernising enterprise data platforms on AWS",
-      "Building scalable AI products with SageMaker and Amazon Q",
-      "Digital transformation case studies from Nigerian enterprises",
-    ],
-    galleryImages: [
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0605_put1kc?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5954_gtinyp?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_1001_rqmqax?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5949_mvbfvk?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0800_wji74n?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5965_u8qabn?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0842_fdjlyg?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0589_wfcbyd?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0682_vmda3o?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5936_tazgmf?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0992_q29ft9?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0829_bs3niu?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0620_kzpsa5?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0644_n6uddu?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0454_jrhlyf?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0701_f2pw9f?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0923_b5epdu?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0480_aedpku?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0687_rbddvn?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0908_mtytwh?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0863_thovcu?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0550_b6wpfw?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0526_apabd2?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0574_qkjovl?_a=BAMAROFG0",
-      "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0460_hvq98g?_a=BAMAROFG0",
-    ],
-  },
-];
+const ONE_WITH_AI_IMAGES = [
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2332_lya0sv?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2327_pxh5hk?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2319_ublwkb?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2286_cdml4q?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2354_vivrcb?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2267_w79lzp?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2315_konn3d?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2307_dzu4e5?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2163_hr3gdf?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2104_atwwsv?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2242_qgnapn?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2087_angqqa?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2357_hqk5zb?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2353_o67d9o?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2350_uxpw0f?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2318_znvs3y?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2346_ctclpo?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2210_ld8e1y?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2253_z5jnmi?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2231_muuzss?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2234_zqee7m?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2196_mqlc1p?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2228_ddtint?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2193_mrfmve?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2130_ue9l90?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2186_ycdxsr?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2337_sepz07?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2131_hyyw2z?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2114_tcy72l?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2086_djtlr8?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2107_juef8r?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2356_ddiz2l?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2295_ultcf6?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2297_taxhfg?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2281_s4293h?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2296_fbs0b1?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2145_vd6nmo?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2278_ltw7u0?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2237_xpyvfk?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2202_xblcrz?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2141_yhepad?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2205_ovww3h?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2175_es16md?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2134_c3z9vo?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2338_m9xnod?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2301_sabo9e?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2075_ewn5fk?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2343_xzmalw?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2325_rnbcrt?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/DSC_2264_azwotw?_a=BAMAROFG0",
+] as const;
 
-export function getEventBySlug(slug: string): EventItem | undefined {
-  return FEATURED_EVENTS.find((evt) => evt.slug === slug);
+const NEXT_GEN_AI_IMAGES = [
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0605_put1kc?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5954_gtinyp?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_1001_rqmqax?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5949_mvbfvk?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0800_wji74n?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5965_u8qabn?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0842_fdjlyg?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0589_wfcbyd?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0682_vmda3o?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_5936_tazgmf?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0992_q29ft9?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0829_bs3niu?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0620_kzpsa5?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0644_n6uddu?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0454_jrhlyf?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0701_f2pw9f?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0923_b5epdu?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0480_aedpku?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0687_rbddvn?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0908_mtytwh?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0863_thovcu?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0550_b6wpfw?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0526_apabd2?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0574_qkjovl?_a=BAMAROFG0",
+  "https://res.cloudinary.com/dq8fswidj/image/upload/c_limit,f_auto,q_auto,w_1200/IMG_0460_hvq98g?_a=BAMAROFG0",
+] as const;
+
+function formatEventDate(startsAt: string): string {
+  const date = new Date(startsAt);
+  if (Number.isNaN(date.getTime())) return startsAt;
+  return date.toLocaleDateString("en-US", {day: "numeric", month: "long", year: "numeric"});
 }
 
-export const UPCOMING_EVENTS: readonly EventItem[] = FEATURED_EVENTS;
+export function toEventItem(event: ApiEvent): EventItem {
+  return {
+    id: event.id,
+    slug: event.id,
+    title: event.title,
+    description: event.description,
+    date: formatEventDate(event.startsAt),
+    location: event.location,
+    category: "Event",
+    imageSrc: event.coverImage,
+    galleryImages: [],
+  };
+}
 
 export const GALLERY_CATEGORIES = ["All", "One with AI 2026", "Next-Gen AI 2025"] as const;
 
@@ -222,7 +197,7 @@ const ONE_WITH_AI = "One with AI 2026" as const;
 const NEXT_GEN_AI = "Next-Gen AI 2025" as const;
 
 export const GALLERY_PHOTOS: readonly GalleryPhoto[] = [
-  ...(FEATURED_EVENTS[0]?.galleryImages ?? []).map((src, index) => ({
+  ...ONE_WITH_AI_IMAGES.map((src, index) => ({
     id: `owai-full-${index + 1}`,
     title: `One with AI — Event Highlight ${index + 1}`,
     category: ONE_WITH_AI,
@@ -230,7 +205,7 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = [
     imageSrc: src,
     aspectClass: index % 3 === 0 ? "aspect-[4/3]" : index % 3 === 1 ? "aspect-[16/10]" : "aspect-[3/4]",
   })),
-  ...(FEATURED_EVENTS[1]?.galleryImages ?? []).map((src, index) => ({
+  ...NEXT_GEN_AI_IMAGES.map((src, index) => ({
     id: `nga-full-${index + 1}`,
     title: `Next-Gen AI — Event Highlight ${index + 1}`,
     category: NEXT_GEN_AI,

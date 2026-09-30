@@ -12,7 +12,7 @@ export function EventsCta() {
         <h2 className="mb-8 text-3xl font-extrabold tracking-tight text-white sm:text-5xl">{CTA_CONTENT.title}</h2>
 
         <Link to={CTA_CONTENT.buttonLink}>
-          <Button className="h-12 rounded-full bg-[#006759] px-8 text-sm font-semibold text-white shadow-xl transition-all hover:bg-teal-500 hover:scale-105">
+          <Button className="h-12 rounded-full bg-primary px-8 text-sm font-semibold text-white shadow-xl transition-all hover:bg-lagoon-deep hover:scale-105">
             {CTA_CONTENT.buttonText}
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>

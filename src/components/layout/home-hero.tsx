@@ -2,7 +2,7 @@ import {Link} from "@tanstack/react-router";
 
 import {HeroComposer} from "#/components/layout/hero-composer.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import {submitEnquiry} from "#/lib/submit-enquiry.ts";
+import {submitContactRequest} from "#/lib/api/endpoints.ts";
 
 export function HomeHero() {
   return (
@@ -19,14 +19,14 @@ export function HomeHero() {
         </p>
 
         <Link to="/services" className="mt-8 inline-flex">
-          <Button className="h-12 rounded-full bg-white px-7 text-sm font-semibold text-primary hover:bg-primary-bg">
+          <Button className="h-12 rounded-full bg-foam px-7 text-sm font-semibold text-primary hover:bg-primary-bg">
             Explore services
           </Button>
         </Link>
       </div>
 
       <div className="flex translate-y-12 justify-center">
-        <HeroComposer onSubmit={submitEnquiry} />
+        <HeroComposer onSubmit={submitContactRequest} />
       </div>
     </div>
   );

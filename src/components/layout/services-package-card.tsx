@@ -18,7 +18,7 @@ export function ServicesPackageCard({isYearly, pkg}: ServicesPackageCardProps) {
         "relative flex flex-col justify-between rounded-3xl p-8 transition-all duration-300",
         pkg.isPopular
           ? "border-2 border-primary/60 bg-primary/5 shadow-[0_0_40px_rgba(0,103,89,0.10)]"
-          : "border border-foreground/10 bg-[#f2f2f0] hover:border-foreground/20"
+          : "border border-foreground/10 bg-sand hover:border-foreground/20"
       )}
     >
       {pkg.isPopular ? (

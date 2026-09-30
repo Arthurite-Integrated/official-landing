@@ -11,7 +11,7 @@ import type {ContactFieldErrors, ContactRequest} from "#/lib/contact-request.ts"
 const FORM_TITLE_ID = "contact-form-title";
 
 type ContactFormProps = {
-  readonly onSubmit: (request: ContactRequest) => Promise<void>;
+  readonly onSubmit: (request: ContactRequest) => Promise<unknown>;
 };
 
 export function ContactForm({onSubmit}: ContactFormProps) {

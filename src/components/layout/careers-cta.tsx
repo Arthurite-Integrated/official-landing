@@ -3,7 +3,7 @@ import {ArrowRight} from "lucide-react";
 export function CareersCta() {
   return (
     <section className="relative isolate overflow-hidden bg-background px-5 py-20 sm:px-8 lg:py-24">
-      <div className="relative z-10 mx-auto max-w-4xl rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-10 text-center sm:p-14">
+      <div className="relative z-10 mx-auto max-w-4xl rounded-3xl border border-foreground/10 bg-sand p-10 text-center sm:p-14">
         <h2 className="text-3xl font-medium tracking-tight text-foreground sm:text-5xl">Ready to take the next step?</h2>
 
         <p className="mx-auto mt-4 max-w-xl text-base text-foreground/70 sm:text-lg">

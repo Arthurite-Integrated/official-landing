@@ -2,6 +2,7 @@ import {FooterBottomBar} from "#/components/layout/footer-bottom-bar.tsx";
 import {FooterCta} from "#/components/layout/footer-cta.tsx";
 import {FooterDirectory} from "#/components/layout/footer-directory.tsx";
 import {FooterFacts} from "#/components/layout/footer-facts.tsx";
+import {FooterNewsletter} from "#/components/layout/footer-newsletter.tsx";
 
 export function SiteFooter() {
   return (
@@ -18,6 +19,7 @@ export function SiteFooter() {
             <FooterFacts />
           </div>
 
+          <FooterNewsletter />
           <FooterDirectory />
         </div>
 

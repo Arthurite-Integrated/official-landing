@@ -11,7 +11,7 @@ export function ComposerChips({items, onSelect}: ComposerChipsProps) {
           key={item}
           type="button"
           onClick={() => onSelect(item)}
-          className="rounded-full bg-white/90 px-4 py-1.5 text-xs font-semibold text-primary shadow-sm transition-colors hover:bg-white"
+          className="rounded-full bg-[var(--chip-bg)] px-4 py-1.5 text-xs font-semibold text-primary shadow-sm transition-colors hover:bg-[var(--link-bg-hover)]"
         >
           {item}
         </button>

@@ -13,7 +13,7 @@ export function CaseStudyCard({className, study}: CaseStudyCardProps) {
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 sm:p-8",
+        "group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 sm:p-8",
         className
       )}
     >

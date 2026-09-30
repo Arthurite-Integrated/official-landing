@@ -1,7 +1,7 @@
 import {ContactForm} from "#/components/contact/contact-form.tsx";
 import {ContactIntro} from "#/components/contact/contact-intro.tsx";
 import {PartnerMarquee} from "#/components/layout/partner-marquee.tsx";
-import {submitContactRequest} from "#/lib/submit-enquiry.ts";
+import {submitContactRequest} from "#/lib/api/endpoints.ts";
 
 export function ContactPage() {
   return (

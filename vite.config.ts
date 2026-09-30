@@ -11,6 +11,7 @@ import * as MdxConfig from "./source.config.ts";
 
 const config = defineConfig({
   fmt: {
+    ignorePatterns: ["src/routeTree.gen.ts"],
     printWidth: 140,
     tabWidth: 2,
     useTabs: false,
@@ -85,8 +86,8 @@ const config = defineConfig({
     mdx(MdxConfig),
     tailwindcss(),
     tanstackStart({
-      // Post pages are not listed: crawlLinks discovers every /blog/$slug from the links on /blog.
-      pages: [{path: "/"}, {path: "/about"}, {path: "/blog"}],
+      // /unsubscribe has no inbound link, so it is listed. Post pages are not listed: crawlLinks discovers every /blog/$slug from the links on /blog.
+      pages: [{path: "/"}, {path: "/about"}, {path: "/blog"}, {path: "/unsubscribe"}],
       prerender: {enabled: true, crawlLinks: true},
     }),
     viteReact(),

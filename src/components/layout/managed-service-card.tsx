@@ -42,7 +42,7 @@ export function ManagedServiceCard({isActive, onClick, service}: ManagedServiceC
         "group relative flex h-full w-full flex-col justify-between rounded-3xl p-6 text-left transition-all duration-300 sm:p-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
         isActive
           ? "border-2 border-primary/60 bg-primary/5 shadow-[0_0_30px_rgba(0,103,89,0.12)] scale-[1.02] z-10"
-          : "border border-foreground/10 bg-[#f2f2f0] hover:border-foreground/25 hover:bg-[#eaeae8] hover:scale-[1.01]"
+          : "border border-foreground/10 bg-sand hover:border-foreground/25 hover:bg-foreground/5 hover:scale-[1.01]"
       )}
     >
       <CardIconHeader icon={service.icon} isActive={isActive} name={service.name} />

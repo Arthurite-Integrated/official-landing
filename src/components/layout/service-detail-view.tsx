@@ -50,7 +50,7 @@ function ServiceTopHeaderNav({service}: {readonly service: ServiceItem}) {
 
 function ServiceShowcaseStage({service}: {readonly service: ServiceItem}) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-foreground/10 bg-[#f4f4f2] p-2.5 shadow-xl dark:bg-neutral-900 sm:p-4">
+    <div className="relative overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-2.5 shadow-xl sm:p-4">
       <div className="relative aspect-16/10 w-full overflow-hidden rounded-2xl bg-neutral-900">
         <img src={service.image} alt={service.title} className="h-full w-full object-cover object-center" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -90,7 +90,7 @@ function ServiceOverviewTab({service}: {readonly service: ServiceItem}) {
     <div className="space-y-6">
       <h3 className="text-xl font-bold tracking-tight text-foreground">Overview & Architectural Approach</h3>
       <p className="text-base leading-relaxed text-foreground/75 sm:text-lg">{service.description}</p>
-      <div className="rounded-2xl border border-foreground/10 bg-[#f4f4f2] p-6 dark:bg-neutral-900">
+      <div className="rounded-2xl border border-foreground/10 bg-sand p-6">
         <h4 className="text-sm font-semibold tracking-wider text-primary uppercase">AWS Well-Architected Guarantee</h4>
         <p className="mt-2 text-sm leading-relaxed text-foreground/70">
           All solution blueprints are designed in accordance with AWS operational excellence, security, reliability, performance efficiency,
@@ -110,7 +110,7 @@ function ServiceCapabilitiesTab({service}: {readonly service: ServiceItem}) {
       </h3>
       <div className="grid gap-4 sm:grid-cols-2">
         {service.features.map((feature) => (
-          <div key={feature.title} className="rounded-2xl border border-foreground/10 bg-[#f4f4f2] p-5 dark:bg-neutral-900">
+          <div key={feature.title} className="rounded-2xl border border-foreground/10 bg-sand p-5">
             <h4 className="text-base font-semibold text-foreground">{feature.title}</h4>
             <p className="mt-2 text-xs leading-relaxed text-foreground/70 sm:text-sm">{feature.description}</p>
           </div>
@@ -129,7 +129,7 @@ function ServiceBenefitsTab({service}: {readonly service: ServiceItem}) {
       </h3>
       <ul className="grid gap-3 sm:grid-cols-2">
         {service.keyBenefits.map((benefit) => (
-          <li key={benefit} className="flex items-start gap-3 rounded-xl border border-foreground/10 bg-[#f4f4f2] p-4 dark:bg-neutral-900">
+          <li key={benefit} className="flex items-start gap-3 rounded-xl border border-foreground/10 bg-sand p-4">
             <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" />
             <span className="text-sm font-medium text-foreground/80">{benefit}</span>
           </li>
@@ -176,7 +176,7 @@ function ServiceTabContent({activeTab, service}: {readonly activeTab: string; re
 
 function ServiceSidebarCard({service}: {readonly service: ServiceItem}) {
   return (
-    <div className="space-y-6 rounded-3xl border border-foreground/10 bg-[#f4f4f2] p-6 shadow-xl dark:bg-neutral-900 sm:p-8">
+    <div className="space-y-6 rounded-3xl border border-foreground/10 bg-sand p-6 shadow-xl sm:p-8">
       <div>
         <div className="flex items-center gap-2">
           <div className="flex size-7 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">A</div>
