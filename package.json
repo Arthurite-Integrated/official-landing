@@ -76,18 +76,23 @@
   },
   "devEngines": {
     "packageManager": {
-      "name": "npm",
-      "version": "11.19.0",
+      "name": "bun",
+      "version": "1.4.2",
       "onFail": "download"
     }
   },
   "engines": {
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
   },
+  "packageManager": "bun@1.4.2",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
       "lightningcss"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "esbuild",
+    "lightningcss"
+  ]
 }

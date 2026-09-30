@@ -40,7 +40,7 @@ source.config.ts    — Fumadocs MDX collection and blog frontmatter schema
 | Blog            | Fumadocs MDX                                   |
 | Icons           | Lucide React                                   |
 | Build           | Vite+ 1.0 (Rolldown-Vite 8)                    |
-| Runtime         | Node 24 + npm                                  |
+| Runtime         | Node 24 + Bun 1.4                              |
 | Compiler        | React Compiler (babel plugin)                  |
 | Linting         | Oxlint via vp (anti-slop rules, zero warnings) |
 | Formatting      | Oxfmt via vp                                   |
@@ -58,19 +58,19 @@ source.config.ts    — Fumadocs MDX collection and blog frontmatter schema
 
 ```sh
 git submodule update --init # Fetch blog posts into content/blog (once after cloning)
-npm run dev                # Start dev server on port 3000 (vp dev)
-npm run build              # Production build (vp build)
-npm run preview            # Preview production build
-npm test                   # Run Vitest tests (vp test run)
-npm run test:coverage      # Run tests with coverage report
-npm run test:ui            # Vitest interactive UI
-npm run lint               # Oxlint via vp (--max-warnings=0)
-npm run lint:fix           # Oxlint with auto-fix
-npm run format             # Oxfmt via vp fmt
-npm run stryker            # Full mutation testing
-npm run stryker:incremental # Incremental mutation testing
-npm run test:ct            # Playwright component tests
-npm run test:ct:ui         # Playwright CT interactive UI
+bun dev                    # Start dev server on port 3000 (vp dev)
+bun run build              # Production build (vp build)
+bun run preview            # Preview production build
+bun run test               # Run Vitest tests (vp test run)
+bun run test:coverage      # Run tests with coverage report
+bun run test:ui            # Vitest interactive UI
+bun lint                   # Oxlint via vp (--max-warnings=0)
+bun lint:fix               # Oxlint with auto-fix
+bun format                 # Oxfmt via vp fmt
+bun run stryker            # Full mutation testing
+bun run stryker:incremental # Incremental mutation testing
+bun run test:ct            # Playwright component tests
+bun run test:ct:ui         # Playwright CT interactive UI
 vp check                   # Format + lint + typecheck in one pass
 vp staged                  # Run staged-file checks (pre-commit hook)
 ```

@@ -16,10 +16,10 @@ trigger: always_on
 
 ```sh
 vp lint --max-warnings=0
-npx -y react-doctor@latest . --verbose --diff
+bunx -y react-doctor@latest . --verbose --diff
 vp test run
-npm run stryker:incremental
-npm run test:ct  # if UI components changed
+bun run stryker:incremental
+bun run test:ct  # if UI components changed
 ```
 
 ## Commit Message Format

@@ -6,8 +6,8 @@ To run this application:
 
 ```bash
 git submodule update --init
-npm install
-npm run dev
+bun install
+bun dev
 ```
 
 # Blog Content
@@ -23,7 +23,7 @@ section of `CLAUDE.md`.
 To build this application for production:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Testing
@@ -31,7 +31,7 @@ npm run build
 This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
-npm test
+bun run test
 ```
 
 ## Styling
@@ -45,15 +45,15 @@ If you prefer not to use Tailwind CSS:
 1. Remove the demo pages in `src/routes/demo/`
 2. Replace the Tailwind import in `src/styles.css` with your own styles
 3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `npm uninstall @tailwindcss/vite tailwindcss`
+4. Uninstall the packages: `bun remove @tailwindcss/vite tailwindcss`
 
 ## Linting & Formatting
 
 This project uses [Vite+](https://viteplus.dev/) — Oxlint for linting and Oxfmt for formatting. The following commands are available:
 
 ```bash
-npm run lint
-npm run format
+bun lint
+bun format
 vp check
 ```
 
