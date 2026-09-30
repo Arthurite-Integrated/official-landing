@@ -3,8 +3,10 @@ import {useState, type FormEvent, type KeyboardEvent} from "react";
 import {ComposerChips} from "#/components/layout/composer-chips.tsx";
 import {ComposerField} from "#/components/layout/composer-field.tsx";
 import {ComposerStatus} from "#/components/layout/composer-status.tsx";
+import {HeroContactModal} from "#/components/layout/hero-contact-modal.tsx";
 import {usePromptSubmission} from "#/hooks/use-prompt-submission.ts";
 import {useRotatingSuggestion} from "#/hooks/use-rotating-suggestion.ts";
+import type {ContactRequest, EnquiryDetails} from "#/lib/contact-request.ts";
 
 const FIELD_ID = "hero-composer-field";
 
@@ -18,61 +20,77 @@ const GHOST_SUGGESTIONS = [
 const QUICK_STARTS = ["Cloud migration", "Cost optimisation", "Security review"];
 
 type HeroComposerProps = {
-  readonly onSubmit: (prompt: string) => Promise<void>;
+  readonly onSubmit: (request: ContactRequest) => Promise<unknown>;
 };
+
+type ComposerKeys = {
+  readonly ghost: string;
+  readonly onOpenDetails: () => void;
+  readonly onSetPrompt: (value: string) => void;
+};
+
+function handleComposerKeyDown(event: KeyboardEvent<HTMLTextAreaElement>, {ghost, onOpenDetails, onSetPrompt}: ComposerKeys) {
+  if (event.key === "Tab" && ghost !== "") {
+    event.preventDefault();
+    onSetPrompt(ghost);
+    return;
+  }
+
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    onOpenDetails();
+  }
+}
 
 export function HeroComposer({onSubmit}: HeroComposerProps) {
   const [prompt, setPrompt] = useState("");
-  const {status, send} = usePromptSubmission(onSubmit);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const {status, send} = usePromptSubmission<ContactRequest>(onSubmit);
   const suggestion = useRotatingSuggestion(GHOST_SUGGESTIONS, prompt !== "");
   const trimmed = prompt.trim();
   const ghost = prompt === "" ? suggestion : "";
   const sending = status === "sending";
+  const openDetails = () => setDetailsOpen(trimmed !== "");
 
-  async function sendPrompt() {
-    if (trimmed === "") return;
-    if (await send(trimmed)) setPrompt("");
+  async function sendRequest(details: EnquiryDetails) {
+    if (await send({...details, message: trimmed})) {
+      setDetailsOpen(false);
+      setPrompt("");
+    }
   }
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    void sendPrompt();
-  }
-
-  function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === "Tab" && ghost !== "") {
-      event.preventDefault();
-      setPrompt(ghost);
-      return;
-    }
-
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      void sendPrompt();
-    }
+    openDetails();
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-2xl rounded-[28px] border border-white/18 bg-white/12 p-3 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)] backdrop-blur-2xl"
-    >
-      <label htmlFor={FIELD_ID} className="block px-3 pt-2 pb-3 text-center text-sm font-medium text-white/85">
-        What do you need from your cloud team?
-      </label>
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-2xl rounded-[28px] border border-white/18 bg-white/12 p-3 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)] backdrop-blur-2xl"
+      >
+        <label htmlFor={FIELD_ID} className="block px-3 pt-2 pb-3 text-center text-sm font-medium text-white/85">
+          What do you need from your cloud team?
+        </label>
 
-      <ComposerField
-        id={FIELD_ID}
-        value={prompt}
-        ghost={ghost}
-        sending={sending}
-        canSubmit={trimmed !== "" && !sending}
-        onChange={(event) => setPrompt(event.target.value)}
-        onKeyDown={handleKeyDown}
-      />
+        <ComposerField
+          id={FIELD_ID}
+          value={prompt}
+          ghost={ghost}
+          sending={sending}
+          canSubmit={trimmed !== "" && !sending}
+          onChange={(event) => setPrompt(event.target.value)}
+          onKeyDown={(event) => handleComposerKeyDown(event, {ghost, onOpenDetails: openDetails, onSetPrompt: setPrompt})}
+        />
 
-      <ComposerStatus status={status} />
-      <ComposerChips items={QUICK_STARTS} onSelect={setPrompt} />
-    </form>
+        <ComposerStatus status={status} />
+        <ComposerChips items={QUICK_STARTS} onSelect={setPrompt} />
+      </form>
+
+      {detailsOpen ? (
+        <HeroContactModal prompt={trimmed} status={status} onClose={() => setDetailsOpen(false)} onSubmit={sendRequest} />
+      ) : null}
+    </>
   );
 }

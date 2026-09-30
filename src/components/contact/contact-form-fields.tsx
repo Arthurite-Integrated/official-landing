@@ -9,30 +9,23 @@ const CONTROL =
   "w-full rounded-xl border border-foreground/10 bg-white px-4 text-base text-foreground transition-[border-color,box-shadow] outline-none placeholder:text-foreground/35 focus:border-primary focus:ring-4 focus:ring-primary/15 aria-invalid:border-destructive";
 
 const TEXT_FIELDS = [
-  {name: "firstName", label: "First name", type: "text", autoComplete: "given-name", placeholder: "Ada", optional: false},
-  {name: "lastName", label: "Last name", type: "text", autoComplete: "family-name", placeholder: "Okafor", optional: false},
-  {name: "email", label: "Work email", type: "email", autoComplete: "email", placeholder: "ada@company.com", optional: false},
-  {name: "phone", label: "Phone", type: "tel", autoComplete: "tel", placeholder: "+234 800 000 0000", optional: true},
-  {
-    name: "jobTitle",
-    label: "Job title",
-    type: "text",
-    autoComplete: "organization-title",
-    placeholder: "Head of Engineering",
-    optional: false,
-  },
-  {name: "company", label: "Company name", type: "text", autoComplete: "organization", placeholder: "Acme Logistics", optional: false},
+  {name: "firstName", label: "First name", type: "text", autoComplete: "given-name", placeholder: "Ada"},
+  {name: "lastName", label: "Last name", type: "text", autoComplete: "family-name", placeholder: "Okafor"},
+  {name: "workEmail", label: "Work email", type: "email", autoComplete: "email", placeholder: "ada@company.com"},
+  {name: "phone", label: "Phone", type: "tel", autoComplete: "tel", placeholder: "+2348012345678"},
+  {name: "jobTitle", label: "Job title", type: "text", autoComplete: "organization-title", placeholder: "Head of Engineering"},
+  {name: "companyName", label: "Company name", type: "text", autoComplete: "organization", placeholder: "Acme Logistics"},
 ] as const;
 
 type ContactFormFieldsProps = {
   readonly errors: ContactFieldErrors;
 };
 
-export function ContactFormFields({errors}: ContactFormFieldsProps) {
+export function ContactIdentityFields({errors}: ContactFormFieldsProps) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2">
+    <>
       {TEXT_FIELDS.map((field) => (
-        <ContactField key={field.name} name={field.name} label={field.label} optional={field.optional} error={errors[field.name]}>
+        <ContactField key={field.name} name={field.name} label={field.label} error={errors[field.name]}>
           {(control) => (
             <input
               {...control}
@@ -60,6 +53,14 @@ export function ContactFormFields({errors}: ContactFormFieldsProps) {
           </div>
         )}
       </ContactField>
+    </>
+  );
+}
+
+export function ContactFormFields({errors}: ContactFormFieldsProps) {
+  return (
+    <div className="grid gap-5 sm:grid-cols-2">
+      <ContactIdentityFields errors={errors} />
 
       <ContactField name="message" label="Message" error={errors.message} wide>
         {(control) => (

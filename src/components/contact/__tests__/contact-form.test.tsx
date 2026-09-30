@@ -10,6 +10,7 @@ function fillCompleteRequest() {
   fireEvent.change(screen.getByLabelText(/first name/i), {target: {value: "Ada"}});
   fireEvent.change(screen.getByLabelText(/last name/i), {target: {value: "Okafor"}});
   fireEvent.change(screen.getByLabelText(/work email/i), {target: {value: "ada@acme.com"}});
+  fireEvent.change(screen.getByLabelText(/phone/i), {target: {value: "+2348012345678"}});
   fireEvent.change(screen.getByLabelText(/job title/i), {target: {value: "CTO"}});
   fireEvent.change(screen.getByLabelText(/company name/i), {target: {value: "Acme Logistics"}});
   fireEvent.change(screen.getByLabelText(/company size/i), {target: {value: "51-200"}});
@@ -69,14 +70,14 @@ describe("ContactForm", () => {
 
     await waitFor(() =>
       expect(onSubmit).toHaveBeenCalledWith({
-        company: "Acme Logistics",
+        companyName: "Acme Logistics",
         companySize: "51-200",
-        email: "ada@acme.com",
+        workEmail: "ada@acme.com",
         firstName: "Ada",
         jobTitle: "CTO",
         lastName: "Okafor",
         message: "We want to migrate to AWS.",
-        phone: "",
+        phone: "+2348012345678",
       })
     );
   });

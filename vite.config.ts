@@ -11,6 +11,7 @@ import * as MdxConfig from "./source.config.ts";
 
 const config = defineConfig({
   fmt: {
+    ignorePatterns: ["src/routeTree.gen.ts"],
     printWidth: 140,
     tabWidth: 2,
     useTabs: false,

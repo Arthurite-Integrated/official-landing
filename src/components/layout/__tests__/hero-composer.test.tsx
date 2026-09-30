@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {describe, expect, it, vi} from "vite-plus/test";
 
@@ -15,6 +15,28 @@ function renderComposer(onSubmit = vi.fn(() => Promise.resolve())) {
     submit: screen.getByRole("button", {name: /send/i}),
   };
 }
+
+async function fillDetails(user: ReturnType<typeof userEvent.setup>, dialog: HTMLElement) {
+  const form = within(dialog);
+  await user.type(form.getByLabelText(/first name/i), "Ada");
+  await user.type(form.getByLabelText(/last name/i), "Okafor");
+  await user.type(form.getByLabelText(/work email/i), "ada@acme.com");
+  await user.type(form.getByLabelText(/phone/i), "+2348012345678");
+  await user.type(form.getByLabelText(/job title/i), "CTO");
+  await user.type(form.getByLabelText(/company name/i), "Acme Logistics");
+  await user.selectOptions(form.getByLabelText(/company size/i), "51-200");
+}
+
+const submittedRequest = {
+  companyName: "Acme Logistics",
+  companySize: "51-200",
+  workEmail: "ada@acme.com",
+  firstName: "Ada",
+  jobTitle: "CTO",
+  lastName: "Okafor",
+  message: "Audit our AWS spend",
+  phone: "+2348012345678",
+};
 
 describe("HeroComposer", () => {
   it("offers a ghost suggestion while the field is empty", () => {
@@ -47,81 +69,125 @@ describe("HeroComposer", () => {
     expect(submit).toBeDisabled();
   });
 
-  it("sends the trimmed prompt to the endpoint", async () => {
+  it("asks for contact details instead of sending the prompt directly", async () => {
+    const {field, onSubmit, submit, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.click(submit);
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("shows the typed prompt inside the details dialog", async () => {
+    const {field, submit, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.click(submit);
+
+    expect(within(screen.getByRole("dialog")).getByText(/Audit our AWS spend/)).toBeInTheDocument();
+  });
+
+  it("opens the details dialog on Enter", async () => {
+    const {field, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.keyboard("{Enter}");
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("inserts a newline instead of opening the dialog on Shift+Enter", async () => {
+    const {field, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.keyboard("{Shift>}{Enter}{/Shift}");
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("closes the dialog without sending when dismissed", async () => {
+    const {field, onSubmit, submit, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.click(submit);
+    await user.click(within(screen.getByRole("dialog")).getByRole("button", {name: /close dialog/i}));
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("keeps the dialog open and explains missing details", async () => {
+    const {field, onSubmit, submit, user} = renderComposer();
+
+    await user.type(field, "Audit our AWS spend");
+    await user.click(submit);
+
+    const dialog = screen.getByRole("dialog");
+    await user.click(within(dialog).getByRole("button", {name: /send message/i}));
+
+    expect(within(dialog).getByText("Enter your first name")).toBeInTheDocument();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("sends the prompt as the message with the visitor's details", async () => {
     const {field, onSubmit, submit, user} = renderComposer();
 
     await user.type(field, "  Audit our AWS spend  ");
     await user.click(submit);
 
-    expect(onSubmit).toHaveBeenCalledWith("Audit our AWS spend");
+    const dialog = screen.getByRole("dialog");
+    await fillDetails(user, dialog);
+    await user.click(within(dialog).getByRole("button", {name: /send message/i}));
+
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(submittedRequest));
   });
 
-  it("clears the field after the endpoint accepts the request", async () => {
+  it("clears the field and closes the dialog after the request is sent", async () => {
     const {field, submit, user} = renderComposer();
 
     await user.type(field, "Audit our AWS spend");
     await user.click(submit);
 
-    await waitFor(() => expect(field).toHaveValue(""));
-  });
+    const dialog = screen.getByRole("dialog");
+    await fillDetails(user, dialog);
+    await user.click(within(dialog).getByRole("button", {name: /send message/i}));
 
-  it("confirms delivery once the endpoint accepts the request", async () => {
-    const {field, submit, user} = renderComposer();
-
-    await user.type(field, "Audit our AWS spend");
-    await user.click(submit);
-
+    await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+    expect(field).toHaveValue("");
     expect(await screen.findByRole("status")).toHaveTextContent(/on its way/i);
   });
 
-  it("reports a failure when the endpoint rejects the request", async () => {
+  it("keeps the dialog and the prompt when sending fails", async () => {
     const onSubmit = vi.fn(() => Promise.reject(new Error("boom")));
     const {field, submit, user} = renderComposer(onSubmit);
 
     await user.type(field, "Audit our AWS spend");
     await user.click(submit);
 
-    expect(await screen.findByRole("alert")).toHaveTextContent(/could not send/i);
-  });
+    const dialog = screen.getByRole("dialog");
+    await fillDetails(user, dialog);
+    await user.click(within(dialog).getByRole("button", {name: /send message/i}));
 
-  it("keeps the prompt in the field when sending fails", async () => {
-    const onSubmit = vi.fn(() => Promise.reject(new Error("boom")));
-    const {field, submit, user} = renderComposer(onSubmit);
-
-    await user.type(field, "Audit our AWS spend");
-    await user.click(submit);
-
-    await screen.findByRole("alert");
+    expect(await within(dialog).findByRole("alert")).toHaveTextContent(/couldn't send/i);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
     expect(field).toHaveValue("Audit our AWS spend");
   });
 
-  it("sends on Enter", async () => {
-    const {field, onSubmit, user} = renderComposer();
-
-    await user.type(field, "Audit our AWS spend");
-    await user.keyboard("{Enter}");
-
-    expect(onSubmit).toHaveBeenCalledWith("Audit our AWS spend");
-  });
-
-  it("inserts a newline instead of sending on Shift+Enter", async () => {
-    const {field, onSubmit, user} = renderComposer();
-
-    await user.type(field, "Audit our AWS spend");
-    await user.keyboard("{Shift>}{Enter}{/Shift}");
-
-    expect(onSubmit).not.toHaveBeenCalled();
-  });
-
   it("does not send twice while a request is in flight", async () => {
-    const onSubmit = vi.fn(() => new Promise<void>(() => {}));
+    const onSubmit = vi.fn(() => new Promise<unknown>(() => {}));
     const {field, submit, user} = renderComposer(onSubmit);
 
     await user.type(field, "Audit our AWS spend");
     await user.click(submit);
-    await user.click(submit);
 
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    const dialog = screen.getByRole("dialog");
+    await fillDetails(user, dialog);
+    const sendButton = within(dialog).getByRole("button", {name: /send message|sending/i});
+    await user.click(sendButton);
+    await user.click(sendButton);
+
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
   });
 
   it("fills the field from a quick-start chip", async () => {

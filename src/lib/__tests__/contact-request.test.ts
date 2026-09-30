@@ -1,22 +1,22 @@
 import {describe, expect, it} from "vite-plus/test";
 
-import {parseContactRequest} from "#/lib/contact-request.ts";
+import {parseContactRequest, parseEnquiryDetails} from "#/lib/contact-request.ts";
 
 const completeRequest = {
-  company: "Acme Logistics",
+  companyName: "Acme Logistics",
   companySize: "51-200",
-  email: "ada@acme.com",
+  workEmail: "ada@acme.com",
   firstName: "Ada",
   jobTitle: "CTO",
   lastName: "Okafor",
   message: "We want to migrate our workloads to AWS.",
-  phone: "",
+  phone: "+2348012345678",
 };
 
 const blankRequest = {
-  company: "",
+  companyName: "",
   companySize: "",
-  email: "",
+  workEmail: "",
   firstName: "",
   jobTitle: "",
   lastName: "",
@@ -25,7 +25,7 @@ const blankRequest = {
 };
 
 describe("parseContactRequest", () => {
-  it("accepts a complete request without a phone number", () => {
+  it("accepts a complete request", () => {
     expect(parseContactRequest(completeRequest)).toEqual({success: true, data: completeRequest});
   });
 
@@ -43,10 +43,29 @@ describe("parseContactRequest", () => {
   });
 
   it("asks for a valid work email", () => {
-    expect(parseContactRequest({...completeRequest, email: "ada"})).toEqual({
+    expect(parseContactRequest({...completeRequest, workEmail: "ada"})).toEqual({
       success: false,
-      errors: {email: "Enter a valid work email"},
+      errors: {workEmail: "Enter a valid work email"},
     });
+  });
+
+  it("requires a phone number in E.164 format", () => {
+    expect(parseContactRequest({...completeRequest, phone: "08012345678"})).toEqual({
+      success: false,
+      errors: {phone: "Enter your phone number with country code, e.g. +2348012345678"},
+    });
+  });
+
+  it("rejects a missing phone number", () => {
+    const result = parseContactRequest({...completeRequest, phone: ""});
+
+    expect(result.success).toBe(false);
+  });
+
+  it("requires a message of at least 10 characters", () => {
+    const result = parseContactRequest({...completeRequest, message: "Hi there"});
+
+    expect(result).toEqual({success: false, errors: {message: "Tell us a bit more about what you need"}});
   });
 
   it("rejects a company size outside the list", () => {
@@ -60,13 +79,36 @@ describe("parseContactRequest", () => {
     const result = parseContactRequest(blankRequest);
 
     expect(result.success ? [] : Object.keys(result.errors).sort()).toEqual([
-      "company",
+      "companyName",
       "companySize",
-      "email",
       "firstName",
       "jobTitle",
       "lastName",
       "message",
+      "phone",
+      "workEmail",
+    ]);
+  });
+});
+
+describe("parseEnquiryDetails", () => {
+  it("accepts contact details without a message", () => {
+    const {message: _message, ...details} = completeRequest;
+
+    expect(parseEnquiryDetails(details)).toEqual({success: true, data: details});
+  });
+
+  it("reports missing details without requiring a message", () => {
+    const result = parseEnquiryDetails({...blankRequest, message: undefined});
+
+    expect(result.success ? [] : Object.keys(result.errors).sort()).toEqual([
+      "companyName",
+      "companySize",
+      "firstName",
+      "jobTitle",
+      "lastName",
+      "phone",
+      "workEmail",
     ]);
   });
 });

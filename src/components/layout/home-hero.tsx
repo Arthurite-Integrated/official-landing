@@ -2,7 +2,7 @@ import {Link} from "@tanstack/react-router";
 
 import {HeroComposer} from "#/components/layout/hero-composer.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import {submitEnquiry} from "#/lib/submit-enquiry.ts";
+import {submitContactRequest} from "#/lib/api/endpoints.ts";
 
 export function HomeHero() {
   return (
@@ -26,7 +26,7 @@ export function HomeHero() {
       </div>
 
       <div className="flex translate-y-12 justify-center">
-        <HeroComposer onSubmit={submitEnquiry} />
+        <HeroComposer onSubmit={submitContactRequest} />
       </div>
     </div>
   );
