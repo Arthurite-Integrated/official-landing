@@ -1,7 +1,25 @@
 import {useState} from "react";
+import {useMutation} from "@tanstack/react-query";
 import {Award, CheckCircle, GraduationCap, Users} from "lucide-react";
+import {z} from "zod";
+
+import {applyForInternship} from "#/lib/api/endpoints.ts";
+import {areaOfInterestSchema} from "#/lib/api/types.ts";
 
 const SECTION_TITLE_ID = "atip-program-title";
+
+const ATIP_TRACKS = [
+  {value: "Cloud Architecture", label: "Cloud Architecture & Infrastructure"},
+  {value: "DevOps", label: "DevOps & Automation Pipelines"},
+  {value: "Cloud Security", label: "Cloud Security & Compliance"},
+  {value: "Full Stack Cloud", label: "Fullstack Cloud Applications"},
+] as const;
+
+const atipSchema = z.object({
+  fullName: z.string().trim().min(2, "Enter your full name"),
+  email: z.email("Enter a valid email address"),
+  areaOfInterest: areaOfInterestSchema,
+});
 
 function AtipHighlights() {
   return (
@@ -98,22 +116,29 @@ function AtipFormFields({fullName, email, track, onFullNameChange, onEmailChange
         />
       </div>
 
-      <div>
-        <label htmlFor="track" className="block text-xs font-semibold tracking-wider text-foreground/80 uppercase">
-          Area of Interest
-        </label>
-        <select
-          id="track"
-          value={track}
-          onChange={(e) => onTrackChange(e.target.value)}
-          className="mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3.5 text-sm text-foreground focus:border-primary focus:outline-none"
-        >
-          <option value="Cloud Architecture">Cloud Architecture & Infrastructure</option>
-          <option value="DevOps & Automation">DevOps & Automation Pipelines</option>
-          <option value="Cloud Security">Cloud Security & Compliance</option>
-          <option value="Fullstack Development">Fullstack Cloud Applications</option>
-        </select>
-      </div>
+      <AtipTrackSelect track={track} onTrackChange={onTrackChange} />
+    </div>
+  );
+}
+
+function AtipTrackSelect({track, onTrackChange}: {readonly track: string; readonly onTrackChange: (val: string) => void}) {
+  return (
+    <div>
+      <label htmlFor="track" className="block text-xs font-semibold tracking-wider text-foreground/80 uppercase">
+        Area of Interest
+      </label>
+      <select
+        id="track"
+        value={track}
+        onChange={(e) => onTrackChange(e.target.value)}
+        className="mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3.5 text-sm text-foreground focus:border-primary focus:outline-none"
+      >
+        {ATIP_TRACKS.map((track) => (
+          <option key={track.value} value={track.value}>
+            {track.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -121,14 +146,28 @@ function AtipFormFields({fullName, email, track, onFullNameChange, onEmailChange
 function AtipForm() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [track, setTrack] = useState("Cloud Architecture");
+  const [track, setTrack] = useState<string>("Cloud Architecture");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: (payload: z.infer<typeof atipSchema>) => applyForInternship(payload),
+    onSuccess: () => setIsSubmitted(true),
+    onError: () => setFormError("We couldn't submit your application. Please try again."),
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (fullName && email) {
-      setIsSubmitted(true);
+
+    const parsed = atipSchema.safeParse({fullName, email, areaOfInterest: track});
+    if (!parsed.success) {
+      const {fieldErrors} = z.flattenError(parsed.error) as {fieldErrors: Record<string, string[] | undefined>};
+      setFormError(fieldErrors["fullName"]?.[0] ?? fieldErrors["email"]?.[0] ?? "Please check your details");
+      return;
     }
+
+    setFormError(null);
+    mutation.mutate(parsed.data);
   };
 
   if (isSubmitted) {
@@ -145,11 +184,17 @@ function AtipForm() {
         onEmailChange={setEmail}
         onTrackChange={setTrack}
       />
+      {formError !== null ? (
+        <p role="alert" className="text-sm text-destructive">
+          {formError}
+        </p>
+      ) : null}
       <button
         type="submit"
-        className="w-full rounded-full bg-primary py-3.5 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
+        disabled={mutation.isPending}
+        className="w-full rounded-full bg-primary py-3.5 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Submit Application
+        {mutation.isPending ? "Submitting…" : "Submit Application"}
       </button>
     </form>
   );
