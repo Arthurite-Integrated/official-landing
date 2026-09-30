@@ -75,8 +75,8 @@ const config = defineConfig({
     clearMocks: false,
   },
   staged: {
-    "*.{js,ts,jsx,tsx,json,md}": "vp fmt",
-    "*.{js,ts,jsx,tsx}": ["vp lint --max-warnings=0", "vp test related --run --bail=1"],
+    "*.{js,ts,jsx,tsx,json,md,yaml,yml,css}": "vp fmt",
+    "*.{js,ts,jsx,tsx}": ["vp lint --max-warnings=0 --no-error-on-unmatched-pattern", "vp test related --run --bail=1 --passWithNoTests"],
   },
   resolve: {tsconfigPaths: true},
   optimizeDeps: {include: ["hls.js"]},

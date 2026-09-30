@@ -8,336 +8,342 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import {Route as rootRouteImport} from "./routes/__root";
-import {Route as IndexRouteImport} from "./routes/index";
-import {Route as AboutRouteImport} from "./routes/about";
-import {Route as BlogRouteRouteImport} from "./routes/blog/route";
-import {Route as CareersRouteImport} from "./routes/careers";
-import {Route as ContactRouteImport} from "./routes/contact";
-import {Route as EventsRouteRouteImport} from "./routes/events/route";
-import {Route as McpRouteImport} from "./routes/mcp";
-import {Route as ServicesRouteRouteImport} from "./routes/services/route";
-import {Route as BlogIndexRouteImport} from "./routes/blog/index";
-import {Route as BlogSlugRouteImport} from "./routes/blog/$slug";
-import {Route as EventsIndexRouteImport} from "./routes/events/index";
-import {Route as EventsSlugRouteImport} from "./routes/events/$slug";
-import {Route as ServicesIndexRouteImport} from "./routes/services/index";
-import {Route as ServicesSlugRouteImport} from "./routes/services/$slug";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as BlogRouteRouteImport } from './routes/blog/route'
+import { Route as CareersRouteImport } from './routes/careers'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EventsRouteRouteImport } from './routes/events/route'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as ServicesRouteRouteImport } from './routes/services/route'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as EventsIndexRouteImport } from './routes/events/index'
+import { Route as EventsSlugRouteImport } from './routes/events/$slug'
+import { Route as ServicesIndexRouteImport } from './routes/services/index'
+import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AboutRoute = AboutRouteImport.update({
-  id: "/about",
-  path: "/about",
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const BlogRouteRoute = BlogRouteRouteImport.update({
-  id: "/blog",
-  path: "/blog",
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const CareersRoute = CareersRouteImport.update({
-  id: "/careers",
-  path: "/careers",
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ContactRoute = ContactRouteImport.update({
-  id: "/contact",
-  path: "/contact",
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const EventsRouteRoute = EventsRouteRouteImport.update({
-  id: "/events",
-  path: "/events",
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const McpRoute = McpRouteImport.update({
-  id: "/mcp",
-  path: "/mcp",
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ServicesRouteRoute = ServicesRouteRouteImport.update({
-  id: "/services",
-  path: "/services",
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => BlogRouteRoute,
-} as any);
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: "/$slug",
-  path: "/$slug",
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => BlogRouteRoute,
-} as any);
+} as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => EventsRouteRoute,
-} as any);
+} as any)
 const EventsSlugRoute = EventsSlugRouteImport.update({
-  id: "/$slug",
-  path: "/$slug",
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => EventsRouteRoute,
-} as any);
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => ServicesRouteRoute,
-} as any);
+} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
-  id: "/$slug",
-  path: "/$slug",
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => ServicesRouteRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/blog": typeof BlogRouteRouteWithChildren;
-  "/events": typeof EventsRouteRouteWithChildren;
-  "/services": typeof ServicesRouteRouteWithChildren;
-  "/about": typeof AboutRoute;
-  "/careers": typeof CareersRoute;
-  "/contact": typeof ContactRoute;
-  "/mcp": typeof McpRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/events/$slug": typeof EventsSlugRoute;
-  "/services/$slug": typeof ServicesSlugRoute;
-  "/blog/": typeof BlogIndexRoute;
-  "/events/": typeof EventsIndexRoute;
-  "/services/": typeof ServicesIndexRoute;
+  '/': typeof IndexRoute
+  '/blog': typeof BlogRouteRouteWithChildren
+  '/events': typeof EventsRouteRouteWithChildren
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/careers": typeof CareersRoute;
-  "/contact": typeof ContactRoute;
-  "/mcp": typeof McpRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/events/$slug": typeof EventsSlugRoute;
-  "/services/$slug": typeof ServicesSlugRoute;
-  "/blog": typeof BlogIndexRoute;
-  "/events": typeof EventsIndexRoute;
-  "/services": typeof ServicesIndexRoute;
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/blog': typeof BlogIndexRoute
+  '/events': typeof EventsIndexRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/blog": typeof BlogRouteRouteWithChildren;
-  "/events": typeof EventsRouteRouteWithChildren;
-  "/services": typeof ServicesRouteRouteWithChildren;
-  "/about": typeof AboutRoute;
-  "/careers": typeof CareersRoute;
-  "/contact": typeof ContactRoute;
-  "/mcp": typeof McpRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/events/$slug": typeof EventsSlugRoute;
-  "/services/$slug": typeof ServicesSlugRoute;
-  "/blog/": typeof BlogIndexRoute;
-  "/events/": typeof EventsIndexRoute;
-  "/services/": typeof ServicesIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/blog': typeof BlogRouteRouteWithChildren
+  '/events': typeof EventsRouteRouteWithChildren
+  '/services': typeof ServicesRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/blog"
-    | "/events"
-    | "/services"
-    | "/about"
-    | "/careers"
-    | "/contact"
-    | "/mcp"
-    | "/blog/$slug"
-    | "/events/$slug"
-    | "/services/$slug"
-    | "/blog/"
-    | "/events/"
-    | "/services/";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/blog'
+    | '/events'
+    | '/services'
+    | '/about'
+    | '/careers'
+    | '/contact'
+    | '/mcp'
+    | '/blog/$slug'
+    | '/events/$slug'
+    | '/services/$slug'
+    | '/blog/'
+    | '/events/'
+    | '/services/'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/about"
-    | "/careers"
-    | "/contact"
-    | "/mcp"
-    | "/blog/$slug"
-    | "/events/$slug"
-    | "/services/$slug"
-    | "/blog"
-    | "/events"
-    | "/services";
+    | '/'
+    | '/about'
+    | '/careers'
+    | '/contact'
+    | '/mcp'
+    | '/blog/$slug'
+    | '/events/$slug'
+    | '/services/$slug'
+    | '/blog'
+    | '/events'
+    | '/services'
   id:
-    | "__root__"
-    | "/"
-    | "/blog"
-    | "/events"
-    | "/services"
-    | "/about"
-    | "/careers"
-    | "/contact"
-    | "/mcp"
-    | "/blog/$slug"
-    | "/events/$slug"
-    | "/services/$slug"
-    | "/blog/"
-    | "/events/"
-    | "/services/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/events'
+    | '/services'
+    | '/about'
+    | '/careers'
+    | '/contact'
+    | '/mcp'
+    | '/blog/$slug'
+    | '/events/$slug'
+    | '/services/$slug'
+    | '/blog/'
+    | '/events/'
+    | '/services/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  BlogRouteRoute: typeof BlogRouteRouteWithChildren;
-  EventsRouteRoute: typeof EventsRouteRouteWithChildren;
-  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren;
-  AboutRoute: typeof AboutRoute;
-  CareersRoute: typeof CareersRoute;
-  ContactRoute: typeof ContactRoute;
-  McpRoute: typeof McpRoute;
+  IndexRoute: typeof IndexRoute
+  BlogRouteRoute: typeof BlogRouteRouteWithChildren
+  EventsRouteRoute: typeof EventsRouteRouteWithChildren
+  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
+  ContactRoute: typeof ContactRoute
+  McpRoute: typeof McpRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/about": {
-      id: "/about";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof AboutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/blog": {
-      id: "/blog";
-      path: "/blog";
-      fullPath: "/blog";
-      preLoaderRoute: typeof BlogRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/careers": {
-      id: "/careers";
-      path: "/careers";
-      fullPath: "/careers";
-      preLoaderRoute: typeof CareersRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/contact": {
-      id: "/contact";
-      path: "/contact";
-      fullPath: "/contact";
-      preLoaderRoute: typeof ContactRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/events": {
-      id: "/events";
-      path: "/events";
-      fullPath: "/events";
-      preLoaderRoute: typeof EventsRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/mcp": {
-      id: "/mcp";
-      path: "/mcp";
-      fullPath: "/mcp";
-      preLoaderRoute: typeof McpRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/services": {
-      id: "/services";
-      path: "/services";
-      fullPath: "/services";
-      preLoaderRoute: typeof ServicesRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/blog/": {
-      id: "/blog/";
-      path: "/";
-      fullPath: "/blog/";
-      preLoaderRoute: typeof BlogIndexRouteImport;
-      parentRoute: typeof BlogRouteRoute;
-    };
-    "/blog/$slug": {
-      id: "/blog/$slug";
-      path: "/$slug";
-      fullPath: "/blog/$slug";
-      preLoaderRoute: typeof BlogSlugRouteImport;
-      parentRoute: typeof BlogRouteRoute;
-    };
-    "/events/": {
-      id: "/events/";
-      path: "/";
-      fullPath: "/events/";
-      preLoaderRoute: typeof EventsIndexRouteImport;
-      parentRoute: typeof EventsRouteRoute;
-    };
-    "/events/$slug": {
-      id: "/events/$slug";
-      path: "/$slug";
-      fullPath: "/events/$slug";
-      preLoaderRoute: typeof EventsSlugRouteImport;
-      parentRoute: typeof EventsRouteRoute;
-    };
-    "/services/": {
-      id: "/services/";
-      path: "/";
-      fullPath: "/services/";
-      preLoaderRoute: typeof ServicesIndexRouteImport;
-      parentRoute: typeof ServicesRouteRoute;
-    };
-    "/services/$slug": {
-      id: "/services/$slug";
-      path: "/$slug";
-      fullPath: "/services/$slug";
-      preLoaderRoute: typeof ServicesSlugRouteImport;
-      parentRoute: typeof ServicesRouteRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRouteRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRouteRoute
+    }
+    '/events/': {
+      id: '/events/'
+      path: '/'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof EventsRouteRoute
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof EventsRouteRoute
+    }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRouteRoute
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof ServicesRouteRoute
+    }
   }
 }
 
 interface BlogRouteRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute;
-  BlogIndexRoute: typeof BlogIndexRoute;
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteRouteChildren: BlogRouteRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
-};
+}
 
-const BlogRouteRouteWithChildren = BlogRouteRoute._addFileChildren(BlogRouteRouteChildren);
+const BlogRouteRouteWithChildren = BlogRouteRoute._addFileChildren(
+  BlogRouteRouteChildren,
+)
 
 interface EventsRouteRouteChildren {
-  EventsSlugRoute: typeof EventsSlugRoute;
-  EventsIndexRoute: typeof EventsIndexRoute;
+  EventsSlugRoute: typeof EventsSlugRoute
+  EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteRouteChildren: EventsRouteRouteChildren = {
   EventsSlugRoute: EventsSlugRoute,
   EventsIndexRoute: EventsIndexRoute,
-};
+}
 
-const EventsRouteRouteWithChildren = EventsRouteRoute._addFileChildren(EventsRouteRouteChildren);
+const EventsRouteRouteWithChildren = EventsRouteRoute._addFileChildren(
+  EventsRouteRouteChildren,
+)
 
 interface ServicesRouteRouteChildren {
-  ServicesSlugRoute: typeof ServicesSlugRoute;
-  ServicesIndexRoute: typeof ServicesIndexRoute;
+  ServicesSlugRoute: typeof ServicesSlugRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
   ServicesSlugRoute: ServicesSlugRoute,
   ServicesIndexRoute: ServicesIndexRoute,
-};
+}
 
-const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(ServicesRouteRouteChildren);
+const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
+  ServicesRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -348,14 +354,16 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   McpRoute: McpRoute,
-};
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
-import type {getRouter} from "./router.tsx";
-import type {createStart} from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

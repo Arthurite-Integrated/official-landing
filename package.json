@@ -15,7 +15,7 @@
     "stryker": "stryker run",
     "stryker:incremental": "stryker run --incremental",
     "format": "vp fmt",
-    "lint": "vp lint --max-warnings=0",
+    "lint": "vp lint --max-warnings=0 --no-error-on-unmatched-pattern",
     "lint:fix": "vp lint --fix",
     "prepare": "vp config"
   },
@@ -85,12 +85,6 @@
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
   },
   "packageManager": "bun@1.4.2",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "lightningcss"
-    ]
-  },
   "trustedDependencies": [
     "esbuild",
     "lightningcss"
