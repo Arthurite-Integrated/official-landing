@@ -11,7 +11,7 @@ export function AwsServicePanel({service}: AwsServicePanelProps) {
         data-slot="aws-service-card"
         data-aws-accent={service.slug}
         key={service.name}
-        className="relative flex h-[42vh] min-h-72 animate-in items-center justify-center overflow-hidden rounded-[1.75rem] border border-foreground/10 bg-[#f2f2f0]/94 backdrop-blur-2xl duration-700 fade-in"
+        className="relative flex h-[42vh] min-h-72 animate-in items-center justify-center overflow-hidden rounded-[1.75rem] border border-foreground/10 bg-sand/94 backdrop-blur-2xl duration-700 fade-in"
       >
         <div aria-hidden className="aws-card-halo absolute inset-0" />
         <img src={service.icon} alt={service.name} className="relative size-40 xl:size-48" />

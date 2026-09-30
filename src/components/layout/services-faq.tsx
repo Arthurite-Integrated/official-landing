@@ -51,7 +51,7 @@ function FaqHeader() {
 
 function FaqCta() {
   return (
-    <div className="mt-16 rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-8 text-center sm:p-10">
+    <div className="mt-16 rounded-3xl border border-foreground/10 bg-sand p-8 text-center sm:p-10">
       <h3 className="text-xl font-medium text-foreground sm:text-2xl">Still Have Questions?</h3>
       <p className="mt-2 text-sm text-foreground/70 sm:text-base">
         Can't find the answer you're looking for? Reach out to our AWS certified solutions architects.

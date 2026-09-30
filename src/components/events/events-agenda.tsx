@@ -8,7 +8,7 @@ function SessionCard({session}: {readonly session: AgendaSession}) {
     <div className="flex flex-col justify-between rounded-2xl border border-primary/10 bg-card p-6 shadow-sm transition-all hover:border-teal-500/30">
       <div>
         <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5 font-medium text-[#006759] dark:text-teal-400">
+          <span className="flex items-center gap-1.5 font-medium text-primary">
             <Clock className="h-3.5 w-3.5" />
             {session.time}
           </span>
@@ -19,7 +19,7 @@ function SessionCard({session}: {readonly session: AgendaSession}) {
         <h4 className="mb-3 text-lg font-bold tracking-tight text-foreground">{session.title}</h4>
       </div>
       <div className="flex items-center gap-2 border-t pt-3 text-xs text-muted-foreground">
-        <User className="h-3.5 w-3.5 text-[#006759] dark:text-teal-400" />
+        <User className="h-3.5 w-3.5 text-primary" />
         <span>{session.speaker}</span>
       </div>
     </div>
@@ -43,7 +43,7 @@ function DayTabs({
           type="button"
           onClick={() => onSelectDay(day.dayNumber)}
           className={`rounded-full px-6 py-2.5 text-xs font-bold transition-all ${
-            activeDay === day.dayNumber ? "bg-[#006759] text-white shadow-lg" : "bg-card text-muted-foreground hover:bg-muted"
+            activeDay === day.dayNumber ? "bg-primary text-white shadow-lg" : "bg-card text-muted-foreground hover:bg-muted"
           }`}
         >
           Day {day.dayNumber} ({day.date})
@@ -60,10 +60,10 @@ export function EventsAgenda() {
   if (!activeDay) return null;
 
   return (
-    <section className="bg-sand/40 py-20 text-foreground sm:py-24 dark:bg-slate-900/40">
+    <section className="bg-sand/40 py-20 text-foreground sm:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mb-10 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#006759] sm:text-4xl dark:text-emerald-400">Event Schedule & Agenda</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Event Schedule & Agenda</h2>
           <p className="mt-2 text-sm text-muted-foreground">Explore keynote speeches, technical breakouts, and hands-on workshops.</p>
         </div>
 

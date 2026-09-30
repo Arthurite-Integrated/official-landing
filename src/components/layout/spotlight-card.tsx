@@ -14,7 +14,7 @@ export function SpotlightCard({item}: SpotlightCardProps) {
   const hasImage = item.image !== null;
 
   return (
-    <article className="group relative isolate flex aspect-16/15 w-full flex-col justify-end overflow-hidden rounded-2xl border border-foreground/10 bg-[#f2f2f0] p-6 transition-colors duration-300 hover:border-primary/30">
+    <article className="group relative isolate flex aspect-16/15 w-full flex-col justify-end overflow-hidden rounded-2xl border border-foreground/10 bg-sand p-6 transition-colors duration-300 hover:border-primary/30">
       {hasImage ? (
         <>
           <img

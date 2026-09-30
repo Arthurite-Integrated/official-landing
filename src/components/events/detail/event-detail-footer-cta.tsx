@@ -5,7 +5,7 @@ import {Button} from "#/components/ui/button.tsx";
 
 export function EventDetailFooterCta() {
   return (
-    <section className="relative overflow-hidden bg-sand/30 py-24 text-foreground sm:py-32 dark:bg-slate-900/40">
+    <section className="relative overflow-hidden bg-sand/30 py-24 text-foreground sm:py-32">
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-black uppercase text-foreground/5 select-none">
         ARTHURITE
       </div>
@@ -25,7 +25,7 @@ export function EventDetailFooterCta() {
                 <span className="text-emerald-400 font-bold">better infrastructure</span>, seamless teamwork, and unforgettable impact.
               </h2>
               <Link to="/contact">
-                <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-lg hover:bg-emerald-600">
+                <Button className="h-12 rounded-full bg-primary px-7 text-xs font-bold text-white shadow-lg hover:bg-lagoon-deep">
                   <span>Join Now</span>
                   <ArrowRight className="h-4 w-4" />
                 </Button>

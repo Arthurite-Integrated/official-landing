@@ -21,7 +21,7 @@ const applicationSchema = z.object({
 type ApplyFieldErrors = Partial<Record<"fullName" | "email" | "phone" | "cv", string>>;
 
 const INPUT_CLASS =
-  "mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none";
+  "mt-2 w-full rounded-xl border border-foreground/15 bg-foam px-4 py-3 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none";
 
 type ApplyFieldProps = {
   readonly id: string;

@@ -18,7 +18,7 @@ export function WhoWeAre() {
           <p className="mt-5 text-base leading-relaxed text-balance text-foreground/70 sm:text-lg">{subheading}</p>
         </header>
 
-        <div className="rounded-[2rem] bg-[#f2f2f0] p-2 sm:p-3 lg:rounded-[2.5rem] lg:p-4">
+        <div className="rounded-[2rem] bg-sand p-2 sm:p-3 lg:rounded-[2.5rem] lg:p-4">
           <div className="relative aspect-video overflow-hidden rounded-3xl bg-primary lg:aspect-21/9 lg:rounded-[2rem]">
             <HeroVideo src={PLACEHOLDER_STREAM} />
             <div aria-hidden className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />

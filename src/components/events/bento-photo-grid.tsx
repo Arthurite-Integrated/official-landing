@@ -173,7 +173,7 @@ function PageNumberButtons({
           aria-current={pageNum === currentPage ? "page" : undefined}
           className={`h-9 w-9 rounded-full text-xs font-bold transition-all ${
             pageNum === currentPage
-              ? "bg-[#006759] text-white shadow-md dark:bg-emerald-500"
+              ? "bg-primary text-white shadow-md"
               : "border border-foreground/10 text-muted-foreground hover:bg-muted hover:text-foreground"
           }`}
         >

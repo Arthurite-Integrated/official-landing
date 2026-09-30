@@ -22,7 +22,7 @@ export function BentoCard({card}: BentoCardProps) {
   return (
     <article
       className={cn(
-        "bento-reveal group @container relative isolate flex min-h-52 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 transition-colors duration-500 hover:border-foreground/20 sm:p-7 lg:min-h-0",
+        "bento-reveal group @container relative isolate flex min-h-52 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-6 transition-colors duration-500 hover:border-foreground/20 sm:p-7 lg:min-h-0",
         card.span
       )}
     >

@@ -10,7 +10,7 @@ export function ProcessStepCard({step}: ProcessStepCardProps) {
   return (
     <article
       className={cn(
-        "group @container relative isolate flex min-h-[16rem] w-full flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 sm:min-h-[18rem] sm:p-7 lg:h-[27rem]",
+        "group @container relative isolate flex min-h-[16rem] w-full flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-6 sm:min-h-[18rem] sm:p-7 lg:h-[27rem]",
         step.gradient
       )}
     >

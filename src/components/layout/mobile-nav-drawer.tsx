@@ -38,7 +38,7 @@ export function MobileNavDrawer({onClose}: MobileNavDrawerProps) {
       role="dialog"
       aria-modal="true"
       aria-label="Mobile navigation menu"
-      className="fixed inset-0 z-50 flex flex-col bg-white px-6 pt-5 pb-8 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex flex-col bg-foam px-6 pt-5 pb-8 animate-in fade-in duration-200"
     >
       <div className="flex items-center justify-between pb-6">
         <Link to="/" onClick={onClose} className="flex items-center">

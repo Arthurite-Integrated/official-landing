@@ -6,7 +6,7 @@ import {COMPANY_SIZES} from "#/lib/contact-request.ts";
 import type {ContactFieldErrors} from "#/lib/contact-request.ts";
 
 const CONTROL =
-  "w-full rounded-xl border border-foreground/10 bg-white px-4 text-base text-foreground transition-[border-color,box-shadow] outline-none placeholder:text-foreground/35 focus:border-primary focus:ring-4 focus:ring-primary/15 aria-invalid:border-destructive";
+  "w-full rounded-xl border border-foreground/10 bg-foam px-4 text-base text-foreground transition-[border-color,box-shadow] outline-none placeholder:text-foreground/35 focus:border-primary focus:ring-4 focus:ring-primary/15 aria-invalid:border-destructive";
 
 const TEXT_FIELDS = [
   {name: "firstName", label: "First name", type: "text", autoComplete: "given-name", placeholder: "Ada"},

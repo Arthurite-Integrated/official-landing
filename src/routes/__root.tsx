@@ -43,9 +43,8 @@ function RootDocument({children}: {children: React.ReactNode}) {
   const {queryClient} = Route.useRouteContext();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <script src="/theme-init.js" />
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(0,103,89,0.24)]">

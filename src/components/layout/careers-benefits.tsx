@@ -38,7 +38,7 @@ export function CareersBenefits() {
           {CAREERS_BENEFITS.map((benefit) => (
             <article
               key={benefit.id}
-              className="group @container relative isolate flex min-h-64 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(0,103,89,0.12)] md:min-h-72 lg:min-h-80"
+              className="group @container relative isolate flex min-h-64 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(0,103,89,0.12)] md:min-h-72 lg:min-h-80"
             >
               <BentoCardArt icon={getBenefitLucideIcon(benefit.iconName)} />
 

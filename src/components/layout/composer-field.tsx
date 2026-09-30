@@ -14,7 +14,7 @@ type ComposerFieldProps = {
 
 export function ComposerField({id, value, ghost, sending, canSubmit, onChange, onKeyDown}: ComposerFieldProps) {
   return (
-    <div className="relative rounded-2xl bg-white/95 px-4 pt-4 pb-11">
+    <div className="relative rounded-2xl bg-[var(--surface-strong)] px-4 pt-4 pb-11">
       {ghost !== "" && (
         <span
           aria-hidden

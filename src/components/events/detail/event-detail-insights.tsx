@@ -26,7 +26,7 @@ const INSIGHTS = [
 
 function InsightCard({item}: {readonly item: (typeof INSIGHTS)[number]}) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md dark:border-white/10">
+    <div className="group flex flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md">
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <img
           src={item.image}
@@ -36,12 +36,12 @@ function InsightCard({item}: {readonly item: (typeof INSIGHTS)[number]}) {
       </div>
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-[#006759] dark:text-emerald-400">{item.category}</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-primary">{item.category}</span>
           <h3 className="mt-2 text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
             {item.title}
           </h3>
         </div>
-        <Link to="/blog" className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#006759] dark:text-emerald-400">
+        <Link to="/blog" className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary">
           <span>Read More</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
@@ -56,14 +56,14 @@ export function EventDetailInsights() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="mb-2 text-xs font-bold uppercase tracking-widest text-[#006759] dark:text-emerald-400">// LATEST ARTICLES</div>
+            <div className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">// LATEST ARTICLES</div>
             <h2 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               New <span className="text-foreground/40 font-bold">Insight</span>
             </h2>
           </div>
 
           <Link to="/blog">
-            <Button className="h-10 rounded-full bg-[#006759] px-5 text-xs font-bold text-white hover:bg-emerald-600">
+            <Button className="h-10 rounded-full bg-primary px-5 text-xs font-bold text-white hover:bg-lagoon-deep">
               <span>View More</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Button>

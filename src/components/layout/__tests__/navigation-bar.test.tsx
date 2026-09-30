@@ -82,7 +82,7 @@ describe("NavigationBar", () => {
 
     render(<NavigationBar />);
 
-    expect(screen.getByRole("button", {name: "Book Free"})).toHaveClass("bg-white");
+    expect(screen.getByRole("button", {name: "Book Free"})).toHaveClass("bg-foam");
   });
 
   it("shows a dark call to action once the nav turns solid", async () => {

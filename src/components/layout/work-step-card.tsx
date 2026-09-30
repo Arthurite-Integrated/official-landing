@@ -10,7 +10,7 @@ export function WorkStepCard({step}: WorkStepCardProps) {
   return (
     <article
       className={cn(
-        "work-step-card group @container relative isolate flex min-h-56 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-6 sm:p-7 md:min-h-72 lg:min-h-[26rem] lg:basis-0 lg:flex-1 xl:min-h-[28rem]"
+        "work-step-card group @container relative isolate flex min-h-56 flex-col justify-between overflow-hidden rounded-3xl border border-foreground/10 bg-sand p-6 sm:p-7 md:min-h-72 lg:min-h-[26rem] lg:basis-0 lg:flex-1 xl:min-h-[28rem]"
       )}
     >
       <BentoCardArt icon={step.icon} />

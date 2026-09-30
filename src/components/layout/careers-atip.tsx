@@ -23,7 +23,7 @@ const atipSchema = z.object({
 
 function AtipHighlights() {
   return (
-    <div className="flex flex-col justify-between rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-8 text-left sm:p-10">
+    <div className="flex flex-col justify-between rounded-3xl border border-foreground/10 bg-sand p-8 text-left sm:p-10">
       <div>
         <div className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 p-3">
           <GraduationCap className="size-8 text-primary" aria-hidden="true" />
@@ -97,7 +97,7 @@ function AtipFormFields({fullName, email, track, onFullNameChange, onEmailChange
           value={fullName}
           onChange={(e) => onFullNameChange(e.target.value)}
           placeholder="Enter your full name"
-          className="mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3.5 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none"
+          className="mt-2 w-full rounded-xl border border-foreground/15 bg-foam px-4 py-3.5 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none"
         />
       </div>
 
@@ -112,7 +112,7 @@ function AtipFormFields({fullName, email, track, onFullNameChange, onEmailChange
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           placeholder="you@domain.com"
-          className="mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3.5 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none"
+          className="mt-2 w-full rounded-xl border border-foreground/15 bg-foam px-4 py-3.5 text-sm text-foreground placeholder-foreground/40 focus:border-primary focus:outline-none"
         />
       </div>
 
@@ -131,7 +131,7 @@ function AtipTrackSelect({track, onTrackChange}: {readonly track: string; readon
         id="track"
         value={track}
         onChange={(e) => onTrackChange(e.target.value)}
-        className="mt-2 w-full rounded-xl border border-foreground/15 bg-white px-4 py-3.5 text-sm text-foreground focus:border-primary focus:outline-none"
+        className="mt-2 w-full rounded-xl border border-foreground/15 bg-foam px-4 py-3.5 text-sm text-foreground focus:border-primary focus:outline-none"
       >
         {ATIP_TRACKS.map((track) => (
           <option key={track.value} value={track.value}>
@@ -218,7 +218,7 @@ export function CareersAtip() {
         </div>
 
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          <div className="flex flex-col justify-between rounded-3xl border border-foreground/10 bg-[#f2f2f0] p-8 sm:p-10">
+          <div className="flex flex-col justify-between rounded-3xl border border-foreground/10 bg-sand p-8 sm:p-10">
             <AtipForm />
           </div>
           <AtipHighlights />

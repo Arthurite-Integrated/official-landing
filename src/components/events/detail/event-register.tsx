@@ -80,7 +80,7 @@ function RegisterForm({event}: {readonly event: ApiEvent}) {
       <Button
         type="submit"
         disabled={mutation.isPending}
-        className="h-12 w-full rounded-full bg-[#006759] text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600 disabled:opacity-60"
+        className="h-12 w-full rounded-full bg-primary text-xs font-bold text-white shadow-xl transition-all hover:bg-lagoon-deep disabled:opacity-60"
       >
         {mutation.isPending ? "Registering…" : "Register for this event"}
       </Button>
@@ -115,7 +115,7 @@ export function EventRegister({event}: {readonly event: ApiEvent}) {
               <SoldOutNotice />
             ) : event.registrationLink ? (
               <a href={event.registrationLink} target="_blank" rel="noopener noreferrer" className="block">
-                <Button className="h-12 w-full rounded-full bg-[#006759] text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
+                <Button className="h-12 w-full rounded-full bg-primary text-xs font-bold text-white shadow-xl transition-all hover:bg-lagoon-deep">
                   <span>Register on the event website</span>
                   <ArrowUpRight className="size-4" />
                 </Button>

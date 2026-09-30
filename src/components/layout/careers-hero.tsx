@@ -56,7 +56,7 @@ export function CareersHero() {
           <img
             src="/images/careers-hero-helix-bg.png"
             alt=""
-            className="h-full w-full object-cover object-right-top opacity-90 transition-transform duration-1000 ease-out hover:scale-105 dark:opacity-80"
+            className="h-full w-full object-cover object-right-top opacity-90 transition-transform duration-1000 ease-out hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent lg:via-background/20" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/50" />

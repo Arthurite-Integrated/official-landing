@@ -14,7 +14,7 @@ function FeaturedHeader() {
         - FLAGSHIP CONFERENCES -
       </span>
       <h2 className="mt-3 text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        Featured <span className="text-[#006759] dark:text-emerald-400">Events</span>
+        Featured <span className="text-primary">Events</span>
       </h2>
       <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
         Experience world-class AWS cloud architectures, GenAI engineering, and enterprise compliance live in Nigeria
@@ -41,7 +41,7 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
   return (
     <div className="relative z-10 p-8 sm:p-12 lg:p-14 text-white max-w-3xl">
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <span className="rounded-full bg-[#006759] px-4 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg">
+        <span className="rounded-full bg-primary px-4 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg">
           {event.badge ?? "FEATURED EVENT"}
         </span>
       </div>
@@ -62,7 +62,7 @@ function FeaturedCardBody({event}: {readonly event: EventItem}) {
 
       <div className="flex flex-wrap items-center gap-4">
         <Link to="/events/$slug" params={{slug: event.slug}}>
-          <Button className="h-12 rounded-full bg-[#006759] px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600">
+          <Button className="h-12 rounded-full bg-primary px-7 text-xs font-bold text-white shadow-xl transition-all hover:bg-lagoon-deep">
             <span>View Event Details</span>
             <ArrowUpRight className="h-4 w-4" />
           </Button>
@@ -98,7 +98,7 @@ function FeaturedPreviewThumb({
       onClick={onSelect}
       className={`group relative flex w-full text-left overflow-hidden rounded-2xl border p-4 transition-all duration-300 ${
         isActive
-          ? "border-[#006759] bg-[#006759]/10 shadow-lg dark:bg-emerald-950/30 ring-2 ring-[#006759]"
+          ? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary"
           : "border-foreground/10 bg-card hover:border-foreground/30 hover:bg-muted/50"
       }`}
     >
@@ -112,12 +112,8 @@ function FeaturedPreviewThumb({
       </div>
 
       <div className="ml-4 flex flex-col justify-center min-w-0">
-        <span className="text-[10px] font-bold text-[#006759] uppercase tracking-wider dark:text-emerald-400">
-          {event.badge ?? "EVENT"}
-        </span>
-        <h4 className="text-xs font-extrabold text-foreground truncate group-hover:text-[#006759] dark:group-hover:text-emerald-400">
-          {event.title}
-        </h4>
+        <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{event.badge ?? "EVENT"}</span>
+        <h4 className="text-xs font-extrabold text-foreground truncate group-hover:text-primary">{event.title}</h4>
         <p className="mt-0.5 text-[11px] text-muted-foreground truncate">{event.date}</p>
       </div>
     </button>
@@ -146,7 +142,7 @@ function FeaturedPagination({
             type="button"
             onClick={() => onSelectIndex(idx)}
             aria-label={`Go to slide ${idx + 1}`}
-            className={`h-2 rounded-full transition-all ${idx === currentIndex ? "w-8 bg-[#006759]" : "w-2 bg-foreground/20"}`}
+            className={`h-2 rounded-full transition-all ${idx === currentIndex ? "w-8 bg-primary" : "w-2 bg-foreground/20"}`}
           />
         ))}
       </div>

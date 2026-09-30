@@ -14,7 +14,7 @@ export function ServicesFaqItem({item, isOpen, onToggle}: ServicesFaqItemProps) 
   const buttonId = `${item.id}-button`;
 
   return (
-    <div className="rounded-2xl border border-foreground/10 bg-[#f2f2f0] transition-colors duration-200 hover:border-foreground/20">
+    <div className="rounded-2xl border border-foreground/10 bg-sand transition-colors duration-200 hover:border-foreground/20">
       <h3>
         <button
           id={buttonId}

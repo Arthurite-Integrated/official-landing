@@ -13,7 +13,7 @@ export function ServicesOfferCard({isFeatured = false, offer}: ServicesOfferCard
   return (
     <article
       className={cn(
-        "group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-[#f2f2f0] [transition:height_600ms_cubic-bezier(0.22,1,0.36,1)]",
+        "group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-sand [transition:height_600ms_cubic-bezier(0.22,1,0.36,1)]",
         isFeatured
           ? "[height:15rem] hover:[height:16.2rem] lg:row-span-2 lg:[height:31.5rem] lg:hover:[height:32.7rem]"
           : "[height:15rem] hover:[height:16.2rem]"

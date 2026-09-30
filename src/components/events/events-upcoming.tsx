@@ -5,7 +5,7 @@ import {Button} from "#/components/ui/button.tsx";
 function NoUpcomingEventsCard() {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-foreground/10 bg-[#0a1418] p-8 text-white shadow-2xl sm:p-12 lg:p-16">
-      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#006759]/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-3xl text-center">
@@ -26,7 +26,7 @@ function NoUpcomingEventsCard() {
 
         <div className="mt-8 flex justify-center">
           <a href="https://arthuriteevents.com/" target="_blank" rel="noopener noreferrer">
-            <Button className="h-12 rounded-full bg-[#006759] px-8 text-xs font-bold text-white shadow-xl transition-all hover:bg-emerald-600 hover:scale-105">
+            <Button className="h-12 rounded-full bg-primary px-8 text-xs font-bold text-white shadow-xl transition-all hover:bg-lagoon-deep hover:scale-105">
               <span>Visit Arthurite Events Website</span>
               <ArrowUpRight className="ml-2 h-4 w-4" />
             </Button>
@@ -39,7 +39,7 @@ function NoUpcomingEventsCard() {
 
 export function EventsUpcoming() {
   return (
-    <section className="bg-sand/50 py-16 text-foreground sm:py-24 dark:bg-slate-900/50">
+    <section className="bg-sand/50 py-16 text-foreground sm:py-24">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <NoUpcomingEventsCard />
       </div>

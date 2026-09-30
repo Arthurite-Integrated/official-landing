@@ -2,9 +2,14 @@ import {cn} from "@/lib/utils";
 import type {VisionMissionStatement} from "#/components/about/vision-mission-content.ts";
 
 const TONE_STYLES = {
-  primary: {card: "bg-primary text-white", icon: "bg-white/10 text-white", quiet: "text-white/80", rule: "border-white/15"},
+  primary: {
+    card: "bg-primary text-primary-foreground",
+    icon: "bg-primary-foreground/10 text-primary-foreground",
+    quiet: "text-primary-foreground/80",
+    rule: "border-primary-foreground/15",
+  },
   muted: {
-    card: "bg-[#f2f2f0] text-foreground",
+    card: "bg-sand text-foreground",
     icon: "bg-primary/10 text-primary",
     quiet: "text-foreground/65",
     rule: "border-foreground/10",

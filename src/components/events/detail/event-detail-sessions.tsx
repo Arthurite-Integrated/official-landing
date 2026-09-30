@@ -72,7 +72,7 @@ export function EventDetailSessions() {
             </h2>
 
             <Link to="/contact">
-              <Button className="h-11 rounded-full bg-[#006759] px-6 text-xs font-bold text-white hover:bg-emerald-600">
+              <Button className="h-11 rounded-full bg-primary px-6 text-xs font-bold text-white hover:bg-lagoon-deep">
                 <span>View More</span>
                 <ArrowUpRight className="h-4 w-4" />
               </Button>

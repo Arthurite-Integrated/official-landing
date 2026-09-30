@@ -59,14 +59,14 @@ function RoleSearchBar({searchQuery, onSearchChange, locationFilter, onLocationC
           placeholder="Search job titles..."
           value={searchQuery}
           onChange={(event) => onSearchChange(event.target.value)}
-          className="w-full rounded-xl border border-foreground/15 bg-white py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
+          className="w-full rounded-xl border border-foreground/15 bg-foam py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground/40 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
         />
       </div>
       <select
         value={locationFilter}
         onChange={(event) => onLocationChange(event.target.value)}
         aria-label="Filter by location"
-        className="appearance-none rounded-xl border border-foreground/15 bg-white px-4 py-2.5 text-sm text-foreground/80 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
+        className="appearance-none rounded-xl border border-foreground/15 bg-foam px-4 py-2.5 text-sm text-foreground/80 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20"
       >
         <option value="">All locations</option>
         {locations.map((location) => (

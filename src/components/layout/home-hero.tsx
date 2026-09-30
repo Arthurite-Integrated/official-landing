@@ -19,7 +19,7 @@ export function HomeHero() {
         </p>
 
         <Link to="/services" className="mt-8 inline-flex">
-          <Button className="h-12 rounded-full bg-white px-7 text-sm font-semibold text-primary hover:bg-primary-bg">
+          <Button className="h-12 rounded-full bg-foam px-7 text-sm font-semibold text-primary hover:bg-primary-bg">
             Explore services
           </Button>
         </Link>

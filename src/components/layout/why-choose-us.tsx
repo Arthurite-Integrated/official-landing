@@ -10,7 +10,7 @@ function WhyUsCard({card}: WhyUsCardProps) {
   const Icon = card.icon as LucideIcon;
 
   return (
-    <article className="group relative isolate flex h-full min-h-80 w-80 flex-col justify-between overflow-hidden rounded-3xl bg-[#f2f2f0] p-7 sm:p-9">
+    <article className="group relative isolate flex h-full min-h-80 w-80 flex-col justify-between overflow-hidden rounded-3xl bg-sand p-7 sm:p-9">
       <span className="grid size-12 place-items-center rounded-2xl bg-primary/10 text-primary">
         <Icon className="size-5" strokeWidth={1.75} aria-hidden />
       </span>
