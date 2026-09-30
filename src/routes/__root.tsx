@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {HeadContent, Scripts, createRootRouteWithContext} from "@tanstack/react-router";
 import {TanStackRouterDevtoolsPanel} from "@tanstack/react-router-devtools";
@@ -41,6 +42,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({children}: {children: React.ReactNode}) {
   const {queryClient} = Route.useRouteContext();
+
+  useEffect(() => {
+    window.localStorage.removeItem("theme");
+  }, []);
 
   return (
     <html lang="en">
