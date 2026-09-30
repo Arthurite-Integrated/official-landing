@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {WhoWeAreContent} from "#/components/about/who-we-are-content.ts";
 import {WhoWeAre} from "#/components/about/who-we-are.tsx";

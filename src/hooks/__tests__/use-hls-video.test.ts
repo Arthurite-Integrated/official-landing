@@ -1,6 +1,6 @@
 import {renderHook} from "@testing-library/react";
 import {createRef} from "react";
-import {beforeEach, describe, expect, it, vi} from "vitest";
+import {beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
 import {useHlsVideo} from "#/hooks/use-hls-video.ts";
 

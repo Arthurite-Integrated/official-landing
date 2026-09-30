@@ -3,15 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - curl -fsSL https://bun.sh/install | bash
-        - export BUN_INSTALL="$HOME/.bun"
-        - export PATH="$BUN_INSTALL/bin:$PATH"
-        - bun install --frozen-lockfile
+        - nvm install 24
+        - nvm use 24
+        - npm ci
     build:
       commands:
-        - export BUN_INSTALL="$HOME/.bun"
-        - export PATH="$BUN_INSTALL/bin:$PATH"
-        - bun run build
+        - npm run build
   artifacts:
     baseDirectory: dist/client
     files:
@@ -19,4 +16,3 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-      - .bun/**/*

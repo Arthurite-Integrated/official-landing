@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {EventDetailView} from "#/components/events/event-detail-view.tsx";
 import {FEATURED_EVENTS} from "#/components/events/events-data.ts";

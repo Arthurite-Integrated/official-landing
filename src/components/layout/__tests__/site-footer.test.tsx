@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {CONTACT_EMAIL, FooterLinkGroups, FooterOffices, FooterSocials} from "#/components/layout/footer-content.ts";
 import {SiteFooter} from "#/components/layout/site-footer.tsx";

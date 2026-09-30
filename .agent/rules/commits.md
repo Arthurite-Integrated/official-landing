@@ -15,11 +15,11 @@ trigger: always_on
 ## Before Every Commit
 
 ```sh
-bun lint
-bunx -y react-doctor@latest . --verbose --diff
-bun run test
-bun run stryker:incremental
-bun run test:ct  # if UI components changed
+vp lint --max-warnings=0
+npx -y react-doctor@latest . --verbose --diff
+vp test run
+npm run stryker:incremental
+npm run test:ct  # if UI components changed
 ```
 
 ## Commit Message Format

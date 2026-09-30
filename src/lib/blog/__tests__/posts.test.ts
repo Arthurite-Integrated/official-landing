@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {indexByFileName, pickFeaturedPost, slugFromPath, sortNewestFirst, toBlogPost} from "#/lib/blog/posts.ts";
 import type {BlogEntry, BlogPost} from "#/lib/blog/posts.ts";

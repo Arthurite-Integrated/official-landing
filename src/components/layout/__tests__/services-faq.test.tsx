@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {ServicesFaq} from "#/components/layout/services-faq.tsx";
 import {SERVICES_FAQ_ITEMS} from "#/components/layout/services-faq-data.ts";

@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {InTheSpotlight} from "#/components/layout/in-the-spotlight.tsx";
 import {SpotlightCard} from "#/components/layout/spotlight-card.tsx";

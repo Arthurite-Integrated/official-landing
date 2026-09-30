@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import {ShieldCheck} from "lucide-react";
-import {describe, expect, it} from "vitest";
+import {describe, expect, it} from "vite-plus/test";
 
 import {BentoCard, type BentoCardContent} from "#/components/layout/bento-card.tsx";
 

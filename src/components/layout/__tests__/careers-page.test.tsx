@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import {describe, expect, it, vi} from "vitest";
+import {describe, expect, it, vi} from "vite-plus/test";
 
 import {CAREERS_BENEFITS, OPEN_ROLES} from "#/components/layout/careers-data.ts";
 import {CareersAtip} from "#/components/layout/careers-atip.tsx";

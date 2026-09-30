@@ -28,26 +28,26 @@ source.config.ts    — Fumadocs MDX collection and blog frontmatter schema
 
 ## Technology Stack
 
-| Category        | Tool                                    |
-| --------------- | --------------------------------------- |
-| Framework       | React 19 + TanStack Start (SSR)         |
-| Language        | TypeScript (strict mode)                |
-| Styling         | TailwindCSS v4 + tw-animate-css         |
-| UI Components   | shadcn/ui (new-york style) + Radix UI   |
-| Routing         | TanStack Router (file-based)            |
-| State/Data      | TanStack Query + TanStack Form          |
-| Validation      | Zod v4                                  |
-| Blog            | Fumadocs MDX                            |
-| Icons           | Lucide React                            |
-| Build           | Vite 8                                  |
-| Runtime         | Bun                                     |
-| Compiler        | React Compiler (babel plugin)           |
-| Linting         | Oxlint (anti-slop rules, zero warnings) |
-| Formatting      | Oxfmt                                   |
-| Testing         | Vitest + Testing Library + fast-check   |
-| Mutation Tests  | Stryker                                 |
-| Component Tests | Playwright CT                           |
-| Git Hooks       | Lefthook                                |
+| Category        | Tool                                           |
+| --------------- | ---------------------------------------------- |
+| Framework       | React 19 + TanStack Start (SSR)                |
+| Language        | TypeScript (strict mode)                       |
+| Styling         | TailwindCSS v4 + tw-animate-css                |
+| UI Components   | shadcn/ui (new-york style) + Radix UI          |
+| Routing         | TanStack Router (file-based)                   |
+| State/Data      | TanStack Query + TanStack Form                 |
+| Validation      | Zod v4                                         |
+| Blog            | Fumadocs MDX                                   |
+| Icons           | Lucide React                                   |
+| Build           | Vite+ 1.0 (Rolldown-Vite 8)                    |
+| Runtime         | Node 24 + npm                                  |
+| Compiler        | React Compiler (babel plugin)                  |
+| Linting         | Oxlint via vp (anti-slop rules, zero warnings) |
+| Formatting      | Oxfmt via vp                                   |
+| Testing         | Vitest 5 + Testing Library + fast-check        |
+| Mutation Tests  | Stryker                                        |
+| Component Tests | Playwright CT                                  |
+| Git Hooks       | Vite+ hooks (`vp staged` pre-commit)           |
 
 ## Path Aliases
 
@@ -58,19 +58,21 @@ source.config.ts    — Fumadocs MDX collection and blog frontmatter schema
 
 ```sh
 git submodule update --init # Fetch blog posts into content/blog (once after cloning)
-bun dev                    # Start dev server on port 3000
-bun run build              # Production build
-bun run preview            # Preview production build
-bun run test               # Run Vitest tests
-bun run test:coverage      # Run tests with coverage report
-bun run test:ui            # Vitest interactive UI
-bun lint                   # Oxlint (--max-warnings=0)
-bun lint:fix               # Oxlint with auto-fix
-bun format                 # Oxfmt formatting
-bun run stryker            # Full mutation testing
-bun run stryker:incremental # Incremental mutation testing
-bun run test:ct            # Playwright component tests
-bun run test:ct:ui         # Playwright CT interactive UI
+npm run dev                # Start dev server on port 3000 (vp dev)
+npm run build              # Production build (vp build)
+npm run preview            # Preview production build
+npm test                   # Run Vitest tests (vp test run)
+npm run test:coverage      # Run tests with coverage report
+npm run test:ui            # Vitest interactive UI
+npm run lint               # Oxlint via vp (--max-warnings=0)
+npm run lint:fix           # Oxlint with auto-fix
+npm run format             # Oxfmt via vp fmt
+npm run stryker            # Full mutation testing
+npm run stryker:incremental # Incremental mutation testing
+npm run test:ct            # Playwright component tests
+npm run test:ct:ui         # Playwright CT interactive UI
+vp check                   # Format + lint + typecheck in one pass
+vp staged                  # Run staged-file checks (pre-commit hook)
 ```
 
 ## Blog
@@ -124,5 +126,32 @@ GitHub Actions (`.github/workflows/publish.yml`):
 - Contact page (planned)
 - Stryker mutation testing (Layer 6)
 - Playwright CT component tests (Layer 7)
-- Lefthook git hooks (Layer 8)
 - CI pipeline (Layer 9)
+
+<!--VITE PLUS START-->
+
+# Using Vite+, the Unified Toolchain for the Web
+
+This project is using Vite+, a unified toolchain built on top of Vite, Rolldown, Vitest, tsdown, Oxlint, Oxfmt, and Vite Task. Vite+ wraps runtime management, package management, and frontend tooling in a single global CLI called `vp`. Vite+ is distinct from Vite, and it invokes Vite through `vp dev` and `vp build`. Run `vp help` to print a list of commands and `vp <command> --help` for information about a specific command.
+
+Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
+
+## Built-in Commands vs Scripts
+
+`vp <name>` runs a built-in command. `vp run <name>` runs a `package.json` script or a `vite.config.ts` task. Scripts cannot overwrite built-ins, so `vp dev` and `vp run dev` may do different things. Check `package.json` and `vite.config.ts` first, and run `vp run <name>` when the project defines a script or task with that name.
+
+## Tool Versions
+
+Run `vp toolchain` to show versions and relationships in the active Vite+
+release. Add a tool name to select part of the graph. For example, run
+`vp toolchain vite`. Use `--global` to ignore the local `vite-plus` package. Use
+`vp why <package>` to show the package-manager dependency graph.
+
+## Review Checklist
+
+- [ ] Run `vp install` after pulling remote changes and before getting started.
+- [ ] Run `vp check` and `vp test` to format, lint, type check and test changes.
+- [ ] Check if there are `vite.config.ts` tasks or `package.json` scripts necessary for validation, run via `vp run <script>`.
+- [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
+
+<!--VITE PLUS END-->

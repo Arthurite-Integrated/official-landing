@@ -2,7 +2,7 @@
   "projectName": "atr-landing",
   "mode": "file-router",
   "typescript": true,
-  "packageManager": "bun",
+  "packageManager": "npm",
   "includeExamples": false,
   "tailwind": true,
   "addOnOptions": {},
