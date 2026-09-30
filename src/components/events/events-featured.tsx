@@ -1,9 +1,11 @@
 import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 import {Link} from "@tanstack/react-router";
 import {ArrowUpRight, Calendar, ChevronLeft, ChevronRight, MapPin} from "lucide-react";
 
-import {FEATURED_EVENTS, type EventItem} from "#/components/events/events-data.ts";
+import {toEventItem, type EventItem} from "#/components/events/events-data.ts";
 import {Button} from "#/components/ui/button.tsx";
+import {eventsQueryOptions} from "#/lib/api/endpoints.ts";
 
 function FeaturedHeader() {
   return (
@@ -123,11 +125,13 @@ function FeaturedPreviewThumb({
 }
 
 function FeaturedPagination({
+  events,
   currentIndex,
   onSelectIndex,
   onPrev,
   onNext,
 }: {
+  readonly events: readonly EventItem[];
   readonly currentIndex: number;
   readonly onSelectIndex: (index: number) => void;
   readonly onPrev: () => void;
@@ -136,7 +140,7 @@ function FeaturedPagination({
   return (
     <div className="flex items-center justify-between pt-2">
       <div className="flex items-center gap-2">
-        {FEATURED_EVENTS.map((evt, idx) => (
+        {events.map((evt, idx) => (
           <button
             key={evt.id}
             type="button"
@@ -171,11 +175,13 @@ function FeaturedPagination({
 }
 
 function FeaturedControls({
+  events,
   currentIndex,
   onSelectIndex,
   onPrev,
   onNext,
 }: {
+  readonly events: readonly EventItem[];
   readonly currentIndex: number;
   readonly onSelectIndex: (index: number) => void;
   readonly onPrev: () => void;
@@ -184,25 +190,27 @@ function FeaturedControls({
   return (
     <div className="mt-8 space-y-4">
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-        {FEATURED_EVENTS.map((evt, idx) => (
+        {events.slice(0, 3).map((evt, idx) => (
           <FeaturedPreviewThumb key={evt.id} event={evt} index={idx} isActive={idx === currentIndex} onSelect={() => onSelectIndex(idx)} />
         ))}
       </div>
-      <FeaturedPagination currentIndex={currentIndex} onSelectIndex={onSelectIndex} onPrev={onPrev} onNext={onNext} />
+      <FeaturedPagination events={events} currentIndex={currentIndex} onSelectIndex={onSelectIndex} onPrev={onPrev} onNext={onNext} />
     </div>
   );
 }
 
 export function EventsFeatured() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const current = FEATURED_EVENTS[currentIndex] ?? FEATURED_EVENTS[0];
+  const {data} = useQuery(eventsQueryOptions({status: "upcoming"}));
+  const events = (data?.items ?? []).map(toEventItem);
+  const current = events[currentIndex] ?? events[0];
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? FEATURED_EVENTS.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? events.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === FEATURED_EVENTS.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
   };
 
   if (!current) return null;
@@ -212,7 +220,13 @@ export function EventsFeatured() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <FeaturedHeader />
         <FeaturedHeroCard event={current} />
-        <FeaturedControls currentIndex={currentIndex} onSelectIndex={setCurrentIndex} onPrev={handlePrev} onNext={handleNext} />
+        <FeaturedControls
+          events={events}
+          currentIndex={currentIndex}
+          onSelectIndex={setCurrentIndex}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       </div>
     </section>
   );

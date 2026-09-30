@@ -1,6 +1,6 @@
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {describe, expect, it, vi} from "vite-plus/test";
+import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
 import {EventsAgenda} from "#/components/events/events-agenda.tsx";
 import {EventsFeatured} from "#/components/events/events-featured.tsx";
@@ -9,6 +9,8 @@ import {EventsHero} from "#/components/events/events-hero.tsx";
 import {EventsSpeakers} from "#/components/events/events-speakers.tsx";
 import {EventsTracks} from "#/components/events/events-tracks.tsx";
 import {EventsUpcoming} from "#/components/events/events-upcoming.tsx";
+import type {ApiEvent} from "#/lib/api/types.ts";
+import {renderWithQueryClient} from "#/test-utils/query-client.tsx";
 
 vi.mock("@tanstack/react-router", async () => {
   const React = await import("react");
@@ -17,6 +19,35 @@ vi.mock("@tanstack/react-router", async () => {
       React.createElement("a", {className, href: to}, children),
   };
 });
+
+const apiEvent = (id: string, title: string): ApiEvent => ({
+  id,
+  title,
+  coverImage: "https://cdn.arthurite.test/cover.jpg",
+  description: `${title} description.`,
+  location: "Lagos",
+  startsAt: "2026-06-11T09:00:00.000Z",
+  registeredCount: 0,
+  createdAt: "2026-01-01T00:00:00.000Z",
+});
+
+function stubEventsFetch(items: ApiEvent[]) {
+  vi.stubEnv("VITE_API_BASE_URL", "https://api.arthurite.test/v1");
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(() =>
+      Promise.resolve(
+        new Response(
+          JSON.stringify({success: true, status: 200, timestamp: "t", data: {items, pagination: {limit: 20, nextCursor: null}}}),
+          {
+            status: 200,
+            headers: {"content-type": "application/json"},
+          }
+        )
+      )
+    )
+  );
+}
 
 describe("EventsHero", () => {
   it("renders main heading and subtitle", () => {
@@ -59,18 +90,35 @@ describe("EventsSpeakers", () => {
 });
 
 describe("EventsFeatured", () => {
-  it("renders featured events heading and first event title without register button", async () => {
-    const user = userEvent.setup();
-    render(<EventsFeatured />);
+  beforeEach(() => {
+    stubEventsFetch([apiEvent("evt-1", "ONE WITH AI"), apiEvent("evt-2", "NEXT-GEN INTELLIGENCE")]);
+  });
 
-    expect(screen.getByRole("heading", {name: "Featured Events"})).toBeInTheDocument();
-    expect(screen.getAllByText(/ONE WITH AI/i)[0]).toBeInTheDocument();
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  it("renders featured events from the API and paginates", async () => {
+    const user = userEvent.setup();
+    renderWithQueryClient(<EventsFeatured />);
+
+    expect(await screen.findByRole("heading", {name: "Featured Events"})).toBeInTheDocument();
+    expect(await screen.findAllByText(/ONE WITH AI/i)).not.toHaveLength(0);
     expect(screen.queryByText("Register Now")).not.toBeInTheDocument();
 
     const nextButton = screen.getByRole("button", {name: "Next event"});
     await user.click(nextButton);
 
     expect(screen.getAllByText(/NEXT-GEN INTELLIGENCE/i)[0]).toBeInTheDocument();
+  });
+
+  it("renders nothing while the API has no upcoming events", async () => {
+    stubEventsFetch([]);
+    renderWithQueryClient(<EventsFeatured />);
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    expect(screen.queryByRole("heading", {name: "Featured Events"})).not.toBeInTheDocument();
   });
 });
 

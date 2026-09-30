@@ -1,11 +1,12 @@
 import {Link} from "@tanstack/react-router";
 
-import type {EventItem} from "#/components/events/events-data.ts";
-import {EventDetailGalleryWall} from "#/components/events/detail/event-detail-gallery-wall.tsx";
+import {EventDetailFooterCta} from "#/components/events/detail/event-detail-footer-cta.tsx";
 import {EventDetailHero} from "#/components/events/detail/event-detail-hero.tsx";
 import {EventDetailLocations} from "#/components/events/detail/event-detail-locations.tsx";
-import {EventDetailSpeakers} from "#/components/events/detail/event-detail-speakers.tsx";
+import {EventRegister} from "#/components/events/detail/event-register.tsx";
+import {toEventItem} from "#/components/events/events-data.ts";
 import {Button} from "#/components/ui/button.tsx";
+import type {ApiEvent} from "#/lib/api/types.ts";
 
 function EventNotFoundView() {
   return (
@@ -19,15 +20,17 @@ function EventNotFoundView() {
   );
 }
 
-export function EventDetailView({event}: {readonly event?: EventItem}) {
+export function EventDetailView({event}: {readonly event?: ApiEvent}) {
   if (!event) return <EventNotFoundView />;
+
+  const item = toEventItem(event);
 
   return (
     <main className="w-full overflow-x-hidden bg-background">
-      <EventDetailHero event={event} />
-      <EventDetailLocations event={event} />
-      <EventDetailSpeakers />
-      <EventDetailGalleryWall event={event} />
+      <EventDetailHero event={item} />
+      <EventDetailLocations event={item} />
+      <EventRegister event={event} />
+      <EventDetailFooterCta />
     </main>
   );
 }

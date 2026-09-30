@@ -1,3 +1,4 @@
+import {QueryClientProvider} from "@tanstack/react-query";
 import {HeadContent, Scripts, createRootRouteWithContext} from "@tanstack/react-router";
 import {TanStackRouterDevtoolsPanel} from "@tanstack/react-router-devtools";
 import {TanStackDevtools} from "@tanstack/react-devtools";
@@ -39,6 +40,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({children}: {children: React.ReactNode}) {
+  const {queryClient} = Route.useRouteContext();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -47,7 +50,7 @@ function RootDocument({children}: {children: React.ReactNode}) {
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(0,103,89,0.24)]">
         <NavigationBar />
-        {children}
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         <SiteFooter />
         <TanStackDevtools
           config={{

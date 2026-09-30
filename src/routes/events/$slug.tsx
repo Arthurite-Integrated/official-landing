@@ -1,20 +1,25 @@
+import {useQuery} from "@tanstack/react-query";
 import {createFileRoute} from "@tanstack/react-router";
 
 import {EventDetailView} from "#/components/events/event-detail-view.tsx";
-import {getEventBySlug} from "#/components/events/events-data.ts";
+import {eventQueryOptions} from "#/lib/api/endpoints.ts";
 
 export const Route = createFileRoute("/events/$slug")({
-  loader: ({params}) => getEventBySlug(params.slug),
-  head: ({loaderData}) => ({
-    meta:
-      loaderData === undefined
-        ? [{title: "Event Not Found | Arthurite Integrated"}]
-        : [{title: `${loaderData.title} | Arthurite Integrated`}, {name: "description", content: loaderData.description}],
-  }),
   component: SingleEventRoute,
 });
 
+function EventDetailSkeleton() {
+  return (
+    <main className="w-full overflow-x-hidden bg-background">
+      <div className="min-h-[85vh] animate-pulse bg-[#0a1418]" aria-busy="true" aria-label="Loading event" />
+    </main>
+  );
+}
+
 function SingleEventRoute() {
-  const event = Route.useLoaderData();
-  return <EventDetailView event={event} />;
+  const {slug} = Route.useParams();
+  const {data: event, isPending, isError} = useQuery(eventQueryOptions(slug));
+
+  if (isPending) return <EventDetailSkeleton />;
+  return <EventDetailView event={isError ? undefined : event} />;
 }
