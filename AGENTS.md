@@ -95,7 +95,10 @@ submodule at `content/blog`. Without `git submodule update --init`, `/blog` buil
 - **Covers** are filenames inside `content/blog/images/`; a cover that is not there fails the build.
 - **Post pages are prerendered by `crawlLinks`** from the links on `/blog`, so they are not listed in `vite.config.ts`.
 - **Never commit a `content/blog` pointer change by hand.** blog-posts' "Publish to landing" workflow sends the merged
-  sha, and `blog-update.yml` points the submodule at it through a pull request, because `main` requires one.
+  sha, and `blog-update.yml` points the submodule at it. Three guards stop a landing push from moving it: `.gitmodules`
+  sets `ignore = all` (so `git add -A` and `git commit -a` skip a drifted checkout), the pre-commit hook rejects a staged
+  pointer change, and the `blog-pointer` CI job fails any pull request that moves it
+  (`scripts/check-blog-pointer.sh`). Run `git submodule update --init` to sync your checkout; never stage it.
 - **A schema or category change** must be mirrored in blog-posts' `CONTRIBUTING.md`, which documents both for authors.
 - **Tests** swap the generated `fumadocs-mdx:collections/*` modules for fixtures in `src/test-utils/` (see
   `vitest.config.ts`).

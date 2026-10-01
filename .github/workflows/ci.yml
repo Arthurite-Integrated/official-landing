@@ -7,6 +7,21 @@ on:
     branches: [main]
 
 jobs:
+  blog-pointer:
+    if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Block changes to the blog-posts pointer
+        run: scripts/check-blog-pointer.sh "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+
   quality:
     runs-on: ubuntu-latest
     permissions:

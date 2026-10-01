@@ -5,7 +5,6 @@ import {
   apiEventPageSchema,
   apiEventSchema,
   apiJobPageSchema,
-  apiJobSchema,
   createdDataSchema,
   uploadResultSchema,
   type ApiContactPayload,
@@ -66,12 +65,6 @@ export function listJobs(params: PageParams = {}) {
 }
 
 export const jobsQueryOptions = () => queryOptions({queryKey: ["careers", "list"], queryFn: () => collectAllPages(listJobs), retry: 1});
-
-export function getJob(id: string) {
-  return apiRequest(`/careers/${id}`, {schema: apiJobSchema});
-}
-
-export const jobQueryOptions = (id: string) => queryOptions({queryKey: ["careers", "detail", id], queryFn: () => getJob(id), retry: false});
 
 function requestCvUpload(file: File) {
   return apiRequest("/upload", {

@@ -17,6 +17,7 @@ mcp-todos.json
 # stryker temp files
 .stryker-tmp
 reports
+coverage
 .idea
 .source
 .vitest/
