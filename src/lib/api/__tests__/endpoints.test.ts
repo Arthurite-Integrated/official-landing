@@ -5,9 +5,9 @@ import type {ApiEvent, ApiJob} from "#/lib/api/types.ts";
 import {
   applyForInternship,
   applyForJob,
+  eventQueryOptions,
   eventsQueryOptions,
   getEvent,
-  getJob,
   jobsQueryOptions,
   listEvents,
   listJobs,
@@ -94,6 +94,15 @@ describe("api endpoints", () => {
     expect(event.title).toBe("AWS Cloud Summit");
   });
 
+  it("exposes a single event as a query keyed by its id", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(eventFixture));
+
+    const event = await new QueryClient().fetchQuery(eventQueryOptions(eventFixture.id));
+
+    expect(event.title).toBe("AWS Cloud Summit");
+    expect(eventQueryOptions(eventFixture.id).queryKey).toEqual(["events", "detail", eventFixture.id]);
+  });
+
   it("registers for an event", async () => {
     vi.mocked(fetch).mockResolvedValue(ok({id: "reg-1"}, 201));
 
@@ -141,15 +150,6 @@ describe("api endpoints", () => {
 
     expect(fetch).toHaveBeenCalledWith(`${BASE}/careers`, expect.anything());
     expect(result.items[0]?.title).toBe("Backend Engineer");
-  });
-
-  it("fetches a job by id", async () => {
-    vi.mocked(fetch).mockResolvedValue(ok(jobFixture));
-
-    const job = await getJob(jobFixture.id);
-
-    expect(fetch).toHaveBeenCalledWith(`${BASE}/careers/${jobFixture.id}`, expect.anything());
-    expect(job.mode).toBe("Remote");
   });
 
   it("requests a presigned CV upload describing the file", async () => {
