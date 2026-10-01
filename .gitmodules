@@ -1,3 +1,4 @@
 [submodule "content/blog"]
 	path = content/blog
 	url = https://github.com/Arthurite-Integrated/blog-posts.git
+	ignore = all

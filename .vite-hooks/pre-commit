@@ -1,2 +1,8 @@
 #!/bin/sh
+if ! git diff --cached --quiet --ignore-submodules=none HEAD -- content/blog; then
+  echo "Refusing to commit a content/blog change: the blog-posts pointer is only moved by the 'Update blog content' workflow." >&2
+  echo "Unstage it with: git restore --staged content/blog" >&2
+  exit 1
+fi
+
 vp staged

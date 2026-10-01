@@ -1,10 +1,11 @@
 name: Update blog content
 
 # Publishes posts from Arthurite-Integrated/blog-posts. Its "Publish to landing" workflow sends the merged
-# sha; this job points the content/blog submodule at that sha directly on main, which Vercel deploys.
+# sha; this job points the content/blog submodule at that sha and merges the change into main, which
+# Vercel deploys.
 #
 # The pointer is written straight from the sha rather than by checking the submodule out, so the job needs
-# no access to blog-posts.
+# no access to blog-posts. main requires pull requests, so the change goes through one and is merged here.
 on:
   repository_dispatch:
     types: [blog-content-updated]
@@ -31,6 +32,7 @@ jobs:
       - name: Point content/blog at the published commit
         env:
           BLOG_SHA: ${{ github.event.client_payload.sha || inputs.sha }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
@@ -47,12 +49,19 @@ jobs:
           fi
 
           short="${BLOG_SHA:0:7}"
+          branch="chore/blog-content-${short}"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "${branch}"
           # 160000 is git's mode for a submodule entry.
           git update-index --cacheinfo "160000,${BLOG_SHA},content/blog"
           git commit -m "chore(blog): publish blog-posts ${short}"
-          git push origin HEAD:main
+          git push --force origin "${branch}"
+
+          gh pr create --base main --head "${branch}" \
+            --title "chore(blog): publish blog-posts ${short}" \
+            --body "Points \`content/blog\` at Arthurite-Integrated/blog-posts@${BLOG_SHA} (was ${current})."
+          gh pr merge "${branch}" --squash --delete-branch
 
           echo "content/blog ${current} -> ${BLOG_SHA}"
