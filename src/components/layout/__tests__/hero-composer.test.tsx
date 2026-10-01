@@ -190,12 +190,11 @@ describe("HeroComposer", () => {
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
   });
 
-  it("fills the field from a quick-start chip", async () => {
-    const {field, user} = renderComposer();
-    const chip = screen.getByRole("button", {name: "Cloud migration"});
+  it("offers no preset options beside the field", () => {
+    renderComposer();
 
-    await user.click(chip);
-
-    expect(field).toHaveValue("Cloud migration");
+    for (const preset of ["Cloud migration", "Cost optimisation", "Security review"]) {
+      expect(screen.queryByRole("button", {name: preset})).not.toBeInTheDocument();
+    }
   });
 });

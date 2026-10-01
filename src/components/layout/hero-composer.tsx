@@ -1,6 +1,5 @@
 import {useState, type FormEvent, type KeyboardEvent} from "react";
 
-import {ComposerChips} from "#/components/layout/composer-chips.tsx";
 import {ComposerField} from "#/components/layout/composer-field.tsx";
 import {ComposerStatus} from "#/components/layout/composer-status.tsx";
 import {HeroContactModal} from "#/components/layout/hero-contact-modal.tsx";
@@ -16,8 +15,6 @@ const GHOST_SUGGESTIONS = [
   "Modernise a legacy application",
   "Set up managed cloud operations",
 ];
-
-const QUICK_STARTS = ["Cloud migration", "Cost optimisation", "Security review"];
 
 type HeroComposerProps = {
   readonly onSubmit: (request: ContactRequest) => Promise<unknown>;
@@ -85,7 +82,6 @@ export function HeroComposer({onSubmit}: HeroComposerProps) {
         />
 
         <ComposerStatus status={status} />
-        <ComposerChips items={QUICK_STARTS} onSelect={setPrompt} />
       </form>
 
       {detailsOpen ? (
