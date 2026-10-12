@@ -1,9 +1,14 @@
-import agenticAi from "#/assets/aws/agentic-ai.svg";
-import bedrock from "#/assets/aws/bedrock.svg";
-import lex from "#/assets/aws/lex.svg";
-import quickSuite from "#/assets/aws/quick-suite.svg";
-import rds from "#/assets/aws/rds.svg";
-import sagemaker from "#/assets/aws/sagemaker.svg";
+import aiMl from "#/assets/aws/ai-machine-learning.svg";
+import analytics from "#/assets/aws/analytics.svg";
+import appIntegration from "#/assets/aws/application-integration.svg";
+import compute from "#/assets/aws/compute.svg";
+import containers from "#/assets/aws/containers.svg";
+import databases from "#/assets/aws/databases.svg";
+import devops from "#/assets/aws/devops.svg";
+import networking from "#/assets/aws/networking.svg";
+import security from "#/assets/aws/security.svg";
+import serverless from "#/assets/aws/serverless.svg";
+import storage from "#/assets/aws/storage.svg";
 
 export type AwsService = {
   readonly description: string;
@@ -18,50 +23,90 @@ export type AwsService = {
 export const AwsServices: readonly AwsService[] = [
   {
     description:
-      "Optimize the total cost of ownership by automating database management tasks like provisioning and patching. Enjoy rapid deployment, built-in security features, and cost-effective pricing based on actual usage.",
-    icon: rds,
-    name: "Amazon RDS",
-    slug: "rds",
+      "Provision scalable, high-performance computing capacity tailored to your workloads, from elastic virtual machines to high-throughput compute clusters that automatically scale with demand.",
+    icon: compute,
+    name: "Compute",
+    slug: "compute",
     spot: "-top-[14%] -right-[12%] h-[128%]",
   },
   {
     description:
-      "Turn your data into interactive dashboards and visual insights for better decision-making, making it easier to understand performance and share reports across your team.",
-    icon: quickSuite,
-    name: "Amazon Quick Suite",
-    slug: "quick-suite",
+      "Deploy secure, cost-effective, and highly durable object, block, and file storage architectures designed for instant availability, automated lifecycle tiers, and enterprise backup.",
+    icon: storage,
+    name: "Storage",
+    slug: "storage",
     spot: "-bottom-[18%] -right-[16%] h-[120%]",
   },
   {
     description:
-      "Build and scale generative AI applications using foundation models without managing infrastructure, while keeping your data secure and maintaining full control over how AI is applied.",
-    icon: bedrock,
-    name: "Amazon Bedrock",
-    slug: "bedrock",
+      "Architect managed relational, NoSQL, and in-memory database engines with automatic failover, continuous backups, and multi-region replication for mission-critical reliability.",
+    icon: databases,
+    name: "Databases",
+    slug: "databases",
     spot: "-top-[10%] -right-[6%] h-[134%]",
   },
   {
     description:
-      "Design intelligent systems that can take actions and automate complex workflows, allowing processes to run more efficiently with minimal human input.",
-    icon: agenticAi,
-    name: "Agentic AI",
-    slug: "agentic-ai",
+      "Build robust, low-latency cloud networks with isolated virtual clouds, hybrid VPN connections, dedicated interconnects, and global content delivery acceleration.",
+    icon: networking,
+    name: "Networking",
+    slug: "networking",
     spot: "-bottom-[12%] -right-[22%] h-[140%]",
   },
   {
     description:
-      "Create conversational interfaces using voice and text with natural language understanding, enabling chatbots and assistants that handle user interactions smoothly.",
-    icon: lex,
-    name: "Amazon Lex",
-    slug: "lex",
+      "Safeguard your cloud perimeter with identity and access controls, continuous compliance monitoring, automated vulnerability scanning, and granular data encryption.",
+    icon: security,
+    name: "Security",
+    slug: "security",
     spot: "-top-[4%] -right-[8%] h-[116%]",
   },
   {
     description:
-      "Build, train, and deploy machine learning models on a fully managed platform, simplifying the journey from raw data to production-ready systems.",
-    icon: sagemaker,
-    name: "Amazon SageMaker",
-    slug: "sagemaker",
+      "Accelerate innovation with predictive analytics, generative AI foundation models, intelligent chatbots, and end-to-end machine learning workflows built for enterprise production.",
+    icon: aiMl,
+    name: "AI & Machine Learning",
+    slug: "ai-machine-learning",
     spot: "-top-[20%] -right-[2%] h-[146%]",
+  },
+  {
+    description:
+      "Transform raw business data into actionable real-time insights with high-speed querying, centralized data lakes, and automated visual dashboards for faster decisions.",
+    icon: analytics,
+    name: "Analytics",
+    slug: "analytics",
+    spot: "-bottom-[16%] -right-[10%] h-[124%]",
+  },
+  {
+    description:
+      "Package, deploy, and manage microservices with resilient container orchestration, standardizing application environments for rapid, zero-downtime releases.",
+    icon: containers,
+    name: "Containers",
+    slug: "containers",
+    spot: "-top-[16%] -right-[18%] h-[130%]",
+  },
+  {
+    description:
+      "Execute event-driven code and microservices without provisioning or managing servers, cutting operational overhead while paying only for compute time consumed.",
+    icon: serverless,
+    name: "Serverless",
+    slug: "serverless",
+    spot: "-bottom-[8%] -right-[14%] h-[138%]",
+  },
+  {
+    description:
+      "Streamline delivery pipelines with continuous integration, automated deployment, infrastructure as code, and proactive monitoring that speeds up release cycles safely.",
+    icon: devops,
+    name: "DevOps",
+    slug: "devops",
+    spot: "-top-[8%] -right-[24%] h-[122%]",
+  },
+  {
+    description:
+      "Connect disparate systems, decouple microservices, and orchestrate complex business workflows using managed message queues, event buses, and asynchronous APIs.",
+    icon: appIntegration,
+    name: "Application Integration",
+    slug: "application-integration",
+    spot: "-bottom-[22%] -right-[4%] h-[144%]",
   },
 ];

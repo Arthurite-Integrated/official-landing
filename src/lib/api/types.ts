@@ -48,6 +48,19 @@ export type ApiJob = z.infer<typeof apiJobSchema>;
 export const apiJobPageSchema = paginatedSchema(apiJobSchema);
 export type ApiJobPage = z.infer<typeof apiJobPageSchema>;
 
+export const apiStaffSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  name: z.string(),
+  position: z.string(),
+  photo: z.string().nullable().optional(),
+  bio: z.string(),
+  sortOrder: z.number(),
+});
+export type ApiStaff = z.infer<typeof apiStaffSchema>;
+
+export const apiStaffPageSchema = paginatedSchema(apiStaffSchema);
+
 export const uploadResultSchema = z.object({
   uploadUrl: z.url(),
   fields: z.record(z.string(), z.string()),

@@ -1,7 +1,7 @@
 import {QueryClient} from "@tanstack/react-query";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
-import type {ApiEvent, ApiJob} from "#/lib/api/types.ts";
+import type {ApiEvent, ApiJob, ApiStaff} from "#/lib/api/types.ts";
 import {
   applyForInternship,
   applyForJob,
@@ -11,7 +11,9 @@ import {
   jobsQueryOptions,
   listEvents,
   listJobs,
+  listStaff,
   registerForEvent,
+  staffQueryOptions,
   submitContactRequest,
   subscribeToNewsletter,
   unsubscribeFromNewsletter,
@@ -44,6 +46,16 @@ const jobFixture: ApiJob = {
   description: "Build the landing page API and internal services on AWS.",
   status: "open",
   createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+const staffFixture: ApiStaff = {
+  id: "76af23fe-6614-48b6-b752-462793a1a313",
+  slug: "paul-aderoju",
+  name: "Paul Aderoju",
+  position: "Senior Solutions Architect",
+  photo: "https://cdn.arthurite.test/paul-aderoju.png",
+  bio: "Cloud, AI, and business.",
+  sortOrder: 0,
 };
 
 const ok = (data: unknown, status = 200) =>
@@ -263,5 +275,25 @@ describe("api endpoints", () => {
     const fileUrl = await uploadCv(new File(["pdf"], "ada-cv.pdf", {type: "application/pdf"}));
 
     expect(fileUrl).toBe(UPLOAD.fileUrl);
+  });
+
+  it("lists staff from the staff endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([staffFixture])));
+
+    const result = await listStaff({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/staff?limit=20`, expect.objectContaining({method: "GET"}));
+    expect(result.items[0]?.name).toBe("Paul Aderoju");
+  });
+
+  it("follows the cursor until every staff member is loaded", async () => {
+    const second = {...staffFixture, id: "second", name: "Ayomikun Ayobami"};
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok({items: [staffFixture], pagination: {limit: 100, nextCursor: "next"}}))
+      .mockResolvedValueOnce(ok(page([second])));
+
+    const staff = await new QueryClient().fetchQuery(staffQueryOptions());
+
+    expect(staff.map((member) => member.name)).toEqual(["Paul Aderoju", "Ayomikun Ayobami"]);
   });
 });
