@@ -160,24 +160,48 @@
   --aws-accent: #006759;
 }
 
-[data-aws-accent="managed-cloud"] {
-  --aws-accent: #01a88d;
+[data-aws-accent="compute"] {
+  --aws-accent: #ec7211;
 }
 
-[data-aws-accent="managed-support"] {
+[data-aws-accent="storage"] {
+  --aws-accent: #3f8624;
+}
+
+[data-aws-accent="databases"] {
   --aws-accent: #1e88e5;
 }
 
-[data-aws-accent="cloud-security"] {
-  --aws-accent: #e53935;
-}
-
-[data-aws-accent="app-management"] {
+[data-aws-accent="networking"] {
   --aws-accent: #8e24aa;
 }
 
-[data-aws-accent="cost-optimization"] {
-  --aws-accent: #f57c00;
+[data-aws-accent="security"] {
+  --aws-accent: #e53935;
+}
+
+[data-aws-accent="ai-machine-learning"] {
+  --aws-accent: #01a88d;
+}
+
+[data-aws-accent="analytics"] {
+  --aws-accent: #5c6bc0;
+}
+
+[data-aws-accent="containers"] {
+  --aws-accent: #e65100;
+}
+
+[data-aws-accent="serverless"] {
+  --aws-accent: #c2185b;
+}
+
+[data-aws-accent="devops"] {
+  --aws-accent: #0288d1;
+}
+
+[data-aws-accent="application-integration"] {
+  --aws-accent: #ad1457;
 }
 
 .aws-backdrop-glow {

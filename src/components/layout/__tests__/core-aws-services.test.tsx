@@ -8,13 +8,13 @@ describe("CoreAwsServices", () => {
   it("names the section after its heading", () => {
     render(<CoreAwsServices />);
 
-    expect(screen.getByRole("region", {name: /our core aws services/i})).toBeInTheDocument();
+    expect(screen.getByRole("region", {name: /our core cloud services/i})).toBeInTheDocument();
   });
 
   it("introduces the services under the heading", () => {
     render(<CoreAwsServices />);
 
-    expect(screen.getByText(/we deliver essential aws services/i)).toBeInTheDocument();
+    expect(screen.getByText(/we deliver architecture and cloud engineering/i)).toBeInTheDocument();
   });
 
   it("offers a control for every service", () => {
@@ -107,5 +107,24 @@ describe("AwsServices", () => {
     const spots = AwsServices.map((service) => service.spot);
 
     expect(new Set(spots).size).toBe(spots.length);
+  });
+
+  it("includes all 11 core technology solution categories", () => {
+    expect(AwsServices).toHaveLength(11);
+    const expectedCategories = [
+      "Compute",
+      "Storage",
+      "Databases",
+      "Networking",
+      "Security",
+      "AI & Machine Learning",
+      "Analytics",
+      "Containers",
+      "Serverless",
+      "DevOps",
+      "Application Integration",
+    ];
+    const actualNames = AwsServices.map((service) => service.name);
+    expect(actualNames).toEqual(expectedCategories);
   });
 });
