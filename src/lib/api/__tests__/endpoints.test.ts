@@ -1,7 +1,7 @@
 import {QueryClient} from "@tanstack/react-query";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
-import type {ApiEvent, ApiJob, ApiStaff} from "#/lib/api/types.ts";
+import type {ApiEvent, ApiJob, ApiStaff, ApiTestimonial} from "#/lib/api/types.ts";
 import {
   applyForInternship,
   applyForJob,
@@ -12,10 +12,12 @@ import {
   listEvents,
   listJobs,
   listStaff,
+  listTestimonials,
   registerForEvent,
   staffQueryOptions,
   submitContactRequest,
   subscribeToNewsletter,
+  testimonialsQueryOptions,
   unsubscribeFromNewsletter,
   uploadCv,
 } from "#/lib/api/endpoints.ts";
@@ -55,6 +57,14 @@ const staffFixture: ApiStaff = {
   position: "Senior Solutions Architect",
   photo: "https://cdn.arthurite.test/paul-aderoju.png",
   bio: "Cloud, AI, and business.",
+  sortOrder: 0,
+};
+
+const testimonialFixture: ApiTestimonial = {
+  id: "e1313d60-08a7-40e0-9b6a-c35efa19ba7f",
+  name: "Dr. Amaka O.",
+  role: "Electoral Committee Chair",
+  quote: "VoteXpert completely solved our turnout challenge.",
   sortOrder: 0,
 };
 
@@ -295,5 +305,25 @@ describe("api endpoints", () => {
     const staff = await new QueryClient().fetchQuery(staffQueryOptions());
 
     expect(staff.map((member) => member.name)).toEqual(["Paul Aderoju", "Ayomikun Ayobami"]);
+  });
+
+  it("lists testimonials from the testimonials endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([testimonialFixture])));
+
+    const result = await listTestimonials({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/testimonials?limit=20`, expect.objectContaining({method: "GET"}));
+    expect(result.items[0]?.name).toBe("Dr. Amaka O.");
+  });
+
+  it("follows the cursor until every testimonial is loaded", async () => {
+    const second = {...testimonialFixture, id: "second", name: "Emmanuel K."};
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok({items: [testimonialFixture], pagination: {limit: 100, nextCursor: "next"}}))
+      .mockResolvedValueOnce(ok(page([second])));
+
+    const testimonials = await new QueryClient().fetchQuery(testimonialsQueryOptions());
+
+    expect(testimonials.map((testimonial) => testimonial.name)).toEqual(["Dr. Amaka O.", "Emmanuel K."]);
   });
 });

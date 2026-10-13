@@ -6,6 +6,7 @@ import {
   apiEventSchema,
   apiJobPageSchema,
   apiStaffPageSchema,
+  apiTestimonialPageSchema,
   createdDataSchema,
   uploadResultSchema,
   type ApiContactPayload,
@@ -72,6 +73,13 @@ export function listStaff(params: PageParams = {}) {
 }
 
 export const staffQueryOptions = () => queryOptions({queryKey: ["staff", "list"], queryFn: () => collectAllPages(listStaff), retry: 1});
+
+export function listTestimonials(params: PageParams = {}) {
+  return apiRequest("/testimonials", {query: {cursor: params.cursor, limit: params.limit}, schema: apiTestimonialPageSchema});
+}
+
+export const testimonialsQueryOptions = () =>
+  queryOptions({queryKey: ["testimonials", "list"], queryFn: () => collectAllPages(listTestimonials), retry: 1});
 
 function requestCvUpload(file: File) {
   return apiRequest("/upload", {

@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vite-plus/test";
 
-import {initialsOf, toTeamMembers} from "#/components/about/team-content.ts";
+import {toTeamMembers} from "#/components/about/team-content.ts";
 import type {ApiStaff} from "#/lib/api/types.ts";
 
 const staff: ApiStaff = {
@@ -12,16 +12,6 @@ const staff: ApiStaff = {
   bio: "Cloud, AI, and business.",
   sortOrder: 0,
 };
-
-describe("initialsOf", () => {
-  it("takes the first letter of every word in the name", () => {
-    expect(initialsOf("Sufyan Zakariyya Sani")).toBe("SZS");
-  });
-
-  it("upper-cases the initials", () => {
-    expect(initialsOf("ada okafor")).toBe("AO");
-  });
-});
 
 describe("toTeamMembers", () => {
   it("quotes the staff member's bio", () => {

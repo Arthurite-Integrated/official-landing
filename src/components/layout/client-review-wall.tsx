@@ -7,11 +7,16 @@ import {ClientReviewsContent} from "#/components/layout/client-reviews-content.t
 import type {ClientReview} from "#/components/layout/client-reviews-content.ts";
 import {buildWallRows} from "#/lib/review-wall.ts";
 
-const {map, people, rows} = ClientReviewsContent;
-const WALL_ROWS = buildWallRows(rows, people);
+const {map, rows} = ClientReviewsContent;
 
-export function ClientReviewWall() {
-  const [selected, setSelected] = useState<ClientReview>(people[0]);
+type ClientReviewWallProps = {
+  readonly people: readonly ClientReview[];
+};
+
+export function ClientReviewWall({people}: ClientReviewWallProps) {
+  const [selectedId, setSelectedId] = useState(people[0]?.id);
+  const selected = people.find((person) => person.id === selectedId) ?? people[0];
+  const wallRows = buildWallRows(rows, people);
 
   return (
     <div className="relative w-full">
@@ -24,16 +29,21 @@ export function ClientReviewWall() {
 
       <div className="relative flex flex-col items-center gap-10">
         <div className="flex flex-col items-center">
-          {WALL_ROWS.map((row, rowIndex) => (
+          {wallRows.map((row, rowIndex) => (
             <div key={row[0]?.index} className={cn("flex justify-center gap-x-1.5", rowIndex > 0 && "-mt-3")}>
               {row.map((cell) => (
-                <ClientReviewHex key={cell.index} person={cell.person} selected={cell.person?.id === selected.id} onSelect={setSelected} />
+                <ClientReviewHex
+                  key={cell.index}
+                  person={cell.person}
+                  selected={cell.person?.id === selected?.id}
+                  onSelect={(person) => setSelectedId(person.id)}
+                />
               ))}
             </div>
           ))}
         </div>
 
-        <ClientReviewCard person={selected} />
+        {selected ? <ClientReviewCard person={selected} /> : null}
       </div>
     </div>
   );
