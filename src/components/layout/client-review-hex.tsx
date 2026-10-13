@@ -25,7 +25,15 @@ export function ClientReviewHex({onSelect, person, selected}: ClientReviewHexPro
         selected ? "z-10 scale-110" : "grayscale hover:grayscale-0"
       )}
     >
-      <img src={person.avatar} alt={person.name} className={cn(HEX_TILE, "object-cover")} />
+      <span
+        aria-hidden
+        className={cn(
+          HEX_TILE,
+          "grid place-items-center bg-[linear-gradient(160deg,#006759_0%,#01332c_100%)] text-sm font-semibold tracking-tight text-white"
+        )}
+      >
+        {person.initials}
+      </span>
     </button>
   );
 }

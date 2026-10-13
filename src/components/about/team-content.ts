@@ -1,4 +1,5 @@
 import type {ApiStaff} from "#/lib/api/types.ts";
+import {initialsOf} from "#/lib/initials.ts";
 
 export type TeamMember = {
   readonly id: string;
@@ -9,14 +10,6 @@ export type TeamMember = {
   readonly position: string;
   readonly quote: string;
 };
-
-export function initialsOf(name: string): string {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((word) => word[0]?.toUpperCase())
-    .join("");
-}
 
 export function toTeamMembers(staff: readonly ApiStaff[]): readonly TeamMember[] {
   return [...staff]

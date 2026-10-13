@@ -61,6 +61,17 @@ export type ApiStaff = z.infer<typeof apiStaffSchema>;
 
 export const apiStaffPageSchema = paginatedSchema(apiStaffSchema);
 
+export const apiTestimonialSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  role: z.string(),
+  quote: z.string(),
+  sortOrder: z.number(),
+});
+export type ApiTestimonial = z.infer<typeof apiTestimonialSchema>;
+
+export const apiTestimonialPageSchema = paginatedSchema(apiTestimonialSchema);
+
 export const uploadResultSchema = z.object({
   uploadUrl: z.url(),
   fields: z.record(z.string(), z.string()),

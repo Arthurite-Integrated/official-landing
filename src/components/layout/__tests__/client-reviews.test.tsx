@@ -1,66 +1,122 @@
-import {fireEvent, render, screen} from "@testing-library/react";
-import {describe, expect, it} from "vite-plus/test";
+import {fireEvent, screen} from "@testing-library/react";
+import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
 import {ClientReviewsContent} from "#/components/layout/client-reviews-content.ts";
 import {ClientReviews} from "#/components/layout/client-reviews.tsx";
+import type {ApiTestimonial} from "#/lib/api/types.ts";
+import {renderWithQueryClient} from "#/test-utils/query-client.tsx";
 
-const {people, rows} = ClientReviewsContent;
-const [firstClient, secondClient] = people;
+const testimonial = (name: string, sortOrder: number): ApiTestimonial => ({
+  id: `testimonial-${sortOrder}`,
+  name,
+  role: `${name} role`,
+  quote: `${name} enjoyed working with Arthurite.`,
+  sortOrder,
+});
+
+const firstClient = testimonial("Dr. Amaka O.", 0);
+const secondClient = testimonial("Emmanuel K.", 1);
+const TESTIMONIALS = [secondClient, firstClient];
+
+const testimonialsResponse = () =>
+  new Response(JSON.stringify({success: true, data: {items: TESTIMONIALS, pagination: {limit: 100, nextCursor: null}}}), {status: 200});
+
+async function renderReviews() {
+  const view = renderWithQueryClient(<ClientReviews />);
+  await screen.findByRole("figure");
+  return view;
+}
+
+function avatarOf(client: ApiTestimonial) {
+  return screen.getByRole("button", {name: `Read ${client.name}'s testimonial`});
+}
 
 describe("ClientReviews", () => {
-  it("names the section after its heading", () => {
-    render(<ClientReviews />);
+  beforeEach(() => {
+    vi.stubEnv("VITE_API_BASE_URL", "https://api.arthurite.test");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(() => Promise.resolve(testimonialsResponse()))
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  });
+
+  it("names the section after its heading", async () => {
+    await renderReviews();
 
     expect(screen.getByRole("region", {name: ClientReviewsContent.heading})).toBeInTheDocument();
   });
 
-  it("labels the section with the client reviews eyebrow", () => {
-    render(<ClientReviews />);
+  it("labels the section with the client reviews eyebrow", async () => {
+    await renderReviews();
 
     expect(screen.getByText(ClientReviewsContent.eyebrow)).toBeInTheDocument();
   });
 
-  it("gives every client a selectable avatar", () => {
-    render(<ClientReviews />);
+  it("shows a loading state while the reviews are fetched", () => {
+    renderWithQueryClient(<ClientReviews />);
 
-    expect(screen.getAllByRole("button")).toHaveLength(people.length);
+    expect(screen.getByLabelText("Loading client reviews")).toBeInTheDocument();
   });
 
-  it("fills the rest of the wall with decorative tiles", () => {
-    const {container} = render(<ClientReviews />);
-    const wallSize = rows.reduce((sum, count) => sum + count, 0);
+  it("explains when the reviews cannot be loaded", async () => {
+    vi.mocked(fetch).mockRejectedValue(new Error("offline"));
+    renderWithQueryClient(<ClientReviews />);
 
-    expect(container.querySelectorAll('[data-slot="review-filler"][aria-hidden="true"]')).toHaveLength(wallSize - people.length);
+    expect(await screen.findByRole("alert", {}, {timeout: 3000})).toHaveTextContent(/couldn't load client reviews/i);
   });
 
-  it("opens on the first client's review", () => {
-    render(<ClientReviews />);
+  it("gives every client a selectable avatar", async () => {
+    await renderReviews();
+
+    expect(screen.getAllByRole("button")).toHaveLength(TESTIMONIALS.length);
+  });
+
+  it("shows the client's initials on their avatar", async () => {
+    await renderReviews();
+
+    expect(avatarOf(firstClient)).toHaveTextContent("DAO");
+  });
+
+  it("fills the rest of the wall with decorative tiles", async () => {
+    const {container} = await renderReviews();
+    const wallSize = ClientReviewsContent.rows.reduce((sum, count) => sum + count, 0);
+
+    expect(container.querySelectorAll('[data-slot="review-filler"][aria-hidden="true"]')).toHaveLength(wallSize - TESTIMONIALS.length);
+  });
+
+  it("opens on the review with the lowest sort order", async () => {
+    await renderReviews();
 
     expect(screen.getByRole("figure")).toHaveTextContent(firstClient.name);
   });
 
-  it("marks the first client's avatar as selected", () => {
-    render(<ClientReviews />);
+  it("marks the first client's avatar as selected", async () => {
+    await renderReviews();
 
-    expect(screen.getByRole("button", {name: `Read ${firstClient.name}'s testimonial`})).toHaveAttribute("aria-pressed", "true");
+    expect(avatarOf(firstClient)).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("shows another client's review when their avatar is chosen", () => {
-    render(<ClientReviews />);
-    fireEvent.click(screen.getByRole("button", {name: `Read ${secondClient.name}'s testimonial`}));
+  it("shows another client's review when their avatar is chosen", async () => {
+    await renderReviews();
+    fireEvent.click(avatarOf(secondClient));
 
-    expect(screen.getByRole("figure")).toHaveTextContent(secondClient.name);
+    expect(screen.getByRole("figure")).toHaveTextContent(secondClient.quote);
   });
 
-  it("keeps only the chosen avatar selected", () => {
-    render(<ClientReviews />);
-    fireEvent.click(screen.getByRole("button", {name: `Read ${secondClient.name}'s testimonial`}));
+  it("keeps only the chosen avatar selected", async () => {
+    await renderReviews();
+    fireEvent.click(avatarOf(secondClient));
 
     expect(screen.getAllByRole("button", {pressed: true})).toHaveLength(1);
   });
 
-  it("attributes the quote with the client's role", () => {
-    render(<ClientReviews />);
+  it("attributes the quote with the client's role", async () => {
+    await renderReviews();
 
     expect(screen.getByRole("figure")).toHaveTextContent(`/ ${firstClient.role}`);
   });
