@@ -1,5 +1,7 @@
 import {z} from "zod";
 
+z.config({jitless: true});
+
 export const apiEventSchema = z.object({
   id: z.string(),
   title: z.string(),
