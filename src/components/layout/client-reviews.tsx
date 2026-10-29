@@ -4,6 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import {ClientReviewWall} from "#/components/layout/client-review-wall.tsx";
 import {ClientReviewsContent, toClientReviews, WALL_SIZE} from "#/components/layout/client-reviews-content.ts";
 import {Eyebrow} from "#/components/layout/eyebrow.tsx";
+import {DataEmptyState} from "#/components/layout/data-empty-state.tsx";
 import {testimonialsQueryOptions} from "#/lib/api/endpoints.ts";
 
 const CLIENT_REVIEWS_TITLE_ID = "client-reviews-heading";
@@ -30,7 +31,13 @@ function ClientReviewsBody() {
     );
   }
 
-  return people.length > 0 ? <ClientReviewWall people={people} /> : null;
+  return people.length > 0 ? (
+    <ClientReviewWall people={people} />
+  ) : (
+    <div className="w-full max-w-3xl">
+      <DataEmptyState title="No client reviews to share for now" description="Client feedback will appear here as it becomes available." />
+    </div>
+  );
 }
 
 export function ClientReviews() {

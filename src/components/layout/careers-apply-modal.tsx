@@ -1,4 +1,4 @@
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {CheckCircle, Send} from "lucide-react";
 import {useState, type FormEvent, type ReactNode} from "react";
 import {z} from "zod";
@@ -6,7 +6,7 @@ import {z} from "zod";
 import type {OpenRole} from "#/components/layout/careers-data.ts";
 import {DialogCloseButton, DialogFrame} from "#/components/ui/dialog-frame.tsx";
 import {ApiError} from "#/lib/api/client.ts";
-import {applyForJob, uploadCv} from "#/lib/api/endpoints.ts";
+import {applyForJob, jobQueryOptions, uploadCv} from "#/lib/api/endpoints.ts";
 import {CV_HINT, cvFileError} from "#/lib/cv-file.ts";
 import {phoneSchema} from "#/lib/phone.ts";
 
@@ -150,6 +150,8 @@ function ApplyForm({role}: {readonly role: OpenRole}) {
 }
 
 export function CareersApplyModal({role, onClose}: {readonly role: OpenRole; readonly onClose: () => void}) {
+  const {data: job} = useQuery(jobQueryOptions(role.id));
+
   return (
     <DialogFrame labelledBy={TITLE_ID} onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
@@ -160,6 +162,7 @@ export function CareersApplyModal({role, onClose}: {readonly role: OpenRole; rea
           <p className="mt-2 text-sm text-foreground/60">
             {role.department} · {role.location}
           </p>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-foreground/75">{job?.description ?? role.description}</p>
         </div>
         <DialogCloseButton onClose={onClose} />
       </div>

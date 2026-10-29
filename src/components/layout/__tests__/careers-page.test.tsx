@@ -46,7 +46,12 @@ function stubJobsFetch(items: ApiJob[]) {
   vi.stubEnv("VITE_API_BASE_URL", "https://api.arthurite.test/v1");
   vi.stubGlobal(
     "fetch",
-    vi.fn(() => Promise.resolve(jobsPage(items)))
+    vi.fn((url: string) => {
+      const pathname = new URL(url).pathname;
+      const jobId = pathname.match(/\/careers\/([^/]+)$/)?.[1];
+      if (jobId && jobId !== "search") return Promise.resolve(envelope(items.find((job) => job.id === jobId) ?? items[0]));
+      return Promise.resolve(jobsPage(items));
+    })
   );
 }
 
@@ -115,12 +120,27 @@ describe("CareersOpenRoles", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 
+  it("loads the latest role details by id when the application dialog opens", async () => {
+    renderWithQueryClient(<CareersOpenRoles />);
+    fireEvent.click(await screen.findByRole("button", {name: /solution architect/i}));
+
+    expect(await screen.findByText("Build cloud services on AWS.")).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledWith("https://api.arthurite.test/v1/careers/j-1", expect.anything());
+  });
+
   it("renders every role returned by the API", async () => {
     renderWithQueryClient(<CareersOpenRoles />);
 
     for (const job of JOBS) {
       expect(await screen.findByRole("heading", {name: job.title})).toBeInTheDocument();
     }
+  });
+
+  it("loads open roles through the public search endpoint", async () => {
+    renderWithQueryClient(<CareersOpenRoles />);
+    await screen.findByRole("heading", {name: "Solution Architect"});
+
+    expect(fetch).toHaveBeenCalledWith("https://api.arthurite.test/v1/careers/search?limit=100", expect.anything());
   });
 
   it("filters roles when a category button is clicked", async () => {
@@ -239,7 +259,11 @@ function stubSubmissionFetch(apiResponse: Response) {
     vi.fn((url: string) => {
       if (url.endsWith("/upload")) return Promise.resolve(envelope(UPLOAD));
       if (url === UPLOAD.uploadUrl) return Promise.resolve(new Response(null, {status: 204}));
-      if (new URL(url).pathname.endsWith("/careers")) return Promise.resolve(jobsPage(JOBS));
+      const pathname = new URL(url).pathname;
+      const jobId = pathname.match(/\/careers\/([^/]+)$/)?.[1];
+      if (jobId && !["search", "apply", "internship"].includes(jobId))
+        return Promise.resolve(envelope(JOBS.find((job) => job.id === jobId) ?? JOBS[0]));
+      if (pathname.endsWith("/careers") || pathname.endsWith("/careers/search")) return Promise.resolve(jobsPage(JOBS));
       return Promise.resolve(apiResponse);
     })
   );

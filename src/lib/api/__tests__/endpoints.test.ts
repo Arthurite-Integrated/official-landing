@@ -1,20 +1,41 @@
 import {QueryClient} from "@tanstack/react-query";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vite-plus/test";
 
-import type {ApiEvent, ApiJob, ApiStaff, ApiTestimonial} from "#/lib/api/types.ts";
+import type {
+  ApiAward,
+  ApiContentBundle,
+  ApiEvent,
+  ApiJob,
+  ApiPartner,
+  ApiProject,
+  ApiSpotlight,
+  ApiStaff,
+  ApiTestimonial,
+} from "#/lib/api/types.ts";
 import {
   applyForInternship,
   applyForJob,
   eventQueryOptions,
   eventsQueryOptions,
   getEvent,
+  jobQueryOptions,
+  listAwards,
   jobsQueryOptions,
+  listPartners,
+  listProjects,
   listEvents,
   listJobs,
+  listSpotlight,
   listStaff,
   listTestimonials,
   registerForEvent,
+  searchJobs,
   staffQueryOptions,
+  spotlightQueryOptions,
+  awardsQueryOptions,
+  contentQueryOptions,
+  partnersQueryOptions,
+  projectsQueryOptions,
   submitContactRequest,
   subscribeToNewsletter,
   testimonialsQueryOptions,
@@ -66,6 +87,68 @@ const testimonialFixture: ApiTestimonial = {
   role: "Electoral Committee Chair",
   quote: "VoteXpert completely solved our turnout challenge.",
   sortOrder: 0,
+};
+
+const spotlightFixture: ApiSpotlight = {
+  id: "bc9c645c-aee0-4c3b-bae2-6d05c2677f9b",
+  section: "spotlight",
+  title: "Featured at AWS Marketing Central",
+  source: "AWS Marketing Central",
+  coverImage: "https://cdn.arthurite.test/spotlight/aws.jpg",
+  url: "https://aws.amazon.com/",
+  status: "published",
+  sortOrder: 0,
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+const projectFixture: ApiProject = {
+  id: "bc9c645c-aee0-4c3b-bae2-6d05c2677f9b",
+  section: "projects",
+  slug: "swap-os",
+  name: "SWAP OS",
+  summary: "Reliable cloud infrastructure for growth.",
+  year: "2025",
+  projectType: "Cloud Infrastructure & DevOps",
+  industry: "Fintech",
+  duration: "12 Weeks",
+  coverImage: "https://cdn.arthurite.test/projects/swap-os.jpg",
+  videoUrl: null,
+  caseStudyUrl: null,
+  liveUrl: null,
+  stats: [{label: "Uptime", value: "99.9%"}],
+  status: "published",
+  sortOrder: 0,
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+const awardFixture: ApiAward = {
+  id: "bc9c645c-aee0-4c3b-bae2-6d05c2677f9b",
+  section: "awards",
+  year: "2025",
+  award: "NDE Award of Recognition",
+  description: "Community impact across six geographical zones.",
+  status: "published",
+  sortOrder: 0,
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+const partnerFixture: ApiPartner = {
+  id: "bc9c645c-aee0-4c3b-bae2-6d05c2677f9b",
+  section: "partners",
+  name: "Amazon Web Services",
+  logo: "https://cdn.arthurite.test/partners/aws.svg",
+  status: "published",
+  sortOrder: 0,
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+const contentFixture: ApiContentBundle = {
+  projects: [projectFixture],
+  testimonials: [testimonialFixture],
+  spotlight: [spotlightFixture],
+  staff: [staffFixture],
+  awards: [awardFixture],
+  partners: [partnerFixture],
 };
 
 const ok = (data: unknown, status = 200) =>
@@ -172,6 +255,109 @@ describe("api endpoints", () => {
 
     expect(fetch).toHaveBeenCalledWith(`${BASE}/careers`, expect.anything());
     expect(result.items[0]?.title).toBe("Backend Engineer");
+  });
+
+  it("searches open jobs by the filters supported by the API", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([jobFixture])));
+
+    const result = await searchJobs({location: "Lagos", mode: "Remote", category: "Engineering", limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(
+      `${BASE}/careers/search?location=Lagos&mode=Remote&category=Engineering&limit=20`,
+      expect.anything()
+    );
+    expect(result.items[0]?.id).toBe(jobFixture.id);
+  });
+
+  it("fetches a job by id and caches the detail query by id", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(jobFixture));
+
+    const job = await new QueryClient().fetchQuery(jobQueryOptions(jobFixture.id));
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/careers/${jobFixture.id}`, expect.anything());
+    expect(job.title).toBe(jobFixture.title);
+    expect(jobQueryOptions(jobFixture.id).queryKey).toEqual(["careers", "detail", jobFixture.id]);
+  });
+
+  it("lists spotlight items from the public endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([spotlightFixture])));
+
+    const result = await listSpotlight({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/spotlight?limit=20`, expect.objectContaining({method: "GET"}));
+    expect(result.items[0]?.coverImage).toBe(spotlightFixture.coverImage);
+  });
+
+  it("loads all spotlight pages with a stable query key", async () => {
+    const second = {...spotlightFixture, id: "second", title: "Second spotlight"};
+    vi.mocked(fetch)
+      .mockResolvedValueOnce(ok({items: [spotlightFixture], pagination: {limit: 100, nextCursor: "next"}}))
+      .mockResolvedValueOnce(ok(page([second])));
+
+    const items = await new QueryClient().fetchQuery(spotlightQueryOptions());
+
+    expect(items.map((item) => item.title)).toEqual([spotlightFixture.title, second.title]);
+    expect(spotlightQueryOptions().queryKey).toEqual(["spotlight", "list"]);
+  });
+
+  it("lists projects from the public endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([projectFixture])));
+
+    const result = await listProjects({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/projects?limit=20`, expect.anything());
+    expect(result.items[0]?.slug).toBe(projectFixture.slug);
+  });
+
+  it("loads every project page with the projects query", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([projectFixture])));
+
+    const projects = await new QueryClient().fetchQuery(projectsQueryOptions());
+
+    expect(projects).toEqual([projectFixture]);
+  });
+
+  it("lists awards from the public endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([awardFixture])));
+
+    const result = await listAwards({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/awards?limit=20`, expect.anything());
+    expect(result.items[0]?.award).toBe(awardFixture.award);
+  });
+
+  it("loads all award pages with the awards query", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([awardFixture])));
+
+    const awards = await new QueryClient().fetchQuery(awardsQueryOptions());
+
+    expect(awards).toEqual([awardFixture]);
+  });
+
+  it("lists partners from the public endpoint", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([partnerFixture])));
+
+    const result = await listPartners({limit: 20});
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/partners?limit=20`, expect.anything());
+    expect(result.items[0]?.name).toBe(partnerFixture.name);
+  });
+
+  it("loads all partner pages with the partners query", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(page([partnerFixture])));
+
+    const partners = await new QueryClient().fetchQuery(partnersQueryOptions());
+
+    expect(partners).toEqual([partnerFixture]);
+  });
+
+  it("loads the full published content bundle in one request", async () => {
+    vi.mocked(fetch).mockResolvedValue(ok(contentFixture));
+
+    const content = await new QueryClient().fetchQuery(contentQueryOptions());
+
+    expect(fetch).toHaveBeenCalledWith(`${BASE}/content`, expect.anything());
+    expect(content).toEqual(contentFixture);
   });
 
   it("requests a presigned CV upload describing the file", async () => {

@@ -1,13 +1,14 @@
-import {PartnerLogos} from "#/components/layout/partner-logos.ts";
+import type {PartnerLogo} from "#/components/layout/partner-logos.ts";
 
 type PartnerLogoListProps = {
+  readonly partners: readonly PartnerLogo[];
   readonly duplicate?: boolean;
 };
 
-export function PartnerLogoList({duplicate}: PartnerLogoListProps) {
+export function PartnerLogoList({partners, duplicate}: PartnerLogoListProps) {
   return (
     <ul data-slot="partner-logo-list" aria-hidden={duplicate} className="flex shrink-0 items-center gap-12 pr-12 sm:gap-16 sm:pr-16">
-      {PartnerLogos.map((partner) => (
+      {partners.map((partner) => (
         <li key={partner.name} className="shrink-0">
           <img
             src={partner.logo}

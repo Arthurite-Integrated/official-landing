@@ -6,7 +6,7 @@ import {toOpenRole} from "#/components/layout/careers-data.ts";
 import type {OpenRole} from "#/components/layout/careers-data.ts";
 import {CareersRoleRow} from "#/components/layout/careers-role-card.tsx";
 import {MobileCategoryFilter, RoleSearchBar, RoleSidebar} from "#/components/layout/careers-role-filters.tsx";
-import {jobsQueryOptions} from "#/lib/api/endpoints.ts";
+import {searchJobsQueryOptions} from "#/lib/api/endpoints.ts";
 
 const SECTION_TITLE_ID = "open-roles-title";
 
@@ -165,7 +165,7 @@ function RolesBody({roles, isPending, isError, onApply}: RolesBodyProps) {
 
 export function CareersOpenRoles() {
   const [applyRole, setApplyRole] = useState<OpenRole | null>(null);
-  const {data, isPending, isError} = useQuery(jobsQueryOptions());
+  const {data, isPending, isError} = useQuery(searchJobsQueryOptions());
 
   const roles = useMemo(() => (data ?? []).map(toOpenRole), [data]);
   const roleCount = isPending || isError ? 0 : roles.length;

@@ -8,10 +8,9 @@ import {HowWeWork} from "#/components/layout/how-we-work.tsx";
 import {AwardsAndRecognition} from "#/components/layout/awards-recognition.tsx";
 import {ClientReviews} from "#/components/layout/client-reviews.tsx";
 import {PartnerMarquee} from "#/components/layout/partner-marquee.tsx";
-import {ProjectCarousel} from "#/components/layout/project-carousel.tsx";
+import {ProjectShowcase} from "#/components/layout/project-showcase.tsx";
 import {WhatWeDo} from "#/components/layout/what-we-do.tsx";
 import {WhyChooseUs} from "#/components/layout/why-choose-us.tsx";
-import {Projects} from "#/lib/projects.ts";
 import AdvancedPartnerBadge from "../assets/advance-partner-badge.png";
 
 const PROJECTS_TITLE_ID = "selected-work-title";
@@ -48,7 +47,7 @@ function App() {
           </header>
 
           <div className="mt-14 lg:mt-20">
-            <ProjectCarousel projects={Projects} />
+            <ProjectShowcase />
           </div>
         </div>
       </section>

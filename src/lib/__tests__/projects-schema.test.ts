@@ -63,8 +63,8 @@ describe("ProjectsSchema", () => {
     expect(() => ProjectsSchema.parse([{...validProject, stats: five}])).toThrow();
   });
 
-  it("rejects an empty project list", () => {
-    expect(() => ProjectsSchema.parse([])).toThrow();
+  it("accepts an empty project list", () => {
+    expect(ProjectsSchema.parse([])).toEqual([]);
   });
 });
 
