@@ -4,7 +4,13 @@ import {apiRequest} from "#/lib/api/client.ts";
 import {
   apiEventPageSchema,
   apiEventSchema,
+  apiAwardPageSchema,
+  apiContentBundleSchema,
   apiJobPageSchema,
+  apiJobSchema,
+  apiPartnerPageSchema,
+  apiProjectPageSchema,
+  apiSpotlightPageSchema,
   apiStaffPageSchema,
   apiTestimonialPageSchema,
   createdDataSchema,
@@ -21,6 +27,12 @@ const PAGE_SIZE = 100;
 type PageParams = {
   readonly cursor?: string;
   readonly limit?: number;
+};
+
+export type JobSearchParams = PageParams & {
+  readonly location?: "Lagos" | "London" | "Accra" | "Qatar";
+  readonly mode?: "Remote" | "Hybrid";
+  readonly category?: string;
 };
 
 type CursorPage<Item> = {
@@ -68,6 +80,26 @@ export function listJobs(params: PageParams = {}) {
 
 export const jobsQueryOptions = () => queryOptions({queryKey: ["careers", "list"], queryFn: () => collectAllPages(listJobs), retry: 1});
 
+export function searchJobs(params: JobSearchParams = {}) {
+  return apiRequest("/careers/search", {
+    query: {location: params.location, mode: params.mode, category: params.category, cursor: params.cursor, limit: params.limit},
+    schema: apiJobPageSchema,
+  });
+}
+
+export const searchJobsQueryOptions = (params: Omit<JobSearchParams, "cursor" | "limit"> = {}) =>
+  queryOptions({
+    queryKey: ["careers", "search", params],
+    queryFn: () => collectAllPages((pageParams) => searchJobs({...params, ...pageParams})),
+    retry: 1,
+  });
+
+export function getJob(id: string) {
+  return apiRequest(`/careers/${id}`, {schema: apiJobSchema});
+}
+
+export const jobQueryOptions = (id: string) => queryOptions({queryKey: ["careers", "detail", id], queryFn: () => getJob(id), retry: false});
+
 export function listStaff(params: PageParams = {}) {
   return apiRequest("/staff", {query: {cursor: params.cursor, limit: params.limit}, schema: apiStaffPageSchema});
 }
@@ -80,6 +112,39 @@ export function listTestimonials(params: PageParams = {}) {
 
 export const testimonialsQueryOptions = () =>
   queryOptions({queryKey: ["testimonials", "list"], queryFn: () => collectAllPages(listTestimonials), retry: 1});
+
+export function listSpotlight(params: PageParams = {}) {
+  return apiRequest("/spotlight", {query: {cursor: params.cursor, limit: params.limit}, schema: apiSpotlightPageSchema});
+}
+
+export const spotlightQueryOptions = () =>
+  queryOptions({queryKey: ["spotlight", "list"], queryFn: () => collectAllPages(listSpotlight), retry: 1});
+
+export function listProjects(params: PageParams = {}) {
+  return apiRequest("/projects", {query: {cursor: params.cursor, limit: params.limit}, schema: apiProjectPageSchema});
+}
+
+export const projectsQueryOptions = () =>
+  queryOptions({queryKey: ["projects", "list"], queryFn: () => collectAllPages(listProjects), retry: 1});
+
+export function listAwards(params: PageParams = {}) {
+  return apiRequest("/awards", {query: {cursor: params.cursor, limit: params.limit}, schema: apiAwardPageSchema});
+}
+
+export const awardsQueryOptions = () => queryOptions({queryKey: ["awards", "list"], queryFn: () => collectAllPages(listAwards), retry: 1});
+
+export function listPartners(params: PageParams = {}) {
+  return apiRequest("/partners", {query: {cursor: params.cursor, limit: params.limit}, schema: apiPartnerPageSchema});
+}
+
+export const partnersQueryOptions = () =>
+  queryOptions({queryKey: ["partners", "list"], queryFn: () => collectAllPages(listPartners), retry: 1});
+
+export function getContent() {
+  return apiRequest("/content", {schema: apiContentBundleSchema});
+}
+
+export const contentQueryOptions = () => queryOptions({queryKey: ["content", "published"], queryFn: getContent, retry: 1});
 
 function requestCvUpload(file: File) {
   return apiRequest("/upload", {

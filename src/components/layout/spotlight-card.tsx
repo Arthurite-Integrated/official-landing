@@ -1,6 +1,11 @@
 import {cn} from "#/lib/utils.ts";
 
-import type {SpotlightItem} from "#/components/layout/spotlight-items.ts";
+export type SpotlightItem = {
+  readonly image: string | null;
+  readonly source: string;
+  readonly title: string;
+  readonly url: string | null;
+};
 
 type SpotlightCardProps = {
   readonly item: SpotlightItem;

@@ -6,6 +6,7 @@ import {ArrowRight} from "lucide-react";
 import {TeamCarousel} from "#/components/about/team-carousel.tsx";
 import {toTeamMembers} from "#/components/about/team-content.ts";
 import {Eyebrow} from "#/components/layout/eyebrow.tsx";
+import {DataEmptyState} from "#/components/layout/data-empty-state.tsx";
 import {staffQueryOptions} from "#/lib/api/endpoints.ts";
 
 const TEAM_TITLE_ID = "meet-the-team-title";
@@ -32,7 +33,13 @@ function TeamBody() {
     );
   }
 
-  return members.length > 0 ? <TeamCarousel members={members} /> : null;
+  return members.length > 0 ? (
+    <TeamCarousel members={members} />
+  ) : (
+    <div className="w-full max-w-3xl">
+      <DataEmptyState title="No team profiles to show for now" description="Check back soon to meet the people behind our work." />
+    </div>
+  );
 }
 
 export function MeetTheTeam() {

@@ -22,7 +22,7 @@ const ProjectSchema = z.object({
   year: z.string().min(1),
 });
 
-export const ProjectsSchema = z.array(ProjectSchema).min(1);
+export const ProjectsSchema = z.array(ProjectSchema);
 
 export type Project = z.infer<typeof ProjectSchema>;
 export type ProjectStat = z.infer<typeof ProjectStatSchema>;
