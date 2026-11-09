@@ -5,10 +5,11 @@ import {useHlsVideo} from "#/hooks/use-hls-video.ts";
 
 type HeroVideoProps = {
   readonly src: string;
+  readonly poster?: string;
   readonly className?: string;
 };
 
-export function HeroVideo({src, className}: HeroVideoProps) {
+export function HeroVideo({src, poster, className}: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useHlsVideo(videoRef, src);
@@ -16,6 +17,8 @@ export function HeroVideo({src, className}: HeroVideoProps) {
   return (
     <video
       ref={videoRef}
+      poster={poster}
+      preload="none"
       aria-hidden
       autoPlay
       loop

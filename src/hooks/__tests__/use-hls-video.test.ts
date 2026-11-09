@@ -83,4 +83,17 @@ describe("useHlsVideo", () => {
 
     expect(hlsInstance.loadSource).not.toHaveBeenCalled();
   });
+
+  it("skips loading the video stream when prefers-reduced-motion is enabled", () => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({matches: true}))
+    );
+    const video = createVideo("maybe");
+
+    renderWithVideo(video);
+    vi.unstubAllGlobals();
+
+    expect(video.src).toBe("");
+  });
 });
