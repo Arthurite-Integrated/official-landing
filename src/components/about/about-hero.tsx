@@ -1,7 +1,6 @@
 import {Link} from "@tanstack/react-router";
 
-import {PLACEHOLDER_STREAM} from "#/components/about/about-media.ts";
-import {HeroVideo} from "#/components/layout/hero-video.tsx";
+const ABOUT_HERO_IMAGE = "/about/about-hero.webp";
 
 const PILL =
   "flex h-10 w-full items-center justify-center rounded-full px-6 text-base font-medium transition-colors duration-150 sm:w-auto md:h-12 md:px-8 md:text-lg";
@@ -30,8 +29,8 @@ export function AboutHero() {
         </div>
       </header>
 
-      <div className="relative mt-20 aspect-video overflow-hidden rounded-xl bg-foreground/10 md:rounded-3xl">
-        <HeroVideo src={PLACEHOLDER_STREAM} />
+      <div className="relative mt-20 aspect-video overflow-hidden rounded-xl bg-foreground/10 md:rounded-3xl lg:aspect-16/10">
+        <img src={ABOUT_HERO_IMAGE} alt="Arthurite team at AWS event" className="absolute inset-0 size-full object-cover object-center" />
       </div>
     </section>
   );

@@ -1,9 +1,8 @@
-import {PLACEHOLDER_STREAM} from "#/components/about/about-media.ts";
 import {WhoWeAreCapabilities} from "#/components/about/who-we-are-capabilities.tsx";
 import {WhoWeAreContent} from "#/components/about/who-we-are-content.ts";
-import {HeroVideo} from "#/components/layout/hero-video.tsx";
 
 const WHO_WE_ARE_TITLE_ID = "who-we-are-title";
+const WHO_WE_ARE_IMAGE = "/about/who-we-are.webp";
 
 export function WhoWeAre() {
   const {capabilities, closing, heading, lede, subheading} = WhoWeAreContent;
@@ -19,8 +18,13 @@ export function WhoWeAre() {
         </header>
 
         <div className="rounded-[2rem] bg-sand p-2 sm:p-3 lg:rounded-[2.5rem] lg:p-4">
-          <div className="relative aspect-video overflow-hidden rounded-3xl bg-primary lg:aspect-21/9 lg:rounded-[2rem]">
-            <HeroVideo src={PLACEHOLDER_STREAM} />
+          <div className="relative aspect-video overflow-hidden rounded-3xl bg-primary lg:aspect-16/10 lg:rounded-[2rem]">
+            <img
+              src={WHO_WE_ARE_IMAGE}
+              alt="Arthurite team at AWS summit"
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover object-center"
+            />
             <div aria-hidden className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
           </div>
 

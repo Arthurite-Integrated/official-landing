@@ -59,9 +59,9 @@ describe("WhoWeAre", () => {
     expect(screen.getByText(closing.lead)).toBeInTheDocument();
   });
 
-  it("keeps the video out of the accessibility tree", () => {
-    const {container} = render(<WhoWeAre />);
+  it("displays the Arthurite team photo in who we are", () => {
+    render(<WhoWeAre />);
 
-    expect(container.querySelector("video")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("img", {name: /arthurite team/i})).toHaveAttribute("src", "/about/who-we-are.webp");
   });
 });
