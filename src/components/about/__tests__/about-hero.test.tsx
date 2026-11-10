@@ -2,9 +2,6 @@ import {render, screen} from "@testing-library/react";
 import {describe, expect, it, vi} from "vite-plus/test";
 
 import {AboutHero} from "#/components/about/about-hero.tsx";
-import {useHlsVideo} from "#/hooks/use-hls-video.ts";
-
-vi.mock("#/hooks/use-hls-video.ts", () => ({useHlsVideo: vi.fn()}));
 
 vi.mock("@tanstack/react-router", async () => {
   const React = await import("react");
@@ -14,8 +11,6 @@ vi.mock("@tanstack/react-router", async () => {
       React.createElement("a", {className, href: to}, children),
   };
 });
-
-const PLACEHOLDER_STREAM = "https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8";
 
 describe("AboutHero", () => {
   it("introduces the page with a heading", () => {
@@ -36,15 +31,9 @@ describe("AboutHero", () => {
     expect(screen.getAllByRole("link")).toHaveLength(2);
   });
 
-  it("streams the placeholder video", () => {
+  it("displays the Arthurite team hero photo", () => {
     render(<AboutHero />);
 
-    expect(vi.mocked(useHlsVideo)).toHaveBeenCalledWith(expect.anything(), PLACEHOLDER_STREAM);
-  });
-
-  it("keeps the video out of the accessibility tree", () => {
-    const {container} = render(<AboutHero />);
-
-    expect(container.querySelector("video")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("img", {name: /arthurite team/i})).toHaveAttribute("src", "/about/about-hero.webp");
   });
 });
